@@ -1,0 +1,6 @@
+node_modules
+visual_slideshow
+.next/
+.env
+.qodo
+.qodo_cache
