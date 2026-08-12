@@ -135,10 +135,10 @@ export default function HeroSlide({ title, subtitle }) {
                     }}
                 >
                     <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#FFFFFF', display: 'inline-block' }} />
-                    Launch Live System Prototype ↗
+                    Launch Live DiaClinic Prototype ↗
                 </a>
                 <a 
-                    href="https://stitch.withgoogle.com/projects/503366360860058565" 
+                    href="https://kinematics-presentation.vercel.app" 
                     target="_blank" 
                     rel="noreferrer"
                     style={{
@@ -149,7 +149,7 @@ export default function HeroSlide({ title, subtitle }) {
                         display: 'inline-flex', alignItems: 'center', gap: '8px'
                     }}
                 >
-                    View Stitch Design System ↗
+                    Presentation Domain ↗
                 </a>
             </div>
 

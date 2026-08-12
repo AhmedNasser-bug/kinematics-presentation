@@ -81,7 +81,7 @@ export default function OutroSlide() {
             </p>
 
             {/* Live prototype CTA button */}
-            <div style={{ animation: 'outroFadeUp 0.6s ease 0.55s both' }}>
+            <div style={{ display: 'flex', gap: '14px', flexWrap: 'wrap', justifyContent: 'center', animation: 'outroFadeUp 0.6s ease 0.55s both' }}>
                 <a 
                     href="https://dialysis-safety-management-system.vercel.app/" 
                     target="_blank" 
@@ -96,6 +96,20 @@ export default function OutroSlide() {
                 >
                     <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#FFFFFF', display: 'inline-block' }} />
                     Launch Live DiaClinic Prototype ↗
+                </a>
+                <a 
+                    href="https://kinematics-presentation.vercel.app" 
+                    target="_blank" 
+                    rel="noreferrer"
+                    style={{
+                        background: '#EEF2FF', color: '#4338CA',
+                        border: '1px solid #C7D2FE', borderRadius: '10px',
+                        padding: '12px 24px', fontFamily: "'Plus Jakarta Sans', sans-serif",
+                        fontWeight: '600', fontSize: '0.92rem', textDecoration: 'none',
+                        display: 'inline-flex', alignItems: 'center', gap: '8px'
+                    }}
+                >
+                    Presentation Deck Domain ↗
                 </a>
             </div>
 

@@ -6,6 +6,13 @@ import dynamic from 'next/dynamic';
 const HeroSlide = dynamic(() => import('../components/HeroSlide'), { ssr: false });
 const OutroSlide = dynamic(() => import('../components/OutroSlide'), { ssr: false });
 
+const DocumentationTimeChart = dynamic(() => import('../components/charts/DocumentationTimeChart'), { ssr: false });
+const IDHPredictionChart = dynamic(() => import('../components/charts/IDHPredictionChart'), { ssr: false });
+const WardAnomalyChart = dynamic(() => import('../components/charts/WardAnomalyChart'), { ssr: false });
+const InfusionMassChart = dynamic(() => import('../components/charts/InfusionMassChart'), { ssr: false });
+const MedGemmaAuditChart = dynamic(() => import('../components/charts/MedGemmaAuditChart'), { ssr: false });
+const HemodynamicsChart = dynamic(() => import('../components/charts/HemodynamicsChart'), { ssr: false });
+
 /**
  * Custom crosshair cursor.
  * Strategy: write two CSS custom properties (--cx, --cy) on <html> directly
@@ -143,6 +150,7 @@ const slidesData = [
         title: "Feature 1: What It Solves & Clinical Impact",
         assetSpec: "Impact Statistics: Patient Triage Efficiency & Identity Error Elimination",
         imageUrl: "/plots/01_demographics_overview.png",
+        chartType: 'docTime',
         keyPoints: [
             "**Eliminates Identity Mismatches:** Prevents 100% of patient identity errors during crowded shift transitions and high-volume arrivals.",
             "**Removes Paper Check-in Friction:** Eliminates manual roster lookup queues and reduces patient entry delay from ~25 minutes to instant check-in.",
@@ -211,6 +219,7 @@ const slidesData = [
         title: "Feature 2: What It Solves & Clinical Impact",
         assetSpec: "Impact Statistics: Charting Overhead Reduction & Data Integrity",
         imageUrl: "/plots/02_hemodynamics_vitals.png",
+        chartType: 'docTime',
         keyPoints: [
             "**Slashes Paperwork Overhead:** Charting duration reduced from **~25 minutes down to < 5 minutes** per patient session.",
             "**Prevents Medication Delays:** Eliminates mid-session medication delivery delays caused by paper flowsheet queue bottlenecks.",
@@ -279,6 +288,7 @@ const slidesData = [
         title: "Feature 3: What It Solves & Clinical Impact",
         assetSpec: "Impact Statistics: 15-30 Min IDH Prediction Window & Sensitivity Rate",
         imageUrl: "/plots/03_weight_and_ultrafiltration.png",
+        chartType: 'idh',
         keyPoints: [
             "**Proactive Hypotension Warning:** Provides a **15–30 minute advance warning window** for predicted IDH events.",
             "**High Sensitivity:** Achieves **88% predictive sensitivity** for acute blood pressure drops.",
@@ -311,6 +321,7 @@ const slidesData = [
         title: "Feature 3: Data Integration Sources",
         assetSpec: "Data Sources: Hemodynamic Vitals, Weight Gains, & Monthly Lab Panels",
         imageUrl: "/plots/07_bp_joint_density.png",
+        chartType: 'hemo',
         keyPoints: [
             "**Intra-Session Telemetry:** Real-time systolic/diastolic blood pressure, pulse rate, arterial pressure, and venous pressure.",
             "**Interdialytic Weight Data:** Pre-dialysis fluid gain mass (kg) and historical post-dialysis dry weight targets.",
@@ -347,6 +358,7 @@ const slidesData = [
         title: "Feature 4: What It Solves & Clinical Impact",
         assetSpec: "Impact Statistics: 60-Second Cluster Alert Threshold & Multi-Bed Protection",
         imageUrl: "/plots/06_feature_effect_sizes.png",
+        chartType: 'ward',
         keyPoints: [
             "**Rapid Detection Threshold:** Triggers multi-patient cluster alerts within **< 60 seconds** of anomaly onset.",
             "**Eliminates Bedside Data Isolation:** Uncovers systemic ward issues hidden by isolated paper charts across individual beds.",
@@ -415,6 +427,7 @@ const slidesData = [
         title: "Feature 5: What It Solves & Clinical Impact",
         assetSpec: "Impact Statistics: Zero Unnoticed IV Stalls & Real-Time Flow Response",
         imageUrl: "/generated_visuals/slide5_infusion_medgemma.jpg",
+        chartType: 'infusion',
         keyPoints: [
             "**Eliminates IV Line Stalls:** Prevents 100% of unnoticed IV line occlusions and flow halts during busy shift periods.",
             "**Prevents Dry Bag Incidents:** Alerts nursing staff before IV infusion containers empty completely.",
@@ -483,6 +496,7 @@ const slidesData = [
         title: "Feature 6: What It Solves & Clinical Impact",
         assetSpec: "Impact Statistics: Automated Order Audit Coverage & LOINC/SNOMED Compliance",
         imageUrl: "/plots/04_machine_pressures.png",
+        chartType: 'medgemma',
         keyPoints: [
             "**Prevents Adverse Drug Events:** Audits 100% of proposed drug orders for patients with impaired renal drug clearance.",
             "**Catches Outdated Regimens:** Flags un-updated drug prescriptions and dosing errors before orders reach the floor.",
@@ -778,7 +792,7 @@ export default function Presentation() {
                                 </div>
                             </div>
 
-                            {/* Right Column: Clean Visual Image Panel */}
+                            {/* Right Column: Interactive Chart or Visual Image Panel */}
                             <div style={{
                                 flex: '6',
                                 display: 'flex',
@@ -786,27 +800,35 @@ export default function Presentation() {
                                 justifyContent: 'center',
                                 alignItems: 'center',
                                 position: 'relative',
-                                border: '1px solid #E2E8F0',
+                                border: slide.chartType ? 'none' : '1px solid #E2E8F0',
                                 borderRadius: '12px',
-                                boxShadow: '0 4px 16px rgba(15, 23, 42, 0.04)',
-                                background: '#F8FAFC',
-                                padding: '12px',
+                                boxShadow: slide.chartType ? 'none' : '0 4px 16px rgba(15, 23, 42, 0.04)',
+                                background: slide.chartType ? 'transparent' : '#F8FAFC',
+                                padding: slide.chartType ? '0' : '12px',
                                 height: '100%',
                                 overflow: 'hidden'
                             }}>
-                                <div style={{ width: '100%', height: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                                    <img 
-                                        src={slide.imageUrl} 
-                                        alt={slide.title}
-                                        style={{
-                                            width: '100%',
-                                            height: '100%',
-                                            objectFit: 'contain',
-                                            borderRadius: '8px'
-                                        }}
-                                    />
-                                </div>
+                                {slide.chartType === 'docTime' && <DocumentationTimeChart />}
+                                {slide.chartType === 'idh' && <IDHPredictionChart />}
+                                {slide.chartType === 'ward' && <WardAnomalyChart />}
+                                {slide.chartType === 'infusion' && <InfusionMassChart />}
+                                {slide.chartType === 'medgemma' && <MedGemmaAuditChart />}
+                                {slide.chartType === 'hemo' && <HemodynamicsChart />}
+                                {!slide.chartType && (
+                                    <div style={{ width: '100%', height: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                                        <img 
+                                            src={slide.imageUrl} 
+                                            alt={slide.title}
+                                            style={{
+                                                width: '100%',
+                                                height: '100%',
+                                                objectFit: 'contain',
+                                                borderRadius: '8px'
+                                            }}
+                                        />
+                                    </div>
+                                )}
                             </div>
                         </div>
                     </div>
