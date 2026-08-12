@@ -13,6 +13,10 @@ const InfusionMassChart = dynamic(() => import('../components/charts/InfusionMas
 const MedGemmaAuditChart = dynamic(() => import('../components/charts/MedGemmaAuditChart'), { ssr: false });
 const HemodynamicsChart = dynamic(() => import('../components/charts/HemodynamicsChart'), { ssr: false });
 
+const NationalStatsCards = dynamic(() => import('../components/charts/NationalStatsCards'), { ssr: false });
+const ClericalFrictionCards = dynamic(() => import('../components/charts/ClericalFrictionCards'), { ssr: false });
+const OutbreakCaseComparison = dynamic(() => import('../components/charts/OutbreakCaseComparison'), { ssr: false });
+
 /**
  * Custom crosshair cursor.
  * Strategy: write two CSS custom properties (--cx, --cy) on <html> directly
@@ -101,25 +105,98 @@ const slidesData = [
             {
                 title: "Core Hardware & Nursing",
                 slides: [
-                    "Feature 1: Biometric Verification Node (Slides 3-6)",
-                    "Feature 2: Nurse Operations Terminal (Slides 7-10)"
+                    "Feature 1: Biometric Verification Node",
+                    "Feature 2: Nurse Operations Terminal"
                 ]
             },
             {
                 title: "Analytics & Anomaly Engine",
                 slides: [
-                    "Feature 3: Per-Patient CDSS (Slides 11-14)",
-                    "Feature 4: Ward Anomaly Engine (Slides 15-18)"
+                    "Feature 3: Per-Patient CDSS",
+                    "Feature 4: Ward Anomaly Engine"
                 ]
             },
             {
                 title: "Telemetry & Clinical AI",
                 slides: [
-                    "Feature 5: Sensor Infusion Telemetry (Slides 19-22)",
-                    "Feature 6: MedGemma Prescription Auditor (Slides 23-26)"
+                    "Feature 5: Sensor Infusion Telemetry",
+                    "Feature 6: MedGemma Prescription Auditor"
                 ]
             }
         ]
+    },
+
+    // ----------------------------------------------------
+    // PROBLEM STATEMENT & NATIONAL CRISIS (SLIDES 3 - 6)
+    // ----------------------------------------------------
+    {
+        id: 2,
+        type: 'content',
+        moduleNum: 0,
+        moduleTitle: "Problem Statement: National Crisis",
+        slideNum: 1,
+        title: "Problem Statement: National Burden & Epidemiological Crisis",
+        assetSpec: "Big Numbers Display: 7.1M CKD, 9.2M Sessions, 60% Inadequate Dialysis, 79.9% CVC",
+        imageUrl: "/generated_visuals/slide2_vulnerabilities.jpg",
+        chartType: 'nationalStats',
+        keyPoints: [
+            "**7.1 Million CKD Population:** Chronic kidney disease is the **5th leading cause of mortality** nationwide in Egypt, with an age-standardized prevalence of 106 per 1,000 population.",
+            "**9.2 Million Annual Sessions:** Massive care volume generated across 15,000 public (11,000) and private (4,000) dialysis machines.",
+            "**60% Inadequate Clearance:** Single-pool dialytic clearance dose deficit (**Kt/V < 1.2**) directly correlates with elevated cardiovascular mortality and systemic fatigue.",
+            "**79.9% Catheter Dependency:** Overwhelming majority initiate therapy via temporary central venous catheters (CVCs) rather than mature AV fistulas (only 18.7%), causing severe bacteremia."
+        ],
+        speakerNotes: "Egypt faces a massive hemodialysis burden with 9.2M annual sessions and 60% receiving inadequate dialytic clearance."
+    },
+    {
+        id: 3,
+        type: 'content',
+        moduleNum: 0,
+        moduleTitle: "Problem Statement: Clerical Overhead",
+        slideNum: 2,
+        title: "Problem Statement: Operational Friction & Paper Overhead",
+        assetSpec: "Big Numbers Display: 1.6M Errors, ~25m Overhead, 33.3% HCV, 60 Neglect Incidents",
+        imageUrl: "/generated_visuals/slide2_vulnerabilities.jpg",
+        chartType: 'clericalFriction',
+        keyPoints: [
+            "**1.6 Million Medication Errors:** Paper-based polypharmacy (5–14 active drugs daily) causes **2–3 prescribing discrepancies** per patient during care transitions.",
+            "**~25 Mins Clerical Overhead:** Nursing staff spend **>30% of each 4-hour treatment** manually recording vitals on paper flowsheets, stealing time from active care.",
+            "**33.3% Viral Exposure Risk:** High Hepatitis C antibody prevalence demands continuous digital monitoring and strict chair isolation.",
+            "**60 Unrecorded Neglect Incidents:** Water purification chlorine and chloramine neglect recur unescalated due to paper-based documentation blindspots."
+        ],
+        speakerNotes: "Paperwork overhead consumes over 30% of nursing shift time, while paper polypharmacy generates 1.6M national medication discrepancies."
+    },
+    {
+        id: 4,
+        type: 'content',
+        moduleNum: 0,
+        moduleTitle: "Problem Statement: Incident Evidence",
+        slideNum: 3,
+        title: "Problem Statement: Documented Outbreak & Systemic Failures",
+        assetSpec: "Outbreak Case Evidence: Hard Water Syndrome vs Chloramine Toxic Hemolysis",
+        imageUrl: "/generated_visuals/slide2_vulnerabilities.jpg",
+        chartType: 'outbreakCases',
+        keyPoints: [
+            "**Hard Water Syndrome Outbreak:** Cracked water softener casing released resin beads, driving serum calcium to **3.92 mmol/L** and BP spiking to **158/80 mmHg** in 30 patients.",
+            "**Chloramine Toxic Hemolysis Outbreak:** Exhausted carbon beds caused **83% attack rate** across 34 patients, spiking blood transfusions 3.25x (**1.2 to 3.9 units/pt/mo**).",
+            "**Structurally Invisible Patterns:** Paper charts isolate individual beds, making collective mineral decline and equipment drift completely unnoticeable until acute harm occurs."
+        ],
+        speakerNotes: "Documented outbreaks prove that paper recordkeeping is structurally incapable of catching unit-wide equipment failures before patient harm."
+    },
+    {
+        id: 5,
+        type: 'content',
+        moduleNum: 0,
+        moduleTitle: "Problem Statement: Field Findings",
+        slideNum: 4,
+        title: "Problem Statement: Local Field Findings & Data Blindspots",
+        assetSpec: "Field Survey Findings: Uniform Batch Lab Anomaly & Loose Doctor-Nurse Protocol",
+        imageUrl: "/generated_visuals/slide2_vulnerabilities.jpg",
+        keyPoints: [
+            "**Uniform Batch Lab Error:** Entire month's batch of patient lab results returned identical due to clerical copy-paste error, unflagged because no historical baseline existed.",
+            "**60+ Water Neglect Recurrences:** Direct confirmation from clinical reviewers that chlorine/chloramine filter maintenance neglect recurred ~60 times without digital escalation.",
+            "**Loose Physician-Nurse Link:** Verbal prescription updates and un-updated orders leave nurses exposed to outdated clinical guidelines during busy shifts."
+        ],
+        speakerNotes: "Field survey findings confirmed copy-paste lab errors and loose verbal communication as direct threats to dialysis patient safety."
     },
 
     // ----------------------------------------------------
@@ -808,6 +885,9 @@ export default function Presentation() {
                                 height: '100%',
                                 overflow: 'hidden'
                             }}>
+                                {slide.chartType === 'nationalStats' && <NationalStatsCards />}
+                                {slide.chartType === 'clericalFriction' && <ClericalFrictionCards />}
+                                {slide.chartType === 'outbreakCases' && <OutbreakCaseComparison />}
                                 {slide.chartType === 'docTime' && <DocumentationTimeChart />}
                                 {slide.chartType === 'idh' && <IDHPredictionChart />}
                                 {slide.chartType === 'ward' && <WardAnomalyChart />}
