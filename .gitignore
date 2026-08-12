@@ -4,3 +4,8 @@ visual_slideshow
 .env
 .qodo
 .qodo_cache
+
+# Local Netlify folder
+.netlify
+
+.vercel

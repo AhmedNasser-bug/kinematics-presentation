@@ -2,19 +2,17 @@
 import { useEffect, useRef } from 'react';
 
 /**
- * HeroSlide — full-screen opening card.
- * Blueprint aesthetic: IBM Plex Sans, indigo palette, geometric CSS animations.
- * No external deps — pure CSS + React.
+ * HeroSlide — Sleek opening card.
+ * Comfortable typography, indigo accent, smooth animations.
  */
-export default function HeroSlide({ title, subtitle, presenter = "Ahmed Nasser", audience = "Dr. Ibrahim" }) {
+export default function HeroSlide({ title, subtitle }) {
     const lineRef = useRef(null);
 
-    // Animate the scan-line on mount
     useEffect(() => {
         const el = lineRef.current;
         if (!el) return;
         el.style.animation = 'none';
-        void el.offsetWidth; // reflow
+        void el.offsetWidth;
         el.style.animation = '';
     }, []);
 
@@ -24,15 +22,15 @@ export default function HeroSlide({ title, subtitle, presenter = "Ahmed Nasser",
             display: 'flex', flexDirection: 'column',
             alignItems: 'center', justifyContent: 'center',
             overflow: 'hidden',
-            padding: '48px',
+            padding: '40px',
         }}>
             <style>{`
                 @keyframes scanDown {
-                    from { top: 0; opacity: 0.6; }
+                    from { top: 0; opacity: 0.4; }
                     to   { top: 100%; opacity: 0; }
                 }
                 @keyframes fadeUp {
-                    from { opacity: 0; transform: translateY(18px); }
+                    from { opacity: 0; transform: translateY(14px); }
                     to   { opacity: 1; transform: translateY(0); }
                 }
                 @keyframes revealWidth {
@@ -41,132 +39,139 @@ export default function HeroSlide({ title, subtitle, presenter = "Ahmed Nasser",
                 }
                 @keyframes pulse {
                     0%, 100% { opacity: 1; }
-                    50%       { opacity: 0.35; }
-                }
-                @keyframes blink {
-                    0%, 100% { opacity: 1; }
-                    50%       { opacity: 0; }
+                    50%       { opacity: 0.4; }
                 }
             `}</style>
 
-            {/* Scanning line */}
+            {/* Subtle top scan line */}
             <div ref={lineRef} style={{
                 position: 'absolute', left: 0, right: 0, top: 0,
-                height: '1px',
-                background: 'linear-gradient(to right, transparent, #3730A3, transparent)',
-                animation: 'scanDown 3.5s cubic-bezier(0.4,0,0.6,1) 0.3s forwards',
+                height: '2px',
+                background: 'linear-gradient(to right, transparent, #6366F1, transparent)',
+                animation: 'scanDown 3s ease-out 0.2s forwards',
                 pointerEvents: 'none',
                 zIndex: 2,
             }} />
 
-            {/* Corner marks – top-left */}
-            <div style={{ position: 'absolute', top: 24, left: 24 }}>
-                <div style={{ width: 28, height: 1, background: '#3730A3' }} />
-                <div style={{ width: 1, height: 28, background: '#3730A3', marginTop: -1 }} />
-            </div>
-            {/* Corner marks – bottom-right */}
-            <div style={{ position: 'absolute', bottom: 24, right: 24 }}>
-                <div style={{ width: 1, height: 28, background: '#3730A3', marginLeft: 'auto', marginBottom: -1 }} />
-                <div style={{ width: 28, height: 1, background: '#3730A3', marginLeft: 'auto' }} />
-            </div>
-
-            {/* Label chip */}
+            {/* System Category Chip */}
             <div style={{
                 fontFamily: "'IBM Plex Mono', monospace",
-                fontSize: '0.68rem',
-                letterSpacing: '0.18em',
-                color: '#3730A3',
-                background: '#E0E7FF',
-                border: '1px solid #3730A3',
-                padding: '4px 14px',
-                marginBottom: '32px',
+                fontSize: '0.75rem',
+                letterSpacing: '0.12em',
+                color: '#4338CA',
+                background: '#EEF2FF',
+                border: '1px solid #C7D2FE',
+                borderRadius: '20px',
+                padding: '6px 18px',
+                marginBottom: '24px',
                 animation: 'fadeUp 0.5s ease both',
                 animationDelay: '0.1s',
-                textTransform: 'uppercase',
+                fontWeight: '600',
             }}>
-                Lecture · Robotics &amp; Mechanical Manipulation
+                DIACLINIC // CLINICAL DECISION SUPPORT & DATA MANAGEMENT
             </div>
 
-            {/* Main title */}
+            {/* Main Title - Wide & Clean */}
             <h1 style={{
-                fontFamily: "'IBM Plex Sans', sans-serif",
-                fontWeight: 600,
-                fontSize: 'clamp(2rem, 5vw, 4rem)',
-                color: '#171717',
+                fontFamily: "'Plus Jakarta Sans', sans-serif",
+                fontWeight: 700,
+                fontSize: 'clamp(2.2rem, 4.2vw, 3.6rem)',
+                color: '#0F172A',
                 textAlign: 'center',
-                lineHeight: 1.15,
-                margin: '0 0 8px 0',
+                lineHeight: 1.2,
+                margin: '0 0 16px 0',
                 animation: 'fadeUp 0.6s ease both',
-                animationDelay: '0.25s',
-                maxWidth: '820px',
+                animationDelay: '0.2s',
+                maxWidth: '1100px',
+                letterSpacing: '-0.02em'
             }}>
-                {title}
+                {title || "Hemodialysis Clinical Decision Support Architecture"}
             </h1>
 
-            {/* Animated underline */}
+            {/* Subtle Pill Underline */}
             <div style={{
                 height: '3px',
-                background: '#3730A3',
-                margin: '16px auto 24px',
-                animation: 'revealWidth 0.7s cubic-bezier(0.22,1,0.36,1) 0.7s both',
-                maxWidth: '560px',
+                background: 'linear-gradient(to right, #4338CA, #6366F1)',
+                borderRadius: '2px',
+                margin: '8px auto 24px',
+                animation: 'revealWidth 0.7s cubic-bezier(0.16,1,0.3,1) 0.5s both',
+                maxWidth: '480px',
                 width: '100%',
             }} />
 
-            {/* Subtitle – Newsreader italic */}
+            {/* Subtitle */}
             <p style={{
-                fontFamily: "'Newsreader', serif",
-                fontStyle: 'italic',
-                fontSize: 'clamp(1rem, 2vw, 1.4rem)',
-                color: '#737373',
+                fontFamily: "'Plus Jakarta Sans', sans-serif",
+                fontSize: 'clamp(1.05rem, 1.8vw, 1.28rem)',
+                color: '#475569',
                 textAlign: 'center',
-                margin: '0 0 48px 0',
+                margin: '0 0 36px 0',
                 animation: 'fadeUp 0.6s ease both',
-                animationDelay: '0.5s',
+                animationDelay: '0.35s',
+                maxWidth: '920px',
+                lineHeight: 1.6,
+                fontWeight: 400
             }}>
-                {subtitle}
+                {subtitle || "Integrated Edge Telemetry, Machine Learning Anomaly Detection, & Clinical Decision Support for Hemodialysis Units"}
             </p>
 
-            {/* Credits bar */}
+            {/* Live Link Buttons - Sleek Pill Buttons */}
             <div style={{
-                display: 'flex',
-                gap: '32px',
-                fontFamily: "'IBM Plex Mono', monospace",
-                fontSize: '0.72rem',
-                color: '#737373',
-                animation: 'fadeUp 0.6s ease both',
-                animationDelay: '0.8s',
-                flexWrap: 'wrap',
-                justifyContent: 'center',
+                display: 'flex', gap: '16px', flexWrap: 'wrap', justifyContent: 'center',
+                animation: 'fadeUp 0.6s ease 0.5s both',
+                marginBottom: '32px'
             }}>
-                <span>
-                    <span style={{ color: '#3730A3', marginRight: 6 }}>Presented to</span>
-                    {audience}
-                </span>
-                <span style={{ color: '#E0E7FF' }}>|</span>
-                <span>
-                    <span style={{ color: '#3730A3', marginRight: 6 }}>By</span>
-                    {presenter}
-                </span>
+                <a 
+                    href="https://dialysis-safety-management-system.vercel.app/" 
+                    target="_blank" 
+                    rel="noreferrer"
+                    style={{
+                        background: '#10B981', color: '#FFFFFF',
+                        borderRadius: '10px', boxShadow: '0 4px 14px rgba(16, 185, 129, 0.25)',
+                        padding: '10px 22px', fontFamily: "'Plus Jakarta Sans', sans-serif",
+                        fontWeight: '600', fontSize: '0.88rem', textDecoration: 'none',
+                        display: 'inline-flex', alignItems: 'center', gap: '8px',
+                        transition: 'transform 0.2s ease'
+                    }}
+                >
+                    <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#FFFFFF', display: 'inline-block' }} />
+                    Launch Live System Prototype ↗
+                </a>
+                <a 
+                    href="https://stitch.withgoogle.com/projects/503366360860058565" 
+                    target="_blank" 
+                    rel="noreferrer"
+                    style={{
+                        background: '#EEF2FF', color: '#4338CA',
+                        border: '1px solid #C7D2FE', borderRadius: '10px',
+                        padding: '10px 22px', fontFamily: "'Plus Jakarta Sans', sans-serif",
+                        fontWeight: '600', fontSize: '0.88rem', textDecoration: 'none',
+                        display: 'inline-flex', alignItems: 'center', gap: '8px'
+                    }}
+                >
+                    View Stitch Design System ↗
+                </a>
             </div>
 
-            {/* Pulsing dot indicator */}
+            {/* Navigation indicator */}
             <div style={{
-                position: 'absolute', bottom: 28,
+                position: 'absolute', bottom: 24,
                 display: 'flex', alignItems: 'center', gap: '8px',
                 fontFamily: "'IBM Plex Mono', monospace",
-                fontSize: '0.65rem',
-                color: '#737373',
-                animation: 'fadeUp 0.5s ease 1.2s both',
+                fontSize: '0.72rem',
+                color: '#64748B',
+                animation: 'fadeUp 0.5s ease 0.7s both',
             }}>
                 <span style={{
-                    width: 6, height: 6,
-                    background: '#3730A3',
+                    width: 7, height: 7,
+                    borderRadius: '50%',
+                    background: '#4338CA',
                     display: 'inline-block',
-                    animation: 'pulse 1.8s ease-in-out infinite',
+                    animation: 'pulse 2s ease-in-out infinite',
                 }} />
-                Press → to begin
+                Use arrow keys ← → to navigate deck
             </div>
         </div>
     );
 }
+

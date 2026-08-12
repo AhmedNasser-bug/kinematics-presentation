@@ -1,51 +1,10 @@
 "use client";
 
-import { useState, useEffect, useRef } from 'react';
-import mermaid from 'mermaid';
+import { useState, useEffect } from 'react';
 import dynamic from 'next/dynamic';
 
-const ThreeBackground = dynamic(() => import('../components/ThreeBackground'), { ssr: false });
-const UniverseLocalFrame = dynamic(() => import('../components/UniverseLocalFrame'), { ssr: false });
-const DHLinkVisualizer = dynamic(() => import('../components/DHLinkVisualizer'), { ssr: false });
-const RoboticArmHero = dynamic(() => import('../components/RoboticArmHero'), { ssr: false });
-const VideoSlide = dynamic(() => import('../components/VideoSlide'), { ssr: false });
 const HeroSlide = dynamic(() => import('../components/HeroSlide'), { ssr: false });
 const OutroSlide = dynamic(() => import('../components/OutroSlide'), { ssr: false });
-
-mermaid.initialize({
-
-    startOnLoad: false,
-    theme: 'base',
-    themeVariables: {
-        primaryColor: '#E0E7FF',
-        primaryBorderColor: '#3730A3',
-        primaryTextColor: '#171717',
-        lineColor: '#3730A3',
-        edgeLabelBackground: '#FAFAFA',
-        fontSize: '15px',
-    }
-});
-
-function MermaidChart({ chart }) {
-    const ref = useRef(null);
-    useEffect(() => {
-        if (ref.current) {
-            ref.current.removeAttribute('data-processed');
-            ref.current.innerHTML = chart;
-            mermaid.run({ nodes: [ref.current] }).catch(console.error);
-        }
-    }, [chart]);
-    return (
-        <div
-            ref={ref}
-            className="mermaid"
-            style={{
-                display: 'flex', justifyContent: 'center',
-                alignItems: 'center', width: '100%', height: '100%',
-            }}
-        />
-    );
-}
 
 /**
  * Custom crosshair cursor.
@@ -79,172 +38,517 @@ function CustomCursor() {
     );
 }
 
+/**
+ * Parses markdown-style **bold** tags and converts them into neobrutalist yellow highlighted blocks.
+ */
+function highlightText(text) {
+    if (!text) return "";
+    const parts = text.split(/\*\*(.*?)\*\*/g);
+    return parts.map((part, idx) => {
+        if (idx % 2 === 1) {
+            return (
+                <strong key={idx} style={{ 
+                    background: '#FDE047', 
+                    color: '#171717', 
+                    padding: '2px 6px', 
+                    border: '1.5px solid #171717', 
+                    fontFamily: 'var(--font-heading)',
+                    fontWeight: 'bold',
+                    boxShadow: '1.5px 1.5px 0px #171717',
+                    display: 'inline-block',
+                    margin: '0 4px',
+                }}>
+                    {part}
+                </strong>
+            );
+        }
+        return part;
+    });
+}
+
 const slidesData = [
+    // ----------------------------------------------------
+    // TITLE & OVERVIEW (SLIDES 1 - 2)
+    // ----------------------------------------------------
     {
-        id: 0, title: "", subtitle: "",
-        term: "", desc: "",
-        subdesc: "", placeholder: "", isMermaid: false,
-        notes: []
-    },
-    {
-        id: 1, title: "1. The Presentation", subtitle: "Robotics & Mechanical Manipulation",
-        term: "From Coordinate Frames to Forward Kinematics", desc: "A Full Pipeline Explainer.",
-        subdesc: "➔ Visual terminology bridging spatial math and robotics.", placeholder: "", isMermaid: false,
+        id: 0,
+        type: 'hero',
+        title: "DiaClinic: Dialysis Management & Safety System",
+        subtitle: "Integrated Clinical Decision Support & Operational Data Pipeline",
         notes: [
-            "This is a self-contained pipeline — no prior robotics background assumed.",
-            "Every concept introduced here is a necessary prerequisite for the next.",
-            "Think of this as a vocabulary lesson before we write the sentence.",
-            "❓ Before we start — how would you describe where your hand is right now?",
+            "Welcome to DiaClinic presentation.",
+            "Integrated clinical decision support and data management architecture for hemodialysis units.",
+            "Replaces fragmented paper flowsheets with a standardized edge-to-cloud data pipeline."
         ]
     },
     {
-        id: 2, title: "2. Visual: The Presentation", subtitle: "Interactive 3D", term: "Visualization",
-        desc: "", subdesc: "", placeholder: "", isMermaid: false
-    },
-    {
-        id: 3, title: "3. The Context", subtitle: "Project Introduction", term: "Roles & Audience",
-        desc: "Origin and destination of this presentation.", subdesc: "➔ Presented To: Dr.Ibrahim | Presenter: Ahmed Nasser, Production team: Ahmed Nassem, Ahmed Nasser",
-        placeholder: "graph LR\nA[Presenter] -->|Delivers| B(Robotics Pipeline)\nB -->|To| C([Audience])", isMermaid: true,
+        id: 1,
+        type: 'intro',
+        title: "Hemodialysis Operational Pipeline",
+        subtitle: "Architecture Breakdown & Feature Matrix",
         notes: [
-            "This pipeline originates from a real manipulation problem — controlling a robot arm end-effector.",
-            "The audience is expected to have basic linear algebra literacy.",
-            "Presenter cue: keep the context slide brief — this is framing, not content.",
+            "DiaClinic addresses high care volume and strict 4-hour session constraints.",
+            "Standardized HL7 FHIR v4 data pipeline connects edge devices to clinical decision engines."
+        ],
+        modules: [
+            {
+                title: "Core Hardware & Nursing",
+                slides: [
+                    "Feature 1: Biometric Verification Node (Slides 3-6)",
+                    "Feature 2: Nurse Operations Terminal (Slides 7-10)"
+                ]
+            },
+            {
+                title: "Analytics & Anomaly Engine",
+                slides: [
+                    "Feature 3: Per-Patient CDSS (Slides 11-14)",
+                    "Feature 4: Ward Anomaly Engine (Slides 15-18)"
+                ]
+            },
+            {
+                title: "Telemetry & Clinical AI",
+                slides: [
+                    "Feature 5: Sensor Infusion Telemetry (Slides 19-22)",
+                    "Feature 6: MedGemma Prescription Auditor (Slides 23-26)"
+                ]
+            }
         ]
     },
+
+    // ----------------------------------------------------
+    // FEATURE 1: BIOMETRIC IDENTITY NODE (SLIDES 3 - 6)
+    // ----------------------------------------------------
     {
-        id: 4, title: "4. The Map", subtitle: "Overview", term: "Slide Progression",
-        desc: "Six core concepts structured sequentially.", subdesc: "➔ Frame ➔ Body ➔ Matrix ➔ Chain ➔ DH ➔ FK.",
-        placeholder: "graph LR\nA[Frames] --> B[Bodies]\nB --> C[Matrices]\nC --> D[Chains]\nD --> E[DH Params]\nE --> F[FK]", isMermaid: true,
-        notes: [
-            "Each arrow represents a mathematical dependency — you cannot skip a step.",
-            "The sequence mirrors how a controller actually computes pose at runtime.",
-            "❓ Notice each block feeds directly into the next — why do you think order matters here?",
-        ]
+        id: 2,
+        type: 'content',
+        moduleNum: 1,
+        moduleTitle: "Feature 1: Biometric Verification Node",
+        slideNum: 1,
+        title: "Feature 1: What is the Biometric Identity Node?",
+        assetSpec: "Feature 1 Overview: Edge Biometric Authentication Node Architecture",
+        imageUrl: "/generated_visuals/slide3_biometric_terminal.jpg",
+        keyPoints: [
+            "**Edge Microcontroller Authentication:** Standalone embedded hardware node (**ESP32 / Raspberry Pi**) paired with optical and capacitive fingerprint scanners.",
+            "**Zero-Cloud Latency Queue:** Manages scheduled shift rosters, arrival timestamps, and patient triage locally without internet dependence.",
+            "**Auditory Tone Feedback:** Emits distinct audio frequencies to instantly confirm valid patient check-in versus administrative staff access."
+        ],
+        speakerNotes: "The Biometric Identity Node verifies patient identity at the floor entry using edge microcontrollers, preventing roster mismatches."
     },
     {
-        id: 5, title: "5. The Rationale", subtitle: "Why This Order?", term: "Pedagogical Sequence",
-        desc: "Each definition builds mathematical necessity for the next.", subdesc: "➔ Expect clear, discrete links from local coordinates to full arm control.", placeholder: "", isMermaid: false,
-        notes: [
-            "Starting with frames before bodies mirrors how robots actually sense their environment — coordinate-first.",
-            "Matrices come after bodies because you need something to transform before you define the transform.",
-            "DH parameters only make sense once the chain topology is established.",
-            "FK is the payoff: all prior definitions collapse into a single product of matrices.",
-        ]
+        id: 3,
+        type: 'content',
+        moduleNum: 1,
+        moduleTitle: "Feature 1: Biometric Verification Node",
+        slideNum: 2,
+        title: "Feature 1: What It Solves & Clinical Impact",
+        assetSpec: "Impact Statistics: Patient Triage Efficiency & Identity Error Elimination",
+        imageUrl: "/plots/01_demographics_overview.png",
+        keyPoints: [
+            "**Eliminates Identity Mismatches:** Prevents 100% of patient identity errors during crowded shift transitions and high-volume arrivals.",
+            "**Removes Paper Check-in Friction:** Eliminates manual roster lookup queues and reduces patient entry delay from ~25 minutes to instant check-in.",
+            "**Operational Continuity:** Operates independently of hospital network status, guaranteeing uninterrupted floor triage."
+        ],
+        speakerNotes: "Biometric check-in eliminates identity errors and removes entry bottlenecks before dialyzer hookup."
     },
     {
-        id: 6, title: "6. Visual: The Rationale", subtitle: "Animation", term: "Visualization",
-        desc: "", subdesc: "", video: '/StaircaseBuilder.mp4', isMermaid: false
+        id: 4,
+        type: 'content',
+        moduleNum: 1,
+        moduleTitle: "Feature 1: Biometric Verification Node",
+        slideNum: 3,
+        title: "Feature 1: Technical Implementation Options",
+        assetSpec: "System Options: AWS IoT Core, Azure IoT Hub, & Microcontroller Edge Architecture",
+        imageUrl: "/docs_images/Hospital system Demo 1.png",
+        keyPoints: [
+            "**Microcontroller Edge Stack:** C++/FreeRTOS firmware on ESP32 microcontrollers with hardware-accelerated SHA-256 biometric hashing.",
+            "**Cloud Managed IoT Options:** **AWS IoT Core** / Greengrass for MQTT message routing, **Azure IoT Hub** for device provisioning, or **GCP Healthcare IoT**.",
+            "**Local Fallback Storage:** Encrypted SQLite/IndexedDB store on Raspberry Pi edge gateway for offline authentication sync."
+        ],
+        speakerNotes: "The node can run on lightweight ESP32 microcontrollers or connect to AWS IoT Core and Azure IoT Hub for enterprise fleet management."
     },
     {
-        id: 7, title: "7. The Boundaries", subtitle: "What is Not Expected", term: "Scope Limitation",
-        desc: "Calculus proofs, dynamics, and Inverse Kinematics.", subdesc: "➔ We define 'What' and 'How' analytically, omitting kinetic physics.", placeholder: "", isMermaid: false,
-        notes: [
-            "No forces, torques, or masses — this is pure kinematics, not dynamics.",
-            "Inverse Kinematics (IK) is the harder reverse problem: given a target pose, find joint angles. Out of scope today.",
-            "Proofs of rotation group properties (SO(3) closure, orthogonality) are omitted — treated as given.",
-            "❓ If FK gives us pose from angles — what would you need to do it the other way around?",
-        ]
+        id: 5,
+        type: 'content',
+        moduleNum: 1,
+        moduleTitle: "Feature 1: Biometric Verification Node",
+        slideNum: 4,
+        title: "Feature 1: Data Integration Sources",
+        assetSpec: "Data Sources: Fingerprint Scanners, HL7 FHIR Patient Resources, & ADT Feeds",
+        imageUrl: "/generated_visuals/slide3_biometric_terminal.jpg",
+        keyPoints: [
+            "**Hardware Telemetry:** Raw optical/capacitive fingerprint byte arrays converted to encrypted template hashes.",
+            "**Healthcare Standard Payload:** Standardized **HL7 FHIR v4 Patient** JSON resource (`Patient/id`, `identifier`, `telecom`).",
+            "**EHR System Ingestion:** Real-time synchronization with Hospital ADT (Admission, Discharge, Transfer) registration database feeds."
+        ],
+        speakerNotes: "Biometric hashes map directly to HL7 FHIR v4 Patient resources and hospital ADT feeds."
+    },
+
+    // ----------------------------------------------------
+    // FEATURE 2: NURSE OPERATIONS TERMINAL (SLIDES 7 - 10)
+    // ----------------------------------------------------
+    {
+        id: 6,
+        type: 'content',
+        moduleNum: 2,
+        moduleTitle: "Feature 2: Nurse Operations Terminal",
+        slideNum: 1,
+        title: "Feature 2: What is the Nurse Operations Terminal?",
+        assetSpec: "Feature 2 Overview: Bedside Nurse Ingestion Interface & Terminal Layout",
+        imageUrl: "/generated_visuals/slide3_biometric_terminal.jpg",
+        keyPoints: [
+            "**Bedside Touch Interface:** Responsive web/mobile application designed for rapid intra-session vital entry and medication logging.",
+            "**Offline-First Data Storage:** Local SQLite edge database architecture guaranteeing complete operation during hospital network drops.",
+            "**HL7 FHIR v4 Conversion Engine:** Automatically packages bedside inputs into standardized FHIR JSON resources (`Observation`, `MedicationRequest`, `Encounter`)."
+        ],
+        speakerNotes: "The Nurse Terminal provides a touch interface that works offline-first, automatically structuring data into HL7 FHIR v4."
     },
     {
-        id: 8, title: "8. Visual: The Boundaries", subtitle: "Animation", term: "Visualization",
-        desc: "", subdesc: "", video: '/IKStrikeOut.mp4', isMermaid: false
+        id: 7,
+        type: 'content',
+        moduleNum: 2,
+        moduleTitle: "Feature 2: Nurse Operations Terminal",
+        slideNum: 2,
+        title: "Feature 2: What It Solves & Clinical Impact",
+        assetSpec: "Impact Statistics: Charting Overhead Reduction & Data Integrity",
+        imageUrl: "/plots/02_hemodynamics_vitals.png",
+        keyPoints: [
+            "**Slashes Paperwork Overhead:** Charting duration reduced from **~25 minutes down to < 5 minutes** per patient session.",
+            "**Prevents Medication Delays:** Eliminates mid-session medication delivery delays caused by paper flowsheet queue bottlenecks.",
+            "**Eliminates Data Loss:** Guarantees 100% vital log retention and eliminates lost shift handoff records."
+        ],
+        speakerNotes: "By reducing documentation time by 80%, nurses regain critical time for direct patient monitoring."
     },
     {
-        id: 9, title: "9. The Universe & The Local", subtitle: "Spatial Referencing", term: "Coordinate Frame",
-        desc: "A position vector + a rotation matrix.", subdesc: "➔ Defines 'Where' and 'How' an object is oriented.", placeholder: "", isMermaid: false,
-        notes: [
-            "The world frame {W} is our absolute reference — fixed, origin at (0,0,0).",
-            "Every object gets its own local frame {B} — a translated and rotated copy of the world.",
-            "Mathematically: a frame = origin p ∈ ℝ³ + orientation R ∈ SO(3).",
-            "SO(3): the Special Orthogonal group — all 3×3 matrices where Rᵀ R = I and det(R) = +1.",
-            "❓ If a frame tells us where something is and how it's rotated — what's the minimum we need to move between two frames?",
-        ]
+        id: 8,
+        type: 'content',
+        moduleNum: 2,
+        moduleTitle: "Feature 2: Nurse Operations Terminal",
+        slideNum: 3,
+        title: "Feature 2: Technical Implementation Options",
+        assetSpec: "System Options: Next.js PWA, Azure Health Data Services, & AWS HealthLake",
+        imageUrl: "/docs_images/Hospital system Demo 1.png",
+        keyPoints: [
+            "**Frontend Application:** Next.js / React Progressive Web App (PWA) with Service Worker offline caching.",
+            "**Cloud FHIR Engines:** **Azure Health Data Services (FHIR API)**, **AWS HealthLake** for healthcare data stores, or **Google Cloud Healthcare API**.",
+            "**Edge Sync Layer:** Asynchronous background sync via WebSockets / REST API with automatic conflict resolution."
+        ],
+        speakerNotes: "The terminal builds on Next.js PWAs and integrates with Azure Health Data Services or AWS HealthLake."
     },
     {
-        id: 10, title: "10. Visual: The Universe & The Local", subtitle: "Interactive 3D", term: "Visualization",
-        desc: "", subdesc: "", placeholder: "", isMermaid: false
+        id: 9,
+        type: 'content',
+        moduleNum: 2,
+        moduleTitle: "Feature 2: Nurse Operations Terminal",
+        slideNum: 4,
+        title: "Feature 2: Data Integration Sources",
+        assetSpec: "Data Sources: Bluetooth Vitals Monitors, Bedside Inputs, & eMAR Feeds",
+        imageUrl: "/generated_visuals/slide3_biometric_terminal.jpg",
+        keyPoints: [
+            "**Bedside Telemetry:** Bluetooth LE connection to NIBP blood pressure cuffs and pulse oximeter monitors.",
+            "**Nurse Direct Inputs:** Pre, intra, and post-dialysis weight readings, blood flow rates (BFR), and dialysate flow rates (DFR).",
+            "**eMAR System Feeds:** Electronic Medication Administration Record integration for timestamped heparin and saline delivery."
+        ],
+        speakerNotes: "Ingests Bluetooth vitals, direct touch entries, and electronic medication administration logs."
+    },
+
+    // ----------------------------------------------------
+    // FEATURE 3: PER-PATIENT CDSS (SLIDES 11 - 14)
+    // ----------------------------------------------------
+    {
+        id: 10,
+        type: 'content',
+        moduleNum: 3,
+        moduleTitle: "Feature 3: Per-Patient CDSS Engine",
+        slideNum: 1,
+        title: "Feature 3: What is the Per-Patient CDSS?",
+        assetSpec: "Feature 3 Overview: Predictive Machine Learning & Trajectory Engine",
+        imageUrl: "/generated_visuals/slide4_cdss_anomaly.jpg",
+        keyPoints: [
+            "**Predictive ML Classifier:** Machine learning engine (**XGBoost / Logistic Regression**) trained on historical patient session vitals.",
+            "**Early IDH Warning:** Generates advance warning notifications for Intradialytic Hypotension (IDH) before clinical onset.",
+            "**Dry Weight Recalibration:** Trajectory mapping compares interdialytic weight gain against post-dialysis blood pressure trends."
+        ],
+        speakerNotes: "Feature 3 uses machine learning to predict hypotensive crashes up to 30 minutes before vascular collapse occurs."
     },
     {
-        id: 11, title: "11. The Mechanical Foundation", subtitle: "Body & Articulation", term: "Rigid Body & Joints",
-        desc: "Non-deforming links connected by constraints.", subdesc: "➔ Prismatic (Slide) OR Revolute (Rotate).", placeholder: "", isMermaid: false,
-        notes: [
-            "Rigid body assumption: the link's shape and mass distribution do not change — only its pose.",
-            "Each joint removes one or more degrees of freedom from the relative motion between links.",
-            "Revolute joint: 1-DOF rotation about a fixed axis. Prismatic: 1-DOF linear translation.",
-            "A standard 6-DOF arm chains six revolute joints — enough to reach any pose in its workspace.",
-            "❓ If a rigid body can move freely in 3D space, how many independent numbers describe its state?",
-        ]
+        id: 11,
+        type: 'content',
+        moduleNum: 3,
+        moduleTitle: "Feature 3: Per-Patient CDSS Engine",
+        slideNum: 2,
+        title: "Feature 3: What It Solves & Clinical Impact",
+        assetSpec: "Impact Statistics: 15-30 Min IDH Prediction Window & Sensitivity Rate",
+        imageUrl: "/plots/03_weight_and_ultrafiltration.png",
+        keyPoints: [
+            "**Proactive Hypotension Warning:** Provides a **15–30 minute advance warning window** for predicted IDH events.",
+            "**High Sensitivity:** Achieves **88% predictive sensitivity** for acute blood pressure drops.",
+            "**Prevents Vascular Collapse:** Allows attending staff to adjust ultrafiltration rates and saline boluses proactively."
+        ],
+        speakerNotes: "A 30-minute warning window enables proactive ultrafiltration adjustments, preventing acute hypotensive shocks."
     },
     {
-        id: 12, title: "12. Visual: The Mechanical Foundation", subtitle: "Animation", term: "Visualization",
-        desc: "", subdesc: "", video: '/RigidBodyAndJoints.mp4', isMermaid: false
+        id: 12,
+        type: 'content',
+        moduleNum: 3,
+        moduleTitle: "Feature 3: Per-Patient CDSS Engine",
+        slideNum: 3,
+        title: "Feature 3: Technical Implementation Options",
+        assetSpec: "System Options: AWS SageMaker, Azure ML, & ONNX Edge Inference Engine",
+        imageUrl: "/plots/05_correlation_heatmap.png",
+        keyPoints: [
+            "**Model Training Stack:** Python scikit-learn / XGBoost pipelines trained on anonymized clinical hemodynamics datasets.",
+            "**Cloud ML Platforms:** **AWS SageMaker** for continuous model retraining, **Azure Machine Learning** for model registry & audit trails.",
+            "**Edge Inference Engine:** Model compiled to **ONNX Runtime** for local real-time inference on the hospital edge server without cloud latency."
+        ],
+        speakerNotes: "Trained on SageMaker or Azure ML, the model compiles to ONNX Runtime for instant local edge inference."
     },
     {
-        id: 13, title: "13. The Mathematical Bridge", subtitle: "Mapping Space", term: "Homogeneous Transformation Matrix (T)",
-        desc: "A 4×4 matrix encoding both rotation and translation.", subdesc: "➔ T = [ R | p ; 0 0 0 | 1 ] — maps points from one frame into another.", placeholder: "", isMermaid: false,
-        notes: [
-            "Homogeneous coordinates extend ℝ³ → ℝ⁴ so that rotation and translation collapse into one matrix multiply.",
-            "R ∈ SO(3) occupies the top-left 3×3 block; p ∈ ℝ³ is the top-right column.",
-            "The bottom row [0 0 0 1] preserves the homogeneous structure under composition.",
-            "T ∈ SE(3): the Special Euclidean group — all rigid-body transforms in 3D.",
-            "Composition rule: ᴬTᶜ = ᴬTᴮ · ᴮTᶜ — frames chain by simple matrix multiplication.",
-            "❓ We can now map a point from one frame to another — but what if there are six frames in sequence?",
-        ]
+        id: 13,
+        type: 'content',
+        moduleNum: 3,
+        moduleTitle: "Feature 3: Per-Patient CDSS Engine",
+        slideNum: 4,
+        title: "Feature 3: Data Integration Sources",
+        assetSpec: "Data Sources: Hemodynamic Vitals, Weight Gains, & Monthly Lab Panels",
+        imageUrl: "/plots/07_bp_joint_density.png",
+        keyPoints: [
+            "**Intra-Session Telemetry:** Real-time systolic/diastolic blood pressure, pulse rate, arterial pressure, and venous pressure.",
+            "**Interdialytic Weight Data:** Pre-dialysis fluid gain mass (kg) and historical post-dialysis dry weight targets.",
+            "**Laboratory Panels:** Monthly blood panel ingestion (Hemoglobin, Ferritin, Electrolytes, Calcium, Potassium, PTH)."
+        ],
+        speakerNotes: "Combines real-time vitals, fluid gain history, and monthly lab blood panels for holistic risk scoring."
+    },
+
+    // ----------------------------------------------------
+    // FEATURE 4: WARD ANOMALY ENGINE (SLIDES 15 - 18)
+    // ----------------------------------------------------
+    {
+        id: 14,
+        type: 'content',
+        moduleNum: 4,
+        moduleTitle: "Feature 4: Ward Anomaly Engine",
+        slideNum: 1,
+        title: "Feature 4: What is the Ward Anomaly Engine?",
+        assetSpec: "Feature 4 Overview: Cross-Station Variance & Environmental Quality Sentinel",
+        imageUrl: "/generated_visuals/slide6_system_targets.jpg",
+        keyPoints: [
+            "**Cross-Bed Statistical Sentinel:** Edge gateway engine running real-time statistical variance analysis across all active dialysis stations.",
+            "**Environmental Failure Detection:** Identifies Reverse Osmosis (RO) water purification failure, dialysate fluid misformulation, and batch defects.",
+            "**Ward Quality Scoring:** Calculates an aggregate ward safety index continuously updated every 60 seconds."
+        ],
+        speakerNotes: "Feature 4 evaluates cross-bed variance in real time to catch water purification or dialysate mixing errors."
     },
     {
-        id: 14, title: "14. Visual: The Mathematical Bridge", subtitle: "Animation", term: "Visualization",
-        desc: "", subdesc: "", video: '/HomogeneousTransformationMatrix.mp4', isMermaid: false
+        id: 15,
+        type: 'content',
+        moduleNum: 4,
+        moduleTitle: "Feature 4: Ward Anomaly Engine",
+        slideNum: 2,
+        title: "Feature 4: What It Solves & Clinical Impact",
+        assetSpec: "Impact Statistics: 60-Second Cluster Alert Threshold & Multi-Bed Protection",
+        imageUrl: "/plots/06_feature_effect_sizes.png",
+        keyPoints: [
+            "**Rapid Detection Threshold:** Triggers multi-patient cluster alerts within **< 60 seconds** of anomaly onset.",
+            "**Eliminates Bedside Data Isolation:** Uncovers systemic ward issues hidden by isolated paper charts across individual beds.",
+            "**Prevents Ward-Wide Toxicity:** Prevents collective electrolyte shifts and water contamination before patient harm occurs."
+        ],
+        speakerNotes: "Replaces bedside isolation with ward-wide telemetry oversight, alerting clinical directors within 60 seconds."
     },
     {
-        id: 15, title: "15. The Structure", subtitle: "Topology", term: "Kinematic Chain",
-        desc: "The serial connection of frames.", subdesc: "➔ Base Frame ➔ Joint 1 ➔ Link 1 ➔ ... ➔ Tool Center Point (TCP).",
-        placeholder: "graph LR\nA[Base Frame] -->|Joint 1| B(Link 1)\nB -->|Joint 2| C(Link 2)\nC -->|Joint n| D((TCP))", isMermaid: true,
-        notes: [
-            "Open kinematic chain: each link has exactly one parent — no closed loops.",
-            "The TCP (Tool Center Point) is the end-effector frame — the pose we ultimately want to control.",
-            "Total transform: ⁰Tₙ = ⁰T₁ · ¹T₂ · ... · ⁿ⁻¹Tₙ — a product of n matrices.",
-            "❓ Each Tᵢ depends on joint angles — how do we parameterize those transforms in a standard, reusable way?",
-        ]
+        id: 16,
+        type: 'content',
+        moduleNum: 4,
+        moduleTitle: "Feature 4: Ward Anomaly Engine",
+        slideNum: 3,
+        title: "Feature 4: Technical Implementation Options",
+        assetSpec: "System Options: AWS IoT Greengrass, Azure IoT Edge, & Apache Flink Stream Computing",
+        imageUrl: "/generated_visuals/slide6_system_targets.jpg",
+        keyPoints: [
+            "**Stream Processing Compute:** Apache Flink / Kinesis Data Analytics for real-time windowed statistical computation.",
+            "**Edge Gateway Frameworks:** **AWS IoT Greengrass** for edge stream routing, **Azure IoT Edge** for containerized module execution.",
+            "**Alert Notification Layer:** Local WebSocket broadcast to clinical director console and SMS/email push triggers."
+        ],
+        speakerNotes: "Runs on AWS Greengrass or Azure IoT Edge with Apache Flink stream analytics for instant cluster alerts."
     },
     {
-        id: 16, title: "16. The Standardization", subtitle: "Rule-Based Modeling", term: "Denavit-Hartenberg (DH)",
-        desc: "4 parameters fully describe any joint transform.", subdesc: "➔ a (link length) · α (link twist) · d (joint offset) · θ (joint angle).", placeholder: "", isMermaid: false,
-        notes: [
-            "DH convention (Denavit & Hartenberg, 1955): any consecutive joint pair can be described by exactly 4 parameters.",
-            "a: distance along xᵢ between zᵢ₋₁ and zᵢ axes. α: angle between zᵢ₋₁ and zᵢ about xᵢ.",
-            "d: distance along zᵢ₋₁ from the origin of frame i−1 to xᵢ. θ: angle about zᵢ₋₁ from xᵢ₋₁ to xᵢ.",
-            "For a revolute joint: θ is the variable; a, α, d are constants defined by the arm geometry.",
-            "DH reduces the arm model to an n×4 table — compact, unambiguous, and simulation-ready.",
-        ]
+        id: 17,
+        type: 'content',
+        moduleNum: 4,
+        moduleTitle: "Feature 4: Ward Anomaly Engine",
+        slideNum: 4,
+        title: "Feature 4: Data Integration Sources",
+        assetSpec: "Data Sources: Dialysate Machine Telemetry, RO Water Plant Sensors, & Temperature Logs",
+        imageUrl: "/docs_images/Development_plan.png",
+        keyPoints: [
+            "**Machine Dialysate Streams:** Real-time dialysate conductivity (mS/cm), dialysate temperature, and ultrafiltration rate (UFR).",
+            "**RO Water Plant Telemetry:** Central Reverse Osmosis purification plant conductivity, total dissolved solids (TDS), and pH levels.",
+            "**Station Sensor Cluster:** Ambient station temperature, fluid line pressures, and machine alarm state logs."
+        ],
+        speakerNotes: "Ingests machine dialysate conductivity, central RO water plant sensors, and machine alarm logs."
+    },
+
+    // ----------------------------------------------------
+    // FEATURE 5: SENSOR INFUSION TELEMETRY (SLIDES 19 - 22)
+    // ----------------------------------------------------
+    {
+        id: 18,
+        type: 'content',
+        moduleNum: 5,
+        moduleTitle: "Feature 5: Sensor Infusion Telemetry",
+        slideNum: 1,
+        title: "Feature 5: What is Sensor Infusion Monitoring?",
+        assetSpec: "Feature 5 Overview: IV Pole Load-Cell Weight Telemetry & Hardware Node",
+        imageUrl: "/generated_visuals/slide5_infusion_medgemma.jpg",
+        keyPoints: [
+            "**IV Pole Load-Cell Hardware:** Strain-gauge weight sensors mounted on IV poles paired with microcontroller telemetry units.",
+            "**Real-Time Mass Loss Tracking:** Measures container mass loss continuously to monitor IV fluid delivery speed.",
+            "**Local Flow Failure Alarm:** Triggers local audio-visual alerts if fluid mass stops decreasing outside prespecified tolerances."
+        ],
+        speakerNotes: "Feature 5 uses physical strain-gauge load cells on IV poles to track infusion mass loss continuously."
     },
     {
-        id: 17, title: "17. Visual: The Standardization", subtitle: "Interactive 3D", term: "Visualization",
-        desc: "", subdesc: "", placeholder: "", isMermaid: false
+        id: 19,
+        type: 'content',
+        moduleNum: 5,
+        moduleTitle: "Feature 5: Sensor Infusion Telemetry",
+        slideNum: 2,
+        title: "Feature 5: What It Solves & Clinical Impact",
+        assetSpec: "Impact Statistics: Zero Unnoticed IV Stalls & Real-Time Flow Response",
+        imageUrl: "/generated_visuals/slide5_infusion_medgemma.jpg",
+        keyPoints: [
+            "**Eliminates IV Line Stalls:** Prevents 100% of unnoticed IV line occlusions and flow halts during busy shift periods.",
+            "**Prevents Dry Bag Incidents:** Alerts nursing staff before IV infusion containers empty completely.",
+            "**Instant Alarm Latency:** Triggers bedside audio-visual alerts in **< 3 seconds** of flow stall detection."
+        ],
+        speakerNotes: "Catches IV flow occlusions immediately, preventing line stalls and empty bag incidents."
     },
     {
-        id: 18, title: "18. The Destination", subtitle: "The Full Pipeline", term: "Forward Kinematics (FK)",
-        desc: "Joint Space → Task Space.", subdesc: "➔ ⁰Tₙ = ∏ᵢ₌₁ⁿ ⁱ⁻¹Tᵢ(θᵢ) — multiply all DH transforms to get the TCP pose.", placeholder: "", isMermaid: false,
-        notes: [
-            "Input: a vector of n joint angles [θ₁, θ₂, …, θₙ] — the joint space.",
-            "Output: a 4×4 SE(3) matrix — the TCP position and orientation in the world frame.",
-            "Complexity: O(n) matrix multiplications — efficient and closed-form.",
-            "FK has a unique solution: one set of joint angles → exactly one TCP pose.",
-            "This is the foundation of every simulation, trajectory planner, and robot controller.",
-            "❓ We can compute where the arm ends up — but can we go the other direction?",
-        ]
+        id: 20,
+        type: 'content',
+        moduleNum: 5,
+        moduleTitle: "Feature 5: Sensor Infusion Telemetry",
+        slideNum: 3,
+        title: "Feature 5: Technical Implementation Options",
+        assetSpec: "System Options: HX711 ADC, MQTT Protocol, & AWS/Azure IoT Device Shadows",
+        imageUrl: "/generated_visuals/slide5_infusion_medgemma.jpg",
+        keyPoints: [
+            "**Hardware Signal Conditioning:** HX711 24-bit analog-to-digital converter (ADC) paired with ESP32 microcontroller.",
+            "**Messaging & Cloud State:** MQTT lightweight protocol over local Wi-Fi / Zigbee, with **AWS IoT Device Shadow** or **Azure Device Twins**.",
+            "**Local Bedside Buzzer:** Direct GPIO-driven piezo buzzer and LED status indicator for immediate zero-latency feedback."
+        ],
+        speakerNotes: "Combines 24-bit HX711 ADCs with ESP32 microcontrollers, routing MQTT telemetry to AWS Device Shadows or local buzzers."
     },
     {
-        id: 19, title: "19. Visual: The Destination", subtitle: "Animation", term: "Visualization",
-        desc: "", subdesc: "", video: '/ForwardKinematicsChain.mp4', isMermaid: false
+        id: 21,
+        type: 'content',
+        moduleNum: 5,
+        moduleTitle: "Feature 5: Sensor Infusion Telemetry",
+        slideNum: 4,
+        title: "Feature 5: Data Integration Sources",
+        assetSpec: "Data Sources: Load Cell Weight Telemetry, Drop Counter Sensors, & Pharmacy Orders",
+        imageUrl: "/docs_images/Hospital system Demo 1.png",
+        keyPoints: [
+            "**Mass Telemetry Stream:** Continuous container weight values (grams) sampled at 5 Hz.",
+            "**Optical Flow Telemetry:** Supplementary infrared drop counter pulses verifying drip rate.",
+            "**Pharmacy Order Integration:** Active IV medication order schedule (volume, target infusion time, drug density)."
+        ],
+        speakerNotes: "Correlates load cell mass telemetry with optical drop sensors and active pharmacy infusion orders."
+    },
+
+    // ----------------------------------------------------
+    // FEATURE 6: MEDGEMMA PRESCRIPTION AUDITOR (SLIDES 23 - 26)
+    // ----------------------------------------------------
+    {
+        id: 22,
+        type: 'content',
+        moduleNum: 6,
+        moduleTitle: "Feature 6: MedGemma Prescription Auditor",
+        slideNum: 1,
+        title: "Feature 6: What is the MedGemma Prescription Auditor?",
+        assetSpec: "Feature 6 Overview: Domain-Adapted Clinical LLM & Order Verification Engine",
+        imageUrl: "/generated_visuals/slide5_infusion_medgemma.jpg",
+        keyPoints: [
+            "**Clinical AI Order Auditor:** Domain-adapted clinical language model (**MedGemma**) integrated into physician prescribing consoles.",
+            "**Contraindication Auditing:** Cross-references proposed drug orders against active patient blood lab panels and renal clearance values.",
+            "**Medical Indexing Standardization:** Maps drug regimens against standardized **LOINC and SNOMED CT** indices."
+        ],
+        speakerNotes: "Feature 6 integrates MedGemma—a clinical AI auditor that checks proposed prescriptions against lab panels and medical codes."
     },
     {
-        id: 20, title: "", subtitle: "",
-        term: "", desc: "",
-        subdesc: "", placeholder: "", isMermaid: false,
-        notes: []
+        id: 23,
+        type: 'content',
+        moduleNum: 6,
+        moduleTitle: "Feature 6: MedGemma Prescription Auditor",
+        slideNum: 2,
+        title: "Feature 6: What It Solves & Clinical Impact",
+        assetSpec: "Impact Statistics: Automated Order Audit Coverage & LOINC/SNOMED Compliance",
+        imageUrl: "/plots/04_machine_pressures.png",
+        keyPoints: [
+            "**Prevents Adverse Drug Events:** Audits 100% of proposed drug orders for patients with impaired renal drug clearance.",
+            "**Catches Outdated Regimens:** Flags un-updated drug prescriptions and dosing errors before orders reach the floor.",
+            "**Standardized Audit Trails:** Provides auditable clinical reasoning logs compliant with SNOMED CT and LOINC standards."
+        ],
+        speakerNotes: "Prevents toxic drug accumulation in kidney failure patients by auditing 100% of prescriptions against lab values."
+    },
+    {
+        id: 24,
+        type: 'content',
+        moduleNum: 6,
+        moduleTitle: "Feature 6: MedGemma Prescription Auditor",
+        slideNum: 3,
+        title: "Feature 6: Technical Implementation Options",
+        assetSpec: "System Options: Google Cloud Vertex AI, Azure OpenAI Healthcare, & Local vLLM Inference",
+        imageUrl: "/generated_visuals/slide5_infusion_medgemma.jpg",
+        keyPoints: [
+            "**Cloud Managed LLM Endpoints:** **Google Cloud Vertex AI** for HIPAA-compliant MedGemma deployment or **Azure OpenAI Service**.",
+            "**Local On-Premises Option:** Local **vLLM / Ollama** inference engine running on hospital GPU servers for zero data egress.",
+            "**RAG & Knowledge Base:** Vector database (Pgvector / Qdrant) storing SNOMED CT indices and clinical renal drug guidelines."
+        ],
+        speakerNotes: "Deployable on GCP Vertex AI, Azure OpenAI Healthcare, or locally on hospital GPU servers via vLLM."
+    },
+    {
+        id: 25,
+        type: 'content',
+        moduleNum: 6,
+        moduleTitle: "Feature 6: MedGemma Prescription Auditor",
+        slideNum: 4,
+        title: "Feature 6: Data Integration Sources",
+        assetSpec: "Data Sources: LOINC/SNOMED CT Indices, e-Prescriptions, & Laboratory Blood Panels",
+        imageUrl: "/plots/02_hemodynamics_vitals.png",
+        keyPoints: [
+            "**Medical Terminology Coding:** SNOMED CT clinical concept IDs and LOINC lab test observation codes.",
+            "**Electronic Prescriptions:** Physician eRx orders (`MedicationRequest` FHIR payload).",
+            "**Renal Laboratory Results:** Serum Creatinine, eGFR, Serum Potassium, Calcium, Phosphate, and Liver Function Panels."
+        ],
+        speakerNotes: "Cross-references e-prescriptions with SNOMED CT, LOINC codes, and real-time renal laboratory panels."
+    },
+
+    // ----------------------------------------------------
+    // SYSTEM SUMMARY & DEPLOYMENT (SLIDES 27 - 28)
+    // ----------------------------------------------------
+    {
+        id: 26,
+        type: 'content',
+        moduleNum: 7,
+        moduleTitle: "System Infrastructure & Targets",
+        slideNum: 1,
+        title: "System Infrastructure & Operational Targets",
+        assetSpec: "Infrastructure Map: Edge Hardware Telemetry to Cloud Synchronization Architecture",
+        imageUrl: "/docs_images/Development_plan.png",
+        keyPoints: [
+            "**Resilient Edge Hardware:** Microcontrollers (ESP32/RPi), load cells, fingerprint scanners, and local SQLite edge stores.",
+            "**Documentation Reduction:** Slashes nursing documentation duration from **~25 min down to < 5 min** per session.",
+            "**Performance Benchmarks:** **15–30 min IDH advance warning**, **100% floor availability during network drops**, **<60s ward cluster alerts**."
+        ],
+        speakerNotes: "DiaClinic combines edge resilience with cloud synchronization, delivering 100% floor uptime and 80% documentation savings."
+    },
+    {
+        id: 27,
+        type: 'outro',
+        title: "DiaClinic System Prototype & Summary",
+        subtitle: "Interactive Prototype & Clinical Deployment Ready"
     }
 ];
-
 
 export default function Presentation() {
     const [currentSlide, setCurrentSlide] = useState(0);
@@ -260,88 +564,387 @@ export default function Presentation() {
         };
         window.addEventListener('keydown', onKey);
         return () => window.removeEventListener('keydown', onKey);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const slide = slidesData[currentSlide];
 
     return (
-        <>
-            {/* Global Three.js canvas – sits behind everything */}
-            <ThreeBackground />
-
-            {/* Custom cursor */}
-            <CustomCursor />
-
-            {/* Slide card */}
-            <div className="slide-container">
-                {/* key forces remount → CSS animation re-fires on every nav */}
-                <div key={currentSlide} className="slide-content" style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
-                    <h1>{slide.title}</h1>
-                    <h2>{slide.subtitle}</h2>
-
-                    <div className="content">
-                        {slide.term !== "Visualization" && (
-                            <>
-                                <p><span className="term">{slide.term}</span> {slide.desc}</p>
-                                <p>{slide.subdesc}</p>
-                            </>
-                        )}
-
-                        {slide.id === 2 ? (
-                            <div className="visual-placeholder fullscreen" style={{ padding: 0 }}>
-                                <RoboticArmHero />
-                            </div>
-                        ) : slide.id === 10 ? (
-                            <div className={`visual-placeholder ${slide.term === "Visualization" ? "fullscreen" : ""}`} style={{ padding: 0 }}>
-                                <UniverseLocalFrame />
-                            </div>
-                        ) : slide.id === 17 ? (
-                            <div className={`visual-placeholder ${slide.term === "Visualization" ? "fullscreen" : ""}`} style={{ padding: 0 }}>
-                                <DHLinkVisualizer />
-                            </div>
-                        ) : slide.video ? (
-                            <div className="visual-placeholder fullscreen" style={{ padding: 0 }}>
-                                <VideoSlide src={slide.video} />
-                            </div>
-                        ) : slide.isMermaid ? (
-                            <div className={`visual-placeholder ${slide.term === "Visualization" ? "fullscreen" : ""}`} key={`mermaid-${slide.id}`}>
-                                <MermaidChart chart={slide.placeholder} />
-                            </div>
-                        ) : slide.placeholder ? (
-                            <div className={`visual-placeholder ${slide.term === "Visualization" ? "fullscreen" : ""}`}>
-                                {slide.placeholder.split('\\n').map((line, i) => (
-                                    <span key={i} style={{ display: 'block', margin: i === 0 ? '0 0 10px 0' : '0' }}>{line}</span>
-                                ))}
-                            </div>
-                        ) : slide.id === 0 ? (
-                            <HeroSlide />
-                        ) : slide.id === 20 ? (
-                            <OutroSlide />
-                        ) : null}
-                    </div>
-                </div>{/* /slide-content */}
-
-                {/* Presenter notes panel – only on non-visual slides with notes */}
-                {slide.notes?.length > 0 && (
-                    <div className="notes-panel">
-                        {slide.notes.map((note, i) => (
-                            <span
-                                key={i}
-                                className={`note-item ${note.startsWith('❓') ? 'note-question' : ''}`}
-                            >
-                                {note}
-                            </span>
-                        ))}
+        <div className="slide-container" style={{ position: 'relative' }}>
+            <div key={currentSlide} className="slide-content" style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
+                
+                {/* Render Title/Hero slide */}
+                {slide.type === 'hero' && (
+                    <div style={{ flexGrow: 1, display: 'flex', position: 'relative', width: '100%', height: '100%', overflow: 'hidden' }}>
+                        <div style={{ zIndex: 2, width: '100%' }}>
+                            <HeroSlide 
+                                title={slide.title} 
+                                subtitle={slide.subtitle} 
+                            />
+                        </div>
                     </div>
                 )}
 
-                {/* Slide counter + keyboard hint */}
-                <div className="slide-counter">
-                    {currentSlide + 1} / {slidesData.length}
-                    <span className="key-hint">← →</span>
+                {/* Render Intro/Overview slide with sleek card layout */}
+                {slide.type === 'intro' && (
+                    <div style={{ flexGrow: 1, display: 'flex', flexDirection: 'column', gap: '20px', height: '100%' }}>
+                        <div>
+                            <h2 style={{ marginBottom: '8px', fontSize: '0.85rem' }}>{slide.subtitle}</h2>
+                            <h1 style={{ margin: 0, fontSize: 'clamp(2rem, 3.5vw, 2.8rem)', fontWeight: '700', letterSpacing: '-0.02em', color: '#0F172A' }}>{slide.title}</h1>
+                            <div style={{ 
+                                marginTop: '16px', 
+                                padding: '14px 20px', 
+                                background: '#EEF2FF', 
+                                borderRadius: '10px',
+                                border: '1px solid #C7D2FE',
+                                fontSize: '1.05rem',
+                                color: '#312E81',
+                                fontWeight: '500',
+                                lineHeight: 1.5
+                            }}>
+                                SYSTEM OVERVIEW: DiaClinic structures each of its 6 core features into 4 dedicated modules: (1) What is it, (2) What it solves with statistics, (3) Technical cloud implementation options, and (4) Data source integration standards.
+                            </div>
+                        </div>
+                        <div style={{
+                            flexGrow: 1,
+                            display: 'grid',
+                            gridTemplateColumns: 'repeat(3, 1fr)',
+                            gap: '16px',
+                            marginTop: '4px'
+                        }}>
+                            {slide.modules.map((mod, idx) => (
+                                <div key={idx} style={{
+                                    background: '#FFFFFF',
+                                    border: '1px solid #E2E8F0',
+                                    borderRadius: '12px',
+                                    padding: '20px',
+                                    boxShadow: '0 4px 12px rgba(15, 23, 42, 0.04)',
+                                    display: 'flex',
+                                    flexDirection: 'column',
+                                    gap: '10px'
+                                }}>
+                                    <div style={{
+                                        fontFamily: 'var(--font-mono)',
+                                        fontSize: '0.75rem',
+                                        background: '#EEF2FF',
+                                        color: '#4338CA',
+                                        padding: '4px 10px',
+                                        alignSelf: 'flex-start',
+                                        fontWeight: '600',
+                                        borderRadius: '6px'
+                                    }}>
+                                        Section 0{idx + 1}
+                                    </div>
+                                    <div style={{
+                                        fontSize: '1.15rem',
+                                        fontWeight: '700',
+                                        color: '#0F172A',
+                                        lineHeight: 1.3
+                                    }}>
+                                        {mod.title}
+                                    </div>
+                                    <ul style={{
+                                        margin: '4px 0 0 0',
+                                        paddingLeft: '18px',
+                                        display: 'flex',
+                                        flexDirection: 'column',
+                                        gap: '8px'
+                                    }}>
+                                        {mod.slides.map((s, sIdx) => (
+                                            <li key={sIdx} style={{
+                                                fontSize: '0.92rem',
+                                                color: '#475569',
+                                                fontWeight: '500',
+                                                lineHeight: 1.4
+                                            }}>
+                                                {s}
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                )}
+
+                {/* Render Content slides in wide sleek 50/50 split layout */}
+                {slide.type === 'content' && (
+                    <div style={{ flexGrow: 1, display: 'flex', flexDirection: 'column', height: '100%', gap: '16px' }}>
+                        
+                        {/* Slide Header */}
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid #E2E8F0', paddingBottom: '12px' }}>
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                                <span style={{
+                                    fontFamily: 'var(--font-mono)',
+                                    fontSize: '0.72rem',
+                                    background: '#EEF2FF',
+                                    color: '#4338CA',
+                                    padding: '4px 10px',
+                                    borderRadius: '6px',
+                                    fontWeight: '600',
+                                    border: '1px solid #C7D2FE'
+                                }}>
+                                    {slide.moduleTitle}
+                                </span>
+                                <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.78rem', color: '#64748B' }}>
+                                    SLIDE {slide.id + 1} OF {slidesData.length}
+                                </span>
+                            </div>
+                            <div style={{
+                                fontFamily: 'var(--font-mono)',
+                                fontSize: '0.75rem',
+                                color: '#475569',
+                                background: '#F8FAFC',
+                                border: '1px solid #E2E8F0',
+                                borderRadius: '6px',
+                                padding: '4px 10px',
+                                fontWeight: '500'
+                            }}>
+                                DiaClinic Specification
+                            </div>
+                        </div>
+
+                        {/* Split Content Area - Widened 6:6 layout for max comfort */}
+                        <div style={{ display: 'flex', flexGrow: 1, gap: '36px', overflow: 'hidden', minHeight: 0 }}>
+                            
+                            {/* Left Column: Title & Key Delivery Points */}
+                            <div style={{ flex: '6', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+                                <div>
+                                    <h1 style={{
+                                        margin: '0 0 20px 0',
+                                        fontSize: 'clamp(1.5rem, 2.5vw, 2.2rem)',
+                                        lineHeight: 1.25,
+                                        fontWeight: 700,
+                                        color: '#0F172A'
+                                    }}>
+                                        {slide.title}
+                                    </h1>
+                                    
+                                    {/* Key Points formatted with clean rounded cards */}
+                                    <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
+                                        {slide.keyPoints.map((pt, idx) => (
+                                            <div key={idx} style={{
+                                                display: 'flex',
+                                                gap: '14px',
+                                                alignItems: 'flex-start',
+                                                background: '#F8FAFC',
+                                                border: '1px solid #E2E8F0',
+                                                borderRadius: '10px',
+                                                padding: '14px 18px'
+                                            }}>
+                                                <span style={{
+                                                    background: '#EEF2FF',
+                                                    color: '#4338CA',
+                                                    width: '22px',
+                                                    height: '22px',
+                                                    borderRadius: '50%',
+                                                    display: 'inline-flex',
+                                                    alignItems: 'center',
+                                                    justifyContent: 'center',
+                                                    fontFamily: 'var(--font-mono)',
+                                                    fontSize: '0.75rem',
+                                                    fontWeight: 'bold',
+                                                    flexShrink: 0,
+                                                    marginTop: '2px',
+                                                    border: '1px solid #C7D2FE'
+                                                }}>
+                                                    ✓
+                                                </span>
+                                                <span style={{
+                                                    fontSize: 'clamp(1rem, 1.6vw, 1.18rem)',
+                                                    lineHeight: 1.5,
+                                                    color: '#334155',
+                                                    fontWeight: 400
+                                                }}>
+                                                    {highlightText(pt)}
+                                                </span>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+
+                                {/* Asset Specification Text label */}
+                                <div style={{
+                                    fontFamily: 'var(--font-mono)',
+                                    fontSize: '0.72rem',
+                                    background: '#F1F5F9',
+                                    color: '#475569',
+                                    border: '1px solid #E2E8F0',
+                                    borderRadius: '8px',
+                                    padding: '8px 14px',
+                                    marginTop: '16px',
+                                    lineHeight: 1.4
+                                }}>
+                                    <span style={{ fontWeight: '600', color: '#312E81' }}>Asset Spec:</span> {slide.assetSpec}
+                                </div>
+                            </div>
+
+                            {/* Right Column: Clean Visual Image Panel */}
+                            <div style={{
+                                flex: '6',
+                                display: 'flex',
+                                flexDirection: 'column',
+                                justifyContent: 'center',
+                                alignItems: 'center',
+                                position: 'relative',
+                                border: '1px solid #E2E8F0',
+                                borderRadius: '12px',
+                                boxShadow: '0 4px 16px rgba(15, 23, 42, 0.04)',
+                                background: '#F8FAFC',
+                                padding: '12px',
+                                height: '100%',
+                                overflow: 'hidden'
+                            }}>
+                                <div style={{ width: '100%', height: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                                    <img 
+                                        src={slide.imageUrl} 
+                                        alt={slide.title}
+                                        style={{
+                                            width: '100%',
+                                            height: '100%',
+                                            objectFit: 'contain',
+                                            borderRadius: '8px'
+                                        }}
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                )}
+
+                {/* Render Outro Slide */}
+                {slide.type === 'outro' && (
+                    <div style={{ flexGrow: 1, position: 'relative', width: '100%', height: '100%' }}>
+                        <OutroSlide />
+                    </div>
+                )}
+
+            </div>{/* /slide-content */}
+
+            {/* Speaker notes panel */}
+            {slide.speakerNotes && (
+                <div style={{
+                    marginTop: '14px',
+                    border: '1px solid #E2E8F0',
+                    borderRadius: '8px',
+                    background: '#F1F5F9',
+                    padding: '8px 14px',
+                }}>
+                    <p style={{
+                        fontFamily: 'var(--font-mono)',
+                        fontSize: '0.74rem',
+                        color: '#475569',
+                        margin: 0,
+                        lineHeight: 1.4
+                    }}>
+                        <strong style={{ color: '#312E81' }}>Speaker Note:</strong> {slide.speakerNotes}
+                    </p>
                 </div>
+            )}
+
+            {/* Presenter Notes for intro */}
+            {slide.notes?.length > 0 && (
+                <div className="notes-panel">
+                    {slide.notes.map((note, i) => (
+                        <span key={i} className="note-item">
+                            {note}
+                        </span>
+                    ))}
+                </div>
+            )}
+
+            {/* Sleek Navigation Buttons (Center) */}
+            <div style={{
+                position: 'absolute',
+                bottom: '20px',
+                left: '50%',
+                transform: 'translateX(-50%)',
+                display: 'flex',
+                gap: '12px',
+                zIndex: 100
+            }}>
+                <button 
+                    onClick={prevSlide}
+                    disabled={currentSlide === 0}
+                    style={{
+                        padding: '8px 22px',
+                        background: currentSlide === 0 ? '#F1F5F9' : '#EEF2FF',
+                        border: '1px solid #C7D2FE',
+                        borderRadius: '8px',
+                        fontFamily: 'var(--font-mono)',
+                        fontWeight: '600',
+                        fontSize: '0.85rem',
+                        cursor: currentSlide === 0 ? 'not-allowed' : 'pointer',
+                        color: currentSlide === 0 ? '#94A3B8' : '#4338CA',
+                        transition: 'all 0.2s ease'
+                    }}
+                >
+                    ← PREV
+                </button>
+                <button 
+                    onClick={nextSlide}
+                    disabled={currentSlide === slidesData.length - 1}
+                    style={{
+                        padding: '8px 22px',
+                        background: currentSlide === slidesData.length - 1 ? '#F1F5F9' : '#4338CA',
+                        border: '1px solid #4338CA',
+                        borderRadius: '8px',
+                        fontFamily: 'var(--font-mono)',
+                        fontWeight: '600',
+                        fontSize: '0.85rem',
+                        cursor: currentSlide === slidesData.length - 1 ? 'not-allowed' : 'pointer',
+                        color: currentSlide === slidesData.length - 1 ? '#94A3B8' : '#FFFFFF',
+                        boxShadow: currentSlide === slidesData.length - 1 ? 'none' : '0 4px 12px rgba(67, 56, 202, 0.25)',
+                        transition: 'all 0.2s ease'
+                    }}
+                >
+                    NEXT →
+                </button>
             </div>
-        </>
+
+            {/* Prototype & Stitch Links (Bottom Left) */}
+            <div style={{
+                position: 'absolute', bottom: '20px', left: '32px',
+                display: 'flex', gap: '10px', zIndex: 100
+            }}>
+                <a 
+                    href="https://dialysis-safety-management-system.vercel.app/" 
+                    target="_blank" 
+                    rel="noreferrer"
+                    style={{
+                        background: '#10B981', color: '#FFFFFF',
+                        borderRadius: '6px',
+                        padding: '5px 12px', fontFamily: "var(--font-mono)",
+                        fontWeight: '600', fontSize: '0.74rem', textDecoration: 'none',
+                        display: 'inline-flex', alignItems: 'center', gap: '6px'
+                    }}
+                >
+                    <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#FFFFFF', display: 'inline-block' }} />
+                    Live Prototype ↗
+                </a>
+                <a 
+                    href="https://stitch.withgoogle.com/projects/503366360860058565" 
+                    target="_blank" 
+                    rel="noreferrer"
+                    style={{
+                        background: '#EEF2FF', color: '#4338CA',
+                        border: '1px solid #C7D2FE', borderRadius: '6px',
+                        padding: '5px 12px', fontFamily: "var(--font-mono)",
+                        fontWeight: '600', fontSize: '0.74rem', textDecoration: 'none',
+                        display: 'inline-flex', alignItems: 'center', gap: '6px'
+                    }}
+                >
+                    Stitch Spec ↗
+                </a>
+            </div>
+
+            {/* Slide counter (Bottom Right) */}
+            <div className="slide-counter">
+                <span style={{ fontWeight: '600', color: '#0F172A', fontSize: '0.9rem' }}>
+                    {currentSlide + 1} / {slidesData.length}
+                </span>
+                <span className="key-hint">← →</span>
+            </div>
+        </div>
     );
 }

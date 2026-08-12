@@ -1,8 +1,8 @@
 import "./globals.css";
 
 export const metadata = {
-  title: "Kinematics Pipeline",
-  description: "From Coordinate Frames to Forward Kinematics",
+  title: "AI & Autonomous IoT Systems Integration",
+  description: "Lecture on Edge AI, Swarm Intelligence, Self-Healing Networks, and Interoperability Governance.",
 };
 
 export default function RootLayout({ children }) {

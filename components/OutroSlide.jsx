@@ -1,25 +1,20 @@
 "use client";
 /**
- * OutroSlide — closing card.
- * Mirrors the Hero visual language but restructured as a thank-you / teaser.
+ * OutroSlide — Sleek closing card for DiaClinic.
  */
-export default function OutroSlide({ presenter = "Ahmed Nasser 202304446, Ahmed Nassem 202300117, Karim Amr Ali 202302834", audience = "Dr. Ibrahim" }) {
+export default function OutroSlide() {
     return (
         <div style={{
             position: 'absolute', inset: 0,
             display: 'flex', flexDirection: 'column',
             alignItems: 'center', justifyContent: 'center',
             overflow: 'hidden',
-            padding: '48px',
+            padding: '40px',
         }}>
             <style>{`
                 @keyframes outroFadeUp {
                     from { opacity: 0; transform: translateY(14px); }
                     to   { opacity: 1; transform: translateY(0); }
-                }
-                @keyframes outroReveal {
-                    from { width: 0; }
-                    to   { width: 100%; }
                 }
                 @keyframes outroPulse {
                     0%, 100% { opacity: 1; }
@@ -27,103 +22,91 @@ export default function OutroSlide({ presenter = "Ahmed Nasser 202304446, Ahmed 
                 }
             `}</style>
 
-            {/* Corner marks – top-right */}
-            <div style={{ position: 'absolute', top: 24, right: 24, display: 'flex', flexDirection: 'column', alignItems: 'flex-end' }}>
-                <div style={{ width: 28, height: 1, background: '#3730A3' }} />
-                <div style={{ width: 1, height: 28, background: '#3730A3' }} />
-            </div>
-            {/* Corner marks – bottom-left */}
-            <div style={{ position: 'absolute', bottom: 24, left: 24 }}>
-                <div style={{ width: 1, height: 28, background: '#3730A3', marginBottom: -1 }} />
-                <div style={{ width: 28, height: 1, background: '#3730A3' }} />
-            </div>
-
-            {/* FK formula — monospace chip, appears first */}
+            {/* Category Chip */}
             <div style={{
                 fontFamily: "'IBM Plex Mono', monospace",
-                fontSize: 'clamp(0.75rem, 1.4vw, 1rem)',
-                color: '#3730A3',
-                background: '#E0E7FF',
-                border: '1px solid #3730A3',
-                padding: '8px 20px',
-                marginBottom: '36px',
+                fontSize: '0.75rem',
+                color: '#4338CA',
+                background: '#EEF2FF',
+                border: '1px solid #C7D2FE',
+                borderRadius: '20px',
+                padding: '6px 18px',
+                marginBottom: '24px',
                 animation: 'outroFadeUp 0.5s ease 0.1s both',
-                letterSpacing: '0.05em',
+                letterSpacing: '0.08em',
+                fontWeight: '600',
+                textTransform: 'uppercase',
             }}>
-                ⁰Tₙ = ⁰T₁ · ¹T₂ · ··· · ⁿ⁻¹Tₙ
+                DIACLINIC ARCHITECTURE // DEPLOYMENT READY
             </div>
 
-            {/* Big "Thank you." */}
+            {/* Big "Thank You" */}
             <h1 style={{
-                fontFamily: "'IBM Plex Sans', sans-serif",
-                fontWeight: 600,
-                fontSize: 'clamp(2.5rem, 6vw, 5rem)',
-                color: '#171717',
-                margin: '0 0 6px 0',
-                letterSpacing: '-0.02em',
+                fontFamily: "'Plus Jakarta Sans', sans-serif",
+                fontWeight: 700,
+                fontSize: 'clamp(2.5rem, 5.5vw, 4.5rem)',
+                color: '#0F172A',
+                margin: '0 0 8px 0',
+                letterSpacing: '-0.025em',
                 animation: 'outroFadeUp 0.6s ease 0.25s both',
             }}>
-                Thank you.
+                Thank You.
             </h1>
 
             {/* Underline sweep */}
             <div style={{
                 height: '3px',
-                background: '#3730A3',
-                margin: '14px auto 28px',
-                animation: 'outroReveal 0.7s cubic-bezier(0.22,1,0.36,1) 0.7s both',
-                width: '220px',
+                background: 'linear-gradient(to right, #4338CA, #6366F1)',
+                borderRadius: '2px',
+                margin: '12px auto 24px',
+                width: '180px',
             }} />
 
-            {/* Newsreader italic teaser */}
+            {/* Subtext */}
             <p style={{
-                fontFamily: "'Newsreader', serif",
-                fontStyle: 'italic',
-                fontSize: 'clamp(1rem, 2vw, 1.3rem)',
-                color: '#737373',
+                fontFamily: "'Plus Jakarta Sans', sans-serif",
+                fontSize: 'clamp(1rem, 1.8vw, 1.25rem)',
+                color: '#475569',
                 textAlign: 'center',
-                margin: '0 0 48px 0',
-                maxWidth: '540px',
-                animation: 'outroFadeUp 0.6s ease 0.5s both',
+                margin: '0 0 32px 0',
+                maxWidth: '680px',
+                lineHeight: 1.6,
+                animation: 'outroFadeUp 0.6s ease 0.4s both',
             }}>
-                From Coordinate Frames to Forward Kinematics — complete.
+                Hemodialysis Clinical Decision Support & Operational Data Management Pipeline
                 <br />
-                <span style={{ color: '#3730A3', fontStyle: 'normal', fontFamily: "'IBM Plex Mono', monospace", fontSize: '0.8em' }}>
-                    Next: Inverse Kinematics?
+                <span style={{ color: '#4338CA', fontWeight: '600', fontSize: '0.9em' }}>
+                    Standardized Data Safety & Real-Time Floor Oversight
                 </span>
             </p>
 
-            {/* Credits */}
-            <div style={{
-                display: 'flex',
-                gap: '28px',
-                fontFamily: "'IBM Plex Mono', monospace",
-                fontSize: '0.72rem',
-                color: '#737373',
-                animation: 'outroFadeUp 0.6s ease 0.8s both',
-                flexWrap: 'wrap',
-                justifyContent: 'center',
-                borderTop: '1px solid #E0E7FF',
-                paddingTop: '20px',
-            }}>
-                <span>
-                    <span style={{ color: '#3730A3', marginRight: 6 }}>Presented to</span>
-                    {audience}
-                </span>
-                <span style={{ color: '#E0E7FF' }}>|</span>
-                <span>
-                    <span style={{ color: '#3730A3', marginRight: 6 }}>By</span>
-                    {presenter}
-                </span>
+            {/* Live prototype CTA button */}
+            <div style={{ animation: 'outroFadeUp 0.6s ease 0.55s both' }}>
+                <a 
+                    href="https://dialysis-safety-management-system.vercel.app/" 
+                    target="_blank" 
+                    rel="noreferrer"
+                    style={{
+                        background: '#10B981', color: '#FFFFFF',
+                        borderRadius: '10px', boxShadow: '0 4px 14px rgba(16, 185, 129, 0.25)',
+                        padding: '12px 24px', fontFamily: "'Plus Jakarta Sans', sans-serif",
+                        fontWeight: '600', fontSize: '0.92rem', textDecoration: 'none',
+                        display: 'inline-flex', alignItems: 'center', gap: '8px'
+                    }}
+                >
+                    <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#FFFFFF', display: 'inline-block' }} />
+                    Launch Live DiaClinic Prototype ↗
+                </a>
             </div>
 
             {/* Pulsing end dot */}
             <div style={{
-                position: 'absolute', bottom: 28,
-                width: 8, height: 8,
-                background: '#3730A3',
+                position: 'absolute', bottom: 24,
+                width: 7, height: 7, borderRadius: '50%',
+                background: '#4338CA',
                 animation: 'outroPulse 2s ease-in-out infinite',
             }} />
         </div>
     );
 }
+
