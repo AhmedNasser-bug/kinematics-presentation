@@ -11,38 +11,38 @@ export default function ECGHeartbeatMonitor() {
         let animId;
 
         let width = canvas.width = canvas.parentElement.offsetWidth || window.innerWidth;
-        let height = canvas.height = 48; // compact telemetry strip height
+        let height = canvas.height = canvas.parentElement.offsetHeight || window.innerHeight;
 
         function handleResize() {
             if (canvas && canvas.parentElement) {
                 width = canvas.width = canvas.parentElement.offsetWidth;
-                height = canvas.height = 48;
+                height = canvas.height = canvas.parentElement.offsetHeight;
             }
         }
         window.addEventListener('resize', handleResize);
 
         let offset = 0;
 
-        // PQRST Waveform Generator
+        // Large, Subtle PQRST Cardiac Waveform Generator
         function getECGDisplacement(x) {
-            const cycle = 160; // wavelength in pixels
+            const cycle = 320; // wide graceful wavelength
             const pos = (x + offset) % cycle;
             
-            if (pos > 20 && pos < 40) {
+            if (pos > 30 && pos < 70) {
                 // P Wave
-                return -6 * Math.sin(((pos - 20) / 20) * Math.PI);
-            } else if (pos >= 40 && pos < 48) {
+                return -16 * Math.sin(((pos - 30) / 40) * Math.PI);
+            } else if (pos >= 70 && pos < 85) {
                 // Q Dip
-                return 4;
-            } else if (pos >= 48 && pos < 62) {
-                // R Spike (Sharp Upward)
-                return -28 * Math.sin(((pos - 48) / 14) * Math.PI);
-            } else if (pos >= 62 && pos < 70) {
+                return 12;
+            } else if (pos >= 85 && pos < 115) {
+                // Large R Spike (Sharp Upward Peak - 140px tall!)
+                return -130 * Math.sin(((pos - 85) / 30) * Math.PI);
+            } else if (pos >= 115 && pos < 132) {
                 // S Dip (Downward)
-                return 8 * Math.sin(((pos - 62) / 8) * Math.PI);
-            } else if (pos > 85 && pos < 115) {
+                return 22 * Math.sin(((pos - 115) / 17) * Math.PI);
+            } else if (pos > 160 && pos < 220) {
                 // T Wave
-                return -10 * Math.sin(((pos - 85) / 30) * Math.PI);
+                return -26 * Math.sin(((pos - 160) / 60) * Math.PI);
             }
             return 0;
         }
@@ -51,45 +51,33 @@ export default function ECGHeartbeatMonitor() {
             animId = requestAnimationFrame(draw);
             ctx.clearRect(0, 0, width, height);
 
-            offset += 2.2; // sweep speed
+            offset += 1.8; // smooth sweep speed
 
-            const centerY = height / 2;
+            const centerY = height * 0.52; // centered vertically across panel
 
-            // 1. Draw subtle background grid lines for cardiac monitor
-            ctx.strokeStyle = '#EEF2FF';
-            ctx.lineWidth = 1;
-            ctx.beginPath();
-            for (let x = 0; x < width; x += 16) {
-                ctx.moveTo(x, 0);
-                ctx.lineTo(x, height);
-            }
-            ctx.moveTo(0, centerY);
-            ctx.lineTo(width, centerY);
-            ctx.stroke();
-
-            // 2. Draw Main ECG Waveform Line
-            ctx.strokeStyle = '#EF4444'; // Vibrant Pulse Red
-            ctx.lineWidth = 2.5;
+            // 1. Draw Subtle Large ECG Waveform Line
+            ctx.strokeStyle = '#EF4444'; // Pulse Red
+            ctx.lineWidth = 3.5;
             ctx.lineJoin = 'round';
             ctx.lineCap = 'round';
             ctx.beginPath();
 
-            for (let x = 0; x < width; x += 2) {
+            for (let x = 0; x < width; x += 3) {
                 const y = centerY + getECGDisplacement(x);
                 if (x === 0) ctx.moveTo(x, y);
                 else ctx.lineTo(x, y);
             }
             ctx.stroke();
 
-            // 3. Draw Glowing Lead Head Point at the right edge
-            const leadX = width - 12;
+            // 2. Draw Glowing Lead Head Point at sweep front
+            const leadX = (offset * 1.5) % width;
             const leadY = centerY + getECGDisplacement(leadX);
 
             ctx.shadowColor = '#EF4444';
-            ctx.shadowBlur = 10;
+            ctx.shadowBlur = 12;
             ctx.fillStyle = '#EF4444';
             ctx.beginPath();
-            ctx.arc(leadX, leadY, 4, 0, Math.PI * 2);
+            ctx.arc(leadX, leadY, 5, 0, Math.PI * 2);
             ctx.fill();
             ctx.shadowBlur = 0; // reset
         }
@@ -104,45 +92,16 @@ export default function ECGHeartbeatMonitor() {
 
     return (
         <div style={{
+            position: 'absolute',
+            inset: 0,
             width: '100%',
-            height: '40px',
-            background: '#FEF2F2',
-            border: '1px solid #FECACA',
-            borderRadius: '8px',
-            overflow: 'hidden',
-            display: 'flex',
-            alignItems: 'center',
-            position: 'relative',
-            padding: '0 12px',
-            marginTop: '8px',
-            marginBottom: '12px'
+            height: '100%',
+            zIndex: 1,
+            pointerEvents: 'none',
+            opacity: 0.16, // subtle opacity in background
+            overflow: 'hidden'
         }}>
-            <div style={{
-                fontFamily: 'var(--font-mono)',
-                fontSize: '0.72rem',
-                fontWeight: '700',
-                color: '#DC2626',
-                display: 'flex',
-                alignItems: 'center',
-                gap: '6px',
-                zIndex: 2,
-                background: '#FFFFFF',
-                padding: '2px 8px',
-                borderRadius: '4px',
-                border: '1px solid #FECACA',
-                whiteSpace: 'nowrap'
-            }}>
-                <span style={{
-                    width: '8px',
-                    height: '8px',
-                    borderRadius: '50%',
-                    background: '#EF4444',
-                    display: 'inline-block',
-                    boxShadow: '0 0 8px #EF4444'
-                }} />
-                ECG LEAD II // 72 BPM [NORMAL SINUS RHYTHM]
-            </div>
-            <canvas ref={canvasRef} style={{ width: '100%', height: '100%', position: 'absolute', inset: 0 }} />
+            <canvas ref={canvasRef} style={{ width: '100%', height: '100%' }} />
         </div>
     );
 }

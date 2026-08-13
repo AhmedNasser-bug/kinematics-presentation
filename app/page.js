@@ -680,8 +680,11 @@ export default function Presentation() {
     const slide = slidesData[currentSlide];
 
     return (
-        <div className="slide-container" style={{ position: 'relative' }}>
-            <div key={currentSlide} className="slide-content" style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
+        <div className="slide-container" style={{ position: 'relative', overflow: 'hidden' }}>
+            {/* Subtle Large Background ECG Heartbeat Waveform Overlay */}
+            <ECGHeartbeatMonitor />
+
+            <div key={currentSlide} className="slide-content" style={{ display: 'flex', flexDirection: 'column', height: '100%', position: 'relative', zIndex: 2 }}>
                 
                 {/* Render Title/Hero slide */}
                 {slide.type === 'hero' && (
@@ -700,15 +703,15 @@ export default function Presentation() {
                     <div style={{ flexGrow: 1, display: 'flex', flexDirection: 'column', gap: '20px', height: '100%' }}>
                         <div>
                             <h2 style={{ marginBottom: '8px', fontSize: '0.85rem' }}>{slide.subtitle}</h2>
-                            <h1 style={{ margin: 0, fontSize: 'clamp(2rem, 3.5vw, 2.8rem)', fontWeight: '700', letterSpacing: '-0.02em', color: '#F8FAFC' }}>{slide.title}</h1>
+                            <h1 style={{ margin: 0, fontSize: 'clamp(2rem, 3.5vw, 2.8rem)', fontWeight: '700', letterSpacing: '-0.02em', color: '#0F172A' }}>{slide.title}</h1>
                             <div style={{ 
                                 marginTop: '16px', 
                                 padding: '14px 20px', 
-                                background: '#0F172A', 
+                                background: '#EEF2FF', 
                                 borderRadius: '10px',
-                                border: '1px solid #1E293B',
+                                border: '1px solid #C7D2FE',
                                 fontSize: '1.05rem',
-                                color: '#A5B4FC',
+                                color: '#312E81',
                                 fontWeight: '500',
                                 lineHeight: 1.5
                             }}>
@@ -724,8 +727,8 @@ export default function Presentation() {
                         }}>
                             {slide.modules.map((mod, idx) => (
                                 <div key={idx} style={{
-                                    background: '#0F172A',
-                                    border: '1px solid #1E293B',
+                                    background: '#F8FAFC',
+                                    border: '1px solid #E2E8F0',
                                     borderRadius: '12px',
                                     padding: '20px',
                                     boxShadow: '0 8px 24px rgba(0, 0, 0, 0.3)',
@@ -814,9 +817,6 @@ export default function Presentation() {
                                 DiaClinic Specification
                             </div>
                         </div>
-
-                        {/* Prominent Real-Time Animated ECG Heartbeat Monitor Strip */}
-                        <ECGHeartbeatMonitor />
 
                         {/* Split Content Area - Widened 6:6 layout for max comfort */}
                         <div style={{ display: 'flex', flexGrow: 1, gap: '36px', overflow: 'hidden', minHeight: 0 }}>
