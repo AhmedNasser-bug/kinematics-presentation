@@ -228,7 +228,7 @@ const slidesData = [
     // FEATURE 1: BIOMETRIC IDENTITY NODE (SLIDES 3 - 6)
     // ----------------------------------------------------
     {
-        id: 2,
+        id: 6,
         type: 'content',
         moduleNum: 1,
         moduleTitle: "Feature 1: Biometric Verification Node",
@@ -245,7 +245,7 @@ const slidesData = [
         speakerNotes: "The Biometric Identity Node verifies patient identity at the floor entry using edge microcontrollers, preventing roster mismatches."
     },
     {
-        id: 3,
+        id: 7,
         type: 'content',
         moduleNum: 1,
         moduleTitle: "Feature 1: Biometric Verification Node",
@@ -262,7 +262,7 @@ const slidesData = [
         speakerNotes: "Biometric check-in eliminates identity errors and removes entry bottlenecks before dialyzer hookup."
     },
     {
-        id: 4,
+        id: 8,
         type: 'content',
         moduleNum: 1,
         moduleTitle: "Feature 1: Biometric Verification Node",
@@ -279,7 +279,7 @@ const slidesData = [
         speakerNotes: "The node can run on lightweight ESP32 microcontrollers or connect to AWS IoT Core and Azure IoT Hub for enterprise fleet management."
     },
     {
-        id: 5,
+        id: 9,
         type: 'content',
         moduleNum: 1,
         moduleTitle: "Feature 1: Biometric Verification Node",
@@ -300,7 +300,7 @@ const slidesData = [
     // FEATURE 2: NURSE OPERATIONS TERMINAL (SLIDES 7 - 10)
     // ----------------------------------------------------
     {
-        id: 6,
+        id: 10,
         type: 'content',
         moduleNum: 2,
         moduleTitle: "Feature 2: Nurse Operations Terminal",
@@ -317,7 +317,7 @@ const slidesData = [
         speakerNotes: "The Nurse Terminal provides a touch interface that works offline-first, automatically structuring data into HL7 FHIR v4."
     },
     {
-        id: 7,
+        id: 11,
         type: 'content',
         moduleNum: 2,
         moduleTitle: "Feature 2: Nurse Operations Terminal",
@@ -334,7 +334,7 @@ const slidesData = [
         speakerNotes: "By reducing documentation time by 80%, nurses regain critical time for direct patient monitoring."
     },
     {
-        id: 8,
+        id: 12,
         type: 'content',
         moduleNum: 2,
         moduleTitle: "Feature 2: Nurse Operations Terminal",
@@ -351,7 +351,7 @@ const slidesData = [
         speakerNotes: "The terminal builds on Next.js PWAs and integrates with Azure Health Data Services or AWS HealthLake."
     },
     {
-        id: 9,
+        id: 13,
         type: 'content',
         moduleNum: 2,
         moduleTitle: "Feature 2: Nurse Operations Terminal",
@@ -372,7 +372,7 @@ const slidesData = [
     // FEATURE 3: PER-PATIENT CDSS (SLIDES 11 - 14)
     // ----------------------------------------------------
     {
-        id: 10,
+        id: 14,
         type: 'content',
         moduleNum: 3,
         moduleTitle: "Feature 3: Per-Patient CDSS Engine",
@@ -389,7 +389,7 @@ const slidesData = [
         speakerNotes: "Feature 3 uses real-time machine learning to predict hypotensive crashes up to 30 minutes before vascular collapse occurs."
     },
     {
-        id: 11,
+        id: 15,
         type: 'content',
         moduleNum: 3,
         moduleTitle: "Feature 3: Per-Patient CDSS Engine",
@@ -406,7 +406,7 @@ const slidesData = [
         speakerNotes: "A 30-minute warning window enables proactive ultrafiltration adjustments, preventing acute hypotensive shocks."
     },
     {
-        id: 12,
+        id: 16,
         type: 'content',
         moduleNum: 3,
         moduleTitle: "Feature 3: Per-Patient CDSS Engine",
@@ -424,7 +424,7 @@ const slidesData = [
         speakerNotes: "DiaClinic's cloud ML architecture aligns with Fresenius Medical Care's AWS production design for real-time dialysis analytics."
     },
     {
-        id: 13,
+        id: 17,
         type: 'content',
         moduleNum: 3,
         moduleTitle: "Feature 3: Per-Patient CDSS Engine",
@@ -445,7 +445,7 @@ const slidesData = [
     // FEATURE 4: WARD ANOMALY ENGINE (SLIDES 15 - 18)
     // ----------------------------------------------------
     {
-        id: 14,
+        id: 18,
         type: 'content',
         moduleNum: 4,
         moduleTitle: "Feature 4: Ward Anomaly Engine",
@@ -462,7 +462,7 @@ const slidesData = [
         speakerNotes: "Feature 4 evaluates cross-bed variance in real time to catch water purification or dialysate mixing errors."
     },
     {
-        id: 15,
+        id: 19,
         type: 'content',
         moduleNum: 4,
         moduleTitle: "Feature 4: Ward Anomaly Engine",
@@ -479,7 +479,7 @@ const slidesData = [
         speakerNotes: "Replaces bedside isolation with ward-wide telemetry oversight, alerting clinical directors within 60 seconds."
     },
     {
-        id: 16,
+        id: 20,
         type: 'content',
         moduleNum: 4,
         moduleTitle: "Feature 4: Ward Anomaly Engine",
@@ -496,7 +496,7 @@ const slidesData = [
         speakerNotes: "Runs on AWS Greengrass or Azure IoT Edge with Apache Flink stream analytics for instant cluster alerts."
     },
     {
-        id: 17,
+        id: 21,
         type: 'content',
         moduleNum: 4,
         moduleTitle: "Feature 4: Ward Anomaly Engine",
@@ -517,7 +517,7 @@ const slidesData = [
     // FEATURE 5: SENSOR INFUSION TELEMETRY (SLIDES 19 - 22)
     // ----------------------------------------------------
     {
-        id: 18,
+        id: 22,
         type: 'content',
         moduleNum: 5,
         moduleTitle: "Feature 5: Sensor Infusion Telemetry",
@@ -534,7 +534,7 @@ const slidesData = [
         speakerNotes: "Feature 5 uses physical strain-gauge load cells on IV poles to track infusion mass loss continuously."
     },
     {
-        id: 19,
+        id: 23,
         type: 'content',
         moduleNum: 5,
         moduleTitle: "Feature 5: Sensor Infusion Telemetry",
@@ -551,7 +551,7 @@ const slidesData = [
         speakerNotes: "Catches IV flow occlusions immediately, preventing line stalls and empty bag incidents."
     },
     {
-        id: 20,
+        id: 24,
         type: 'content',
         moduleNum: 5,
         moduleTitle: "Feature 5: Sensor Infusion Telemetry",
@@ -568,7 +568,7 @@ const slidesData = [
         speakerNotes: "Combines 24-bit HX711 ADCs with ESP32 microcontrollers, routing MQTT telemetry to AWS Device Shadows or local buzzers."
     },
     {
-        id: 21,
+        id: 25,
         type: 'content',
         moduleNum: 5,
         moduleTitle: "Feature 5: Sensor Infusion Telemetry",
@@ -589,7 +589,7 @@ const slidesData = [
     // FEATURE 6: MEDGEMMA PRESCRIPTION AUDITOR (SLIDES 23 - 26)
     // ----------------------------------------------------
     {
-        id: 22,
+        id: 26,
         type: 'content',
         moduleNum: 6,
         moduleTitle: "Feature 6: MedGemma Prescription Auditor",
@@ -606,7 +606,7 @@ const slidesData = [
         speakerNotes: "Feature 6 integrates MedGemma—a clinical AI auditor that checks proposed prescriptions against lab panels and medical codes."
     },
     {
-        id: 23,
+        id: 27,
         type: 'content',
         moduleNum: 6,
         moduleTitle: "Feature 6: MedGemma Prescription Auditor",
@@ -623,7 +623,7 @@ const slidesData = [
         speakerNotes: "Prevents toxic drug accumulation in kidney failure patients by auditing 100% of prescriptions against lab values."
     },
     {
-        id: 24,
+        id: 28,
         type: 'content',
         moduleNum: 6,
         moduleTitle: "Feature 6: MedGemma Prescription Auditor",
@@ -640,7 +640,7 @@ const slidesData = [
         speakerNotes: "Deployable on GCP Vertex AI, Azure OpenAI Healthcare, or locally on hospital GPU servers via vLLM."
     },
     {
-        id: 25,
+        id: 29,
         type: 'content',
         moduleNum: 6,
         moduleTitle: "Feature 6: MedGemma Prescription Auditor",
@@ -661,7 +661,7 @@ const slidesData = [
     // SYSTEM SUMMARY & DEPLOYMENT (SLIDES 27 - 28)
     // ----------------------------------------------------
     {
-        id: 26,
+        id: 30,
         type: 'content',
         moduleNum: 7,
         moduleTitle: "System Infrastructure & Targets",
@@ -678,7 +678,7 @@ const slidesData = [
         speakerNotes: "DiaClinic combines edge resilience with cloud synchronization, delivering 100% floor uptime and 80% documentation savings."
     },
     {
-        id: 27,
+        id: 31,
         type: 'content',
         moduleNum: 8,
         moduleTitle: "7-Tier Architecture Dependency Graph",
@@ -695,7 +695,7 @@ const slidesData = [
         speakerNotes: "The 7-level dependency graph maps how smart biometric access flows through FHIR conversion, CDSS, and MedGemma fine-tuning."
     },
     {
-        id: 28,
+        id: 32,
         type: 'outro',
         title: "DiaClinic System Prototype & Summary",
         subtitle: "Interactive Prototype & Clinical Deployment Ready"
@@ -842,7 +842,7 @@ export default function Presentation() {
                                     {slide.moduleTitle}
                                 </span>
                                 <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.78rem', color: '#64748B' }}>
-                                    SLIDE {slide.id + 1} OF {slidesData.length}
+                                    SLIDE {currentSlide + 1} OF {slidesData.length}
                                 </span>
                             </div>
                             <div style={{
