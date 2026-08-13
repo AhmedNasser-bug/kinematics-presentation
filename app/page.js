@@ -17,6 +17,7 @@ const NationalStatsCards = dynamic(() => import('../components/charts/NationalSt
 const ClericalFrictionCards = dynamic(() => import('../components/charts/ClericalFrictionCards'), { ssr: false });
 const OutbreakCaseComparison = dynamic(() => import('../components/charts/OutbreakCaseComparison'), { ssr: false });
 const MermaidDependencyGraph = dynamic(() => import('../components/charts/MermaidDependencyGraph'), { ssr: false });
+const ECGHeartbeatMonitor = dynamic(() => import('../components/ECGHeartbeatMonitor'), { ssr: false });
 
 /**
  * Custom crosshair cursor.
@@ -813,6 +814,9 @@ export default function Presentation() {
                                 DiaClinic Specification
                             </div>
                         </div>
+
+                        {/* Prominent Real-Time Animated ECG Heartbeat Monitor Strip */}
+                        <ECGHeartbeatMonitor />
 
                         {/* Split Content Area - Widened 6:6 layout for max comfort */}
                         <div style={{ display: 'flex', flexGrow: 1, gap: '36px', overflow: 'hidden', minHeight: 0 }}>

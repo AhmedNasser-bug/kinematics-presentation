@@ -3,7 +3,7 @@
 :root {
   --color-primary:    #4338CA;
   --color-primary-light: #6366F1;
-  --color-background: #0B1329;
+  --color-background: #F8FAFC;
   --color-surface:    #FFFFFF;
   --color-text:       #0F172A;
   --color-muted:      #64748B;
@@ -19,8 +19,8 @@
   --radius-md:   12px;
   --radius-lg:   16px;
   
-  --shadow-subtle: 0 20px 50px -10px rgba(15, 23, 42, 0.15), 0 0 0 1px rgba(0, 0, 0, 0.05);
-  --shadow-card:   0 4px 20px -4px rgba(15, 23, 42, 0.08);
+  --shadow-subtle: 0 20px 50px -10px rgba(15, 23, 42, 0.08), 0 0 0 1px rgba(0, 0, 0, 0.04);
+  --shadow-card:   0 4px 20px -4px rgba(15, 23, 42, 0.06);
 
   --spacing-sm:  8px;
   --spacing-md:  16px;
@@ -43,17 +43,17 @@ html, body {
 body {
   font-family: var(--font-body);
   font-size: 16px;
-  background-color: var(--color-background);
+  background-color: #F8FAFC;
   color: var(--color-text);
   display: flex;
   justify-content: center;
   align-items: center;
 
-  /* Subtle dark grid background */
-  background-size: 28px 28px;
+  /* Clean light grid background */
+  background-size: 32px 32px;
   background-image:
-    linear-gradient(to right,  rgba(226, 232, 240, 0.08) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(226, 232, 240, 0.08) 1px, transparent 1px);
+    linear-gradient(to right,  rgba(203, 213, 225, 0.35) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(203, 213, 225, 0.35) 1px, transparent 1px);
 }
 
 /* ── Headings ───────────────────────────────────────────────────── */
