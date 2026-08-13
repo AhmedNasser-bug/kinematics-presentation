@@ -7,33 +7,33 @@ export default function ClericalFrictionCards() {
             number: "1.6 MILLION",
             label: "Active Medication Errors",
             subtext: "Discrepancies in national dialysis units driven by paper polypharmacy",
-            color: "#EF4444",
-            bg: "#FEF2F2",
-            border: "#FECACA"
+            color: "#F43F5E",
+            bg: "#0F172A",
+            border: "rgba(244, 63, 94, 0.3)"
         },
         {
             number: "~25 MINS",
             label: "Paperwork Overhead",
             subtext: "Spent per nurse per 4-hour session (>30% shift time stolen from care)",
-            color: "#D97706",
-            bg: "#FFFBEB",
-            border: "#FDE68A"
+            color: "#FBBF24",
+            bg: "#0F172A",
+            border: "rgba(251, 191, 36, 0.3)"
         },
         {
             number: "33.3%",
             label: "HCV Exposure Risk",
             subtext: "Dialysis population positive for Hepatitis C antibodies requiring strict isolation",
-            color: "#4338CA",
-            bg: "#EEF2FF",
-            border: "#C7D2FE"
+            color: "#38BDF8",
+            bg: "#0F172A",
+            border: "rgba(56, 189, 248, 0.3)"
         },
         {
             number: "60 RECURRENCES",
             label: "Unrecorded Water Neglect",
             subtext: "Chlorine/chloramine neglect occurrences at single unit hidden by paper logs",
-            color: "#DC2626",
-            bg: "#FEF2F2",
-            border: "#FCA5A5"
+            color: "#FB7185",
+            bg: "#0F172A",
+            border: "rgba(251, 113, 133, 0.3)"
         }
     ];
 
@@ -54,8 +54,18 @@ export default function ClericalFrictionCards() {
                     display: 'flex',
                     flexDirection: 'column',
                     justifyContent: 'center',
-                    boxShadow: '0 4px 16px rgba(15, 23, 42, 0.03)'
+                    boxShadow: '0 8px 24px rgba(0, 0, 0, 0.3)',
+                    position: 'relative',
+                    overflow: 'hidden'
                 }}>
+                    <div style={{
+                        position: 'absolute',
+                        top: 0,
+                        left: 0,
+                        right: 0,
+                        height: '3px',
+                        background: s.color
+                    }} />
                     <div style={{
                         fontSize: 'clamp(2rem, 3.2vw, 2.7rem)',
                         fontWeight: 900,
@@ -69,14 +79,14 @@ export default function ClericalFrictionCards() {
                     <div style={{
                         fontSize: '1.05rem',
                         fontWeight: 700,
-                        color: '#0F172A',
+                        color: '#F8FAFC',
                         marginBottom: '6px'
                     }}>
                         {s.label}
                     </div>
                     <div style={{
-                        fontSize: '0.82rem',
-                        color: '#475569',
+                        fontSize: '0.85rem',
+                        color: '#94A3B8',
                         lineHeight: 1.4
                     }}>
                         {s.subtext}

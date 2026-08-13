@@ -50,7 +50,7 @@ function CustomCursor() {
 }
 
 /**
- * Parses markdown-style **bold** tags and converts them into neobrutalist yellow highlighted blocks.
+ * Parses markdown-style **bold** tags and converts them into sleek dark-mode indigo highlighted pills.
  */
 function highlightText(text) {
     if (!text) return "";
@@ -59,15 +59,15 @@ function highlightText(text) {
         if (idx % 2 === 1) {
             return (
                 <strong key={idx} style={{ 
-                    background: '#FDE047', 
-                    color: '#171717', 
-                    padding: '2px 6px', 
-                    border: '1.5px solid #171717', 
+                    background: 'rgba(129, 140, 248, 0.15)', 
+                    color: '#A5B4FC', 
+                    padding: '2px 8px', 
+                    border: '1px solid rgba(129, 140, 248, 0.35)', 
+                    borderRadius: '6px',
                     fontFamily: 'var(--font-heading)',
-                    fontWeight: 'bold',
-                    boxShadow: '1.5px 1.5px 0px #171717',
+                    fontWeight: '600',
                     display: 'inline-block',
-                    margin: '0 4px',
+                    margin: '0 3px',
                 }}>
                     {part}
                 </strong>
@@ -681,15 +681,15 @@ export default function Presentation() {
                     <div style={{ flexGrow: 1, display: 'flex', flexDirection: 'column', gap: '20px', height: '100%' }}>
                         <div>
                             <h2 style={{ marginBottom: '8px', fontSize: '0.85rem' }}>{slide.subtitle}</h2>
-                            <h1 style={{ margin: 0, fontSize: 'clamp(2rem, 3.5vw, 2.8rem)', fontWeight: '700', letterSpacing: '-0.02em', color: '#0F172A' }}>{slide.title}</h1>
+                            <h1 style={{ margin: 0, fontSize: 'clamp(2rem, 3.5vw, 2.8rem)', fontWeight: '700', letterSpacing: '-0.02em', color: '#F8FAFC' }}>{slide.title}</h1>
                             <div style={{ 
                                 marginTop: '16px', 
                                 padding: '14px 20px', 
-                                background: '#EEF2FF', 
+                                background: '#0F172A', 
                                 borderRadius: '10px',
-                                border: '1px solid #C7D2FE',
+                                border: '1px solid #1E293B',
                                 fontSize: '1.05rem',
-                                color: '#312E81',
+                                color: '#A5B4FC',
                                 fontWeight: '500',
                                 lineHeight: 1.5
                             }}>
@@ -705,11 +705,11 @@ export default function Presentation() {
                         }}>
                             {slide.modules.map((mod, idx) => (
                                 <div key={idx} style={{
-                                    background: '#FFFFFF',
-                                    border: '1px solid #E2E8F0',
+                                    background: '#0F172A',
+                                    border: '1px solid #1E293B',
                                     borderRadius: '12px',
                                     padding: '20px',
-                                    boxShadow: '0 4px 12px rgba(15, 23, 42, 0.04)',
+                                    boxShadow: '0 8px 24px rgba(0, 0, 0, 0.3)',
                                     display: 'flex',
                                     flexDirection: 'column',
                                     gap: '10px'
@@ -717,19 +717,20 @@ export default function Presentation() {
                                     <div style={{
                                         fontFamily: 'var(--font-mono)',
                                         fontSize: '0.75rem',
-                                        background: '#EEF2FF',
-                                        color: '#4338CA',
+                                        background: 'rgba(129, 140, 248, 0.12)',
+                                        color: '#818CF8',
                                         padding: '4px 10px',
                                         alignSelf: 'flex-start',
                                         fontWeight: '600',
-                                        borderRadius: '6px'
+                                        borderRadius: '6px',
+                                        border: '1px solid rgba(129, 140, 248, 0.3)'
                                     }}>
                                         Section 0{idx + 1}
                                     </div>
                                     <div style={{
                                         fontSize: '1.15rem',
                                         fontWeight: '700',
-                                        color: '#0F172A',
+                                        color: '#F8FAFC',
                                         lineHeight: 1.3
                                     }}>
                                         {mod.title}
@@ -744,7 +745,7 @@ export default function Presentation() {
                                         {mod.slides.map((s, sIdx) => (
                                             <li key={sIdx} style={{
                                                 fontSize: '0.92rem',
-                                                color: '#475569',
+                                                color: '#94A3B8',
                                                 fontWeight: '500',
                                                 lineHeight: 1.4
                                             }}>
@@ -763,30 +764,30 @@ export default function Presentation() {
                     <div style={{ flexGrow: 1, display: 'flex', flexDirection: 'column', height: '100%', gap: '16px' }}>
                         
                         {/* Slide Header */}
-                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid #E2E8F0', paddingBottom: '12px' }}>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid #1E293B', paddingBottom: '12px' }}>
                             <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
                                 <span style={{
                                     fontFamily: 'var(--font-mono)',
                                     fontSize: '0.72rem',
-                                    background: '#EEF2FF',
-                                    color: '#4338CA',
+                                    background: 'rgba(129, 140, 248, 0.12)',
+                                    color: '#818CF8',
                                     padding: '4px 10px',
                                     borderRadius: '6px',
                                     fontWeight: '600',
-                                    border: '1px solid #C7D2FE'
+                                    border: '1px solid rgba(129, 140, 248, 0.3)'
                                 }}>
                                     {slide.moduleTitle}
                                 </span>
-                                <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.78rem', color: '#64748B' }}>
+                                <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.78rem', color: '#94A3B8' }}>
                                     SLIDE {slide.id + 1} OF {slidesData.length}
                                 </span>
                             </div>
                             <div style={{
                                 fontFamily: 'var(--font-mono)',
                                 fontSize: '0.75rem',
-                                color: '#475569',
-                                background: '#F8FAFC',
-                                border: '1px solid #E2E8F0',
+                                color: '#94A3B8',
+                                background: '#0F172A',
+                                border: '1px solid #1E293B',
                                 borderRadius: '6px',
                                 padding: '4px 10px',
                                 fontWeight: '500'
@@ -806,26 +807,27 @@ export default function Presentation() {
                                         fontSize: 'clamp(1.5rem, 2.5vw, 2.2rem)',
                                         lineHeight: 1.25,
                                         fontWeight: 700,
-                                        color: '#0F172A'
+                                        color: '#F8FAFC'
                                     }}>
                                         {slide.title}
                                     </h1>
                                     
-                                    {/* Key Points formatted with clean rounded cards */}
+                                    {/* Key Points formatted with clean rounded dark cards */}
                                     <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
                                         {slide.keyPoints.map((pt, idx) => (
                                             <div key={idx} style={{
                                                 display: 'flex',
                                                 gap: '14px',
                                                 alignItems: 'flex-start',
-                                                background: '#F8FAFC',
-                                                border: '1px solid #E2E8F0',
+                                                background: '#0F172A',
+                                                border: '1px solid #1E293B',
                                                 borderRadius: '10px',
-                                                padding: '14px 18px'
+                                                padding: '14px 18px',
+                                                boxShadow: '0 4px 16px rgba(0,0,0,0.2)'
                                             }}>
                                                 <span style={{
-                                                    background: '#EEF2FF',
-                                                    color: '#4338CA',
+                                                    background: 'rgba(129, 140, 248, 0.15)',
+                                                    color: '#818CF8',
                                                     width: '22px',
                                                     height: '22px',
                                                     borderRadius: '50%',
@@ -837,14 +839,14 @@ export default function Presentation() {
                                                     fontWeight: 'bold',
                                                     flexShrink: 0,
                                                     marginTop: '2px',
-                                                    border: '1px solid #C7D2FE'
+                                                    border: '1px solid rgba(129, 140, 248, 0.3)'
                                                 }}>
                                                     ✓
                                                 </span>
                                                 <span style={{
-                                                    fontSize: 'clamp(1rem, 1.6vw, 1.18rem)',
+                                                    fontSize: 'clamp(0.95rem, 1.5vw, 1.12rem)',
                                                     lineHeight: 1.5,
-                                                    color: '#334155',
+                                                    color: '#CBD5E1',
                                                     fontWeight: 400
                                                 }}>
                                                     {highlightText(pt)}
@@ -858,15 +860,15 @@ export default function Presentation() {
                                 <div style={{
                                     fontFamily: 'var(--font-mono)',
                                     fontSize: '0.72rem',
-                                    background: '#F1F5F9',
-                                    color: '#475569',
-                                    border: '1px solid #E2E8F0',
+                                    background: '#0F172A',
+                                    color: '#94A3B8',
+                                    border: '1px solid #1E293B',
                                     borderRadius: '8px',
                                     padding: '8px 14px',
                                     marginTop: '16px',
                                     lineHeight: 1.4
                                 }}>
-                                    <span style={{ fontWeight: '600', color: '#312E81' }}>Asset Spec:</span> {slide.assetSpec}
+                                    <span style={{ fontWeight: '600', color: '#818CF8' }}>Asset Spec:</span> {slide.assetSpec}
                                 </div>
                             </div>
 
