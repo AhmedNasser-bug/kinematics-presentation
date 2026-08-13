@@ -58,7 +58,7 @@ export default function DocumentationTimeChart() {
                 {/* DiaClinic Digital Bar */}
                 <div style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', height: '100%', justifyContent: 'flex-end' }}>
                     <div style={{ fontSize: '1rem', fontWeight: 800, color: '#10B981', marginBottom: '8px' }}>
-                        &lt; 4.8 Mins
+                        {"< 4.8 Mins"}
                     </div>
                     <div style={{
                         width: '100%',

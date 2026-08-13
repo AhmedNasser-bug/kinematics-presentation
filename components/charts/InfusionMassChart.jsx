@@ -66,20 +66,13 @@ export default function InfusionMassChart() {
             </div>
 
             {/* Infusion Telemetry Summary */}
-            <div style={{
-                display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '12px',
-                background: '#F8FAFC', padding: '12px', borderRadius: '8px', border: '1px solid #E2E8F0'
-            }}>
-                <div style={{ textAlign: 'center' }}>
-                    <div style={{ fontSize: '0.7rem', color: '#64748B' }}>Sampling Rate</div>
-                    <div style={{ fontSize: '0.95rem', fontWeight: 700, color: '#4338CA' }}>5 Hz Continuous</div>
+            <div style={{ background: '#FEF2F2', border: '1px solid #FECACA', borderRadius: '8px', padding: '10px 14px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <div>
+                    <div style={{ fontSize: '0.78rem', fontWeight: 700, color: '#991B1B' }}>Flow Stall Alarm Latency</div>
+                    <div style={{ fontSize: '0.72rem', color: '#B91C1C' }}>Physical strain gauge load cell telemetry audio-visual alert</div>
                 </div>
-                <div style={{ textAlign: 'center', borderLeft: '1px solid #CBD5E1', borderRight: '1px solid #CBD5E1' }}>
-                    <div style={{ fontSize: '0.7rem', color: '#64748B' }}>Alarm Latency</div>
-                    <div style={{ fontSize: '0.95rem', fontWeight: 700, color: '#EF4444' }}>&lt; 3.0 Seconds</div>
-                </div>
-                <div style={{ textAlign: 'center' }}>
-                    <div style={{ fontSize: '0.7rem', color: '#64748B' }}>Hardware Sensor</div>
+                <div style={{ textAlign: 'right' }}>
+                    <div style={{ fontSize: '0.95rem', fontWeight: 700, color: '#EF4444' }}>{"< 3.0 Seconds"}</div>
                     <div style={{ fontSize: '0.95rem', fontWeight: 700, color: '#0F172A' }}>24-Bit HX711 ADC</div>
                 </div>
             </div>

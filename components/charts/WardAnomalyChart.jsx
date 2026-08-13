@@ -25,60 +25,53 @@ export default function WardAnomalyChart() {
                         Cross-Station Statistical Variance (60-Second Window)
                     </p>
                 </div>
-                <span style={{
-                    background: '#FEF2F2', color: '#DC2626',
-                    border: '1px solid #FECACA', borderRadius: '20px',
-                    padding: '4px 12px', fontSize: '0.75rem', fontWeight: 700
-                }}>
-                    &lt; 60s Anomaly Trigger
+                <span style={{ fontSize: '0.78rem', color: '#DC2626', background: '#FEF2F2', border: '1px solid #FECACA', padding: '4px 10px', borderRadius: '6px', fontWeight: '700' }}>
+                    {"< 60s Anomaly Trigger"}
                 </span>
             </div>
 
-            {/* Simulated Real-Time Conductivity Line Chart */}
-            <div style={{ position: 'relative', height: '160px', marginTop: '12px' }}>
-                <svg viewBox="0 0 500 150" style={{ width: '100%', height: '100%', overflow: 'visible' }}>
-                    {/* Baseline Grid lines */}
-                    <line x1="0" y1="120" x2="500" y2="120" stroke="#E2E8F0" strokeDasharray="4" />
-                    <line x1="0" y1="75" x2="500" y2="75" stroke="#E2E8F0" strokeDasharray="4" />
-                    <line x1="0" y1="30" x2="500" y2="30" stroke="#FCA5A5" strokeDasharray="4" />
+            {/* Simulated Anomaly Telemetry Chart */}
+            <div style={{ position: 'relative', width: '100%', height: '220px', background: '#FAFAFA', borderRadius: '8px', border: '1px solid #F1F5F9', padding: '10px' }}>
+                <svg width="100%" height="100%" viewBox="0 0 500 200" style={{ overflow: 'visible' }}>
+                    {/* Grid lines */}
+                    <line x1="40" y1="40" x2="480" y2="40" stroke="#F1F5F9" strokeWidth="1" />
+                    <line x1="40" y1="90" x2="480" y2="90" stroke="#F1F5F9" strokeWidth="1" />
+                    <line x1="40" y1="140" x2="480" y2="140" stroke="#F1F5F9" strokeWidth="1" />
 
-                    {/* Threshold Label */}
-                    <text x="5" y="24" fill="#DC2626" fontSize="10" fontWeight="bold">RO Failure Threshold (0.1 mg/L Chloramine / High EC Spike)</text>
-
-                    {/* Normal Conductivity Line (Beds 1-8) */}
-                    <path
-                        d="M 0 115 Q 60 118 120 114 T 240 116 T 300 114"
-                        fill="none" stroke="#10B981" strokeWidth="2.5"
+                    {/* Baseline Normal Ward Conductivity */}
+                    <polyline
+                        fill="none"
+                        stroke="#10B981"
+                        strokeWidth="2"
+                        points="40,140 100,138 160,142 220,139 280,140 340,141 400,139 480,140"
                     />
 
-                    {/* Anomaly Spike Line (Cross-bed outbreak) */}
-                    <path
-                        d="M 300 114 Q 330 110 360 40 T 420 25 T 500 20"
-                        fill="none" stroke="#DC2626" strokeWidth="3"
+                    {/* Contaminated Loop Spike */}
+                    <polyline
+                        fill="none"
+                        stroke="#DC2626"
+                        strokeWidth="2.5"
+                        strokeDasharray="4,4"
+                        points="40,140 100,138 160,142 220,139 280,140 320,60 370,45 420,40 480,42"
                     />
 
-                    {/* Trigger Point Circle */}
-                    <circle cx="360" cy="40" r="6" fill="#DC2626" />
-                    <text x="370" y="44" fill="#DC2626" fontSize="11" fontWeight="bold">Alert Trigger (&lt;60s)</text>
+                    {/* Threshold Line */}
+                    <line x1="40" y1="75" x2="480" y2="75" stroke="#F59E0B" strokeWidth="1.5" strokeDasharray="6,4" />
+                    <text x="45" y="70" fill="#D97706" fontSize="10" fontWeight="bold">Ward Safety Threshold (Z-Score &gt; 3.0)</text>
+
+                    {/* Anomaly Trigger Circle */}
+                    <circle cx="320" cy="60" r="6" fill="#DC2626" />
+                    <text x="330" y="55" fill="#DC2626" fontSize="11" fontWeight="bold">Alert Trigger ({"<60s"})</text>
                 </svg>
             </div>
 
-            {/* Anomaly Metric Breakdown */}
-            <div style={{
-                display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '12px',
-                background: '#F8FAFC', padding: '12px', borderRadius: '8px', border: '1px solid #E2E8F0'
-            }}>
-                <div style={{ textAlign: 'center' }}>
-                    <div style={{ fontSize: '0.7rem', color: '#64748B' }}>Cluster Response</div>
-                    <div style={{ fontSize: '0.95rem', fontWeight: 700, color: '#DC2626' }}>&lt; 60 Seconds</div>
+            <div style={{ background: '#FEF2F2', border: '1px solid #FECACA', borderRadius: '8px', padding: '10px 14px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <div>
+                    <div style={{ fontSize: '0.78rem', fontWeight: 700, color: '#991B1B' }}>Multi-Station Cluster Detection</div>
+                    <div style={{ fontSize: '0.72rem', color: '#B91C1C' }}>Simultaneous conductivity drift across ≥ 3 machines triggers ward lockout</div>
                 </div>
-                <div style={{ textAlign: 'center', borderLeft: '1px solid #CBD5E1', borderRight: '1px solid #CBD5E1' }}>
-                    <div style={{ fontSize: '0.7rem', color: '#64748B' }}>RO Outbreak Risk</div>
-                    <div style={{ fontSize: '0.95rem', fontWeight: 700, color: '#10B981' }}>100% Intercepted</div>
-                </div>
-                <div style={{ textAlign: 'center' }}>
-                    <div style={{ fontSize: '0.7rem', color: '#64748B' }}>Ward Scope</div>
-                    <div style={{ fontSize: '0.95rem', fontWeight: 700, color: '#4338CA' }}>All Active Beds</div>
+                <div style={{ textAlign: 'right' }}>
+                    <div style={{ fontSize: '0.95rem', fontWeight: 700, color: '#DC2626' }}>{"< 60 Seconds"}</div>
                 </div>
             </div>
         </div>
