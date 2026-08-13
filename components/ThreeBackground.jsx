@@ -2,17 +2,6 @@
 import { useEffect, useRef } from "react";
 import * as THREE from "three";
 
-const BRAND = {
-  primary: 0x3730a3,
-  accent:  0xc7d2fe,
-  grid:    0xe0e7ff,
-  dark:    0x171717,
-};
-
-const NODE_COUNT   = 60;
-const LINK_DIST    = 3.2;
-const SPEED        = 0.0012;
-
 export default function ThreeBackground() {
   const mountRef = useRef(null);
 
@@ -28,153 +17,104 @@ export default function ThreeBackground() {
     mount.appendChild(renderer.domElement);
 
     /* ── Scene / Camera ─────────────────────────────────────────── */
-    const scene  = new THREE.Scene();
+    const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 200);
-    camera.position.set(0, 0, 18);
+    camera.position.set(0, 0, 16);
 
-    /* ── Coordinate-grid helper (XY plane) ──────────────────────── */
+    /* ── Subtle Background Grid Lines ───────────────────────────── */
     const gridGeo = new THREE.BufferGeometry();
-    const step = 2, halfW = 26, halfH = 16;
+    const step = 2, halfW = 28, halfH = 18;
     const gridVerts = [];
     for (let x = -halfW; x <= halfW; x += step) {
-      gridVerts.push(x, -halfH, -8, x, halfH, -8);
+      gridVerts.push(x, -halfH, -5, x, halfH, -5);
     }
     for (let y = -halfH; y <= halfH; y += step) {
-      gridVerts.push(-halfW, y, -8, halfW, y, -8);
+      gridVerts.push(-halfW, y, -5, halfW, y, -5);
     }
     gridGeo.setAttribute("position", new THREE.Float32BufferAttribute(gridVerts, 3));
-    const gridMat = new THREE.LineBasicMaterial({ color: BRAND.grid, transparent: true, opacity: 0.22 });
+    const gridMat = new THREE.LineBasicMaterial({ color: 0xc7d2fe, transparent: true, opacity: 0.15 });
     scene.add(new THREE.LineSegments(gridGeo, gridMat));
 
-    /* ── Floating nodes ─────────────────────────────────────────── */
-    const nodeGeo = new THREE.SphereGeometry(0.10, 8, 8);
-    const nodeMat = new THREE.MeshBasicMaterial({ color: BRAND.primary });
-    const accentMat = new THREE.MeshBasicMaterial({ color: BRAND.accent });
+    /* ── Animated Heartbeat / ECG Waveform Line ─────────────────── */
+    const POINT_COUNT = 300;
+    const width = 36;
+    const ecgPositions = new Float32Array(POINT_COUNT * 3);
 
-    const nodes   = [];
-    const meshes  = [];
-    const spread  = { x: 26, y: 16, z: 10 };
-
-    for (let i = 0; i < NODE_COUNT; i++) {
-      const pos = new THREE.Vector3(
-        (Math.random() - 0.5) * spread.x * 2,
-        (Math.random() - 0.5) * spread.y * 2,
-        (Math.random() - 0.5) * spread.z,
-      );
-      const vel = new THREE.Vector3(
-        (Math.random() - 0.5) * SPEED * 2,
-        (Math.random() - 0.5) * SPEED * 2,
-        (Math.random() - 0.5) * SPEED * 0.5,
-      );
-      const isAccent = Math.random() < 0.25;
-      const mesh = new THREE.Mesh(nodeGeo, isAccent ? accentMat : nodeMat);
-      mesh.scale.setScalar(isAccent ? 1.8 : 1.0);
-      mesh.position.copy(pos);
-      scene.add(mesh);
-      nodes.push({ pos, vel, isAccent });
-      meshes.push(mesh);
+    // Function to calculate ECG PQRST Y displacement for given X
+    function getECGY(x, phase) {
+      const normX = ((x + width / 2 + phase) % 12) - 6; // repeat every 12 units
+      if (normX > -5.5 && normX < -4.8) return 0.25 * Math.sin((normX + 5.5) / 0.7 * Math.PI); // P wave
+      if (normX > -4.5 && normX < -4.2) return -0.3; // Q dip
+      if (normX > -4.2 && normX < -3.6) return 2.8 * Math.sin((normX + 4.2) / 0.6 * Math.PI); // R spike
+      if (normX > -3.6 && normX < -3.3) return -0.6; // S dip
+      if (normX > -2.5 && normX < -1.5) return 0.45 * Math.sin((normX + 2.5) / 1.0 * Math.PI); // T wave
+      return 0;
     }
 
-    /* ── Dynamic link lines ─────────────────────────────────────── */
-    const MAX_LINKS  = 100;
-    const linesMat   = new THREE.LineBasicMaterial({ color: BRAND.primary, transparent: true, opacity: 0.18, vertexColors: false });
-    const linesGeo   = new THREE.BufferGeometry();
-    const lineVerts  = new Float32Array(MAX_LINKS * 6); // 2 verts × 3 components each
-    linesGeo.setAttribute("position", new THREE.BufferAttribute(lineVerts, 3));
-    linesGeo.setDrawRange(0, 0);
-    const linesMesh = new THREE.LineSegments(linesGeo, linesMat);
-    scene.add(linesMesh);
+    for (let i = 0; i < POINT_COUNT; i++) {
+      const x = (i / (POINT_COUNT - 1)) * width - width / 2;
+      ecgPositions[i * 3] = x;
+      ecgPositions[i * 3 + 1] = 0;
+      ecgPositions[i * 3 + 2] = 0;
+    }
 
-    /* ── Axis arrows (coordinate frame decoration) ──────────────── */
-    const arrowMats = [
-      new THREE.MeshBasicMaterial({ color: 0xef4444 }),   // X – red
-      new THREE.MeshBasicMaterial({ color: 0x22c55e }),   // Y – green
-      new THREE.MeshBasicMaterial({ color: 0x3730a3 }),   // Z – blue/indigo
-    ];
-    const arrowLen = 2.2, arrowR = 0.05;
-    const arrowCylGeo = new THREE.CylinderGeometry(arrowR, arrowR, arrowLen, 8);
-    const arrowTipGeo = new THREE.ConeGeometry(arrowR * 2.5, arrowLen * 0.25, 8);
-    const axes = [
-      { dir: new THREE.Euler(0, 0, -Math.PI / 2), offset: [arrowLen / 2, 0, 0] },
-      { dir: new THREE.Euler(0, 0, 0),             offset: [0, arrowLen / 2, 0] },
-      { dir: new THREE.Euler(Math.PI / 2, 0, 0),   offset: [0, 0, arrowLen / 2] },
-    ];
-    const origin = new THREE.Vector3(-10, -6, 2);
-    axes.forEach(({ dir, offset }, i) => {
-      const cyl = new THREE.Mesh(arrowCylGeo, arrowMats[i]);
-      cyl.rotation.copy(dir);
-      cyl.position.copy(origin).add(new THREE.Vector3(...offset));
-      scene.add(cyl);
+    const ecgGeo = new THREE.BufferGeometry();
+    ecgGeo.setAttribute("position", new THREE.BufferAttribute(ecgPositions, 3));
+    const ecgMat = new THREE.LineBasicMaterial({ color: 0x4338ca, linewidth: 3, transparent: true, opacity: 0.45 });
+    const ecgLine = new THREE.Line(ecgGeo, ecgMat);
+    ecgLine.position.set(0, -2, 0);
+    scene.add(ecgLine);
 
-      const tip = new THREE.Mesh(arrowTipGeo, arrowMats[i]);
-      tip.rotation.copy(dir);
-      tip.position.copy(origin).add(new THREE.Vector3(...offset.map((v, j) => j === i ? v + arrowLen * 0.62 : v)));
-      scene.add(tip);
-    });
+    /* Second Secondary Pulse Wave Line */
+    const ecgGeo2 = new THREE.BufferGeometry();
+    const ecgPositions2 = new Float32Array(POINT_COUNT * 3);
+    for (let i = 0; i < POINT_COUNT; i++) {
+      const x = (i / (POINT_COUNT - 1)) * width - width / 2;
+      ecgPositions2[i * 3] = x;
+      ecgPositions2[i * 3 + 1] = 0;
+      ecgPositions2[i * 3 + 2] = -2;
+    }
+    ecgGeo2.setAttribute("position", new THREE.BufferAttribute(ecgPositions2, 3));
+    const ecgMat2 = new THREE.LineBasicMaterial({ color: 0x6366f1, transparent: true, opacity: 0.25 });
+    const ecgLine2 = new THREE.Line(ecgGeo2, ecgMat2);
+    ecgLine2.position.set(0, 3, 0);
+    scene.add(ecgLine2);
 
-    /* ── Small floating "frame" cross markers ───────────────────── */
-    const crossMat = new THREE.LineBasicMaterial({ color: BRAND.primary, opacity: 0.5, transparent: true });
-    const crossPositions = [
-      [8, 4, 0], [-6, -4, 1], [3, -7, -1], [-9, 5, 0], [11, -2, 0.5],
-    ];
-    crossPositions.forEach(([cx, cy, cz]) => {
-      const cGeo = new THREE.BufferGeometry();
-      const cv = new Float32Array([
-        cx - 0.6, cy, cz, cx + 0.6, cy, cz,
-        cx, cy - 0.6, cz, cx, cy + 0.6, cz,
-      ]);
-      cGeo.setAttribute("position", new THREE.BufferAttribute(cv, 3));
-      scene.add(new THREE.LineSegments(cGeo, crossMat));
-    });
+    /* Glowing Heartbeat Lead Node Sphere */
+    const pulsePointGeo = new THREE.SphereGeometry(0.25, 16, 16);
+    const pulsePointMat = new THREE.MeshBasicMaterial({ color: 0xef4444 });
+    const pulsePoint = new THREE.Mesh(pulsePointGeo, pulsePointMat);
+    scene.add(pulsePoint);
 
-    /* ── Subtle background gradient plane ───────────────────────── */
-    const planeMat = new THREE.MeshBasicMaterial({
-      color: BRAND.accent, transparent: true, opacity: 0.04, side: THREE.DoubleSide,
-    });
-    const planeGeo = new THREE.PlaneGeometry(60, 40);
-    const plane = new THREE.Mesh(planeGeo, planeMat);
-    plane.position.z = -9;
-    scene.add(plane);
-
-    /* ── Animate ────────────────────────────────────────────────── */
+    /* ── Animation Loop ─────────────────────────────────────────── */
     let animId;
-    const half = { x: spread.x, y: spread.y, z: spread.z / 2 };
+    let phase = 0;
 
     function animate() {
       animId = requestAnimationFrame(animate);
+      phase += 0.04;
 
-      /* Move nodes */
-      nodes.forEach((n, i) => {
-        n.pos.addScaledVector(n.vel, 1);
-        if (Math.abs(n.pos.x) > half.x)  n.vel.x *= -1;
-        if (Math.abs(n.pos.y) > half.y)  n.vel.y *= -1;
-        if (Math.abs(n.pos.z) > half.z)  n.vel.z *= -1;
-        meshes[i].position.copy(n.pos);
-      });
+      const pos = ecgGeo.attributes.position;
+      const pos2 = ecgGeo2.attributes.position;
 
-      /* Rebuild link lines */
-      let linkCount = 0;
-      const pos = linesGeo.attributes.position;
-      outer: for (let a = 0; a < NODE_COUNT - 1; a++) {
-        for (let b = a + 1; b < NODE_COUNT; b++) {
-          if (nodes[a].pos.distanceTo(nodes[b].pos) < LINK_DIST) {
-            if (linkCount >= MAX_LINKS) break outer;
-            const base = linkCount * 6;
-            lineVerts[base]     = nodes[a].pos.x; lineVerts[base + 1] = nodes[a].pos.y; lineVerts[base + 2] = nodes[a].pos.z;
-            lineVerts[base + 3] = nodes[b].pos.x; lineVerts[base + 4] = nodes[b].pos.y; lineVerts[base + 5] = nodes[b].pos.z;
-            linkCount++;
-          }
-        }
+      for (let i = 0; i < POINT_COUNT; i++) {
+        const x = pos.getX(i);
+        const y = getECGY(x, phase);
+        pos.setY(i, y);
+
+        const x2 = pos2.getX(i);
+        const y2 = getECGY(x2, phase * 0.8) * 0.7;
+        pos2.setY(i, y2);
       }
-      pos.set(lineVerts);
-      pos.needsUpdate = true;
-      linesGeo.setDrawRange(0, linkCount * 2);
 
-      /* Gentle camera drift */
-      const t = Date.now() * 0.00008;
-      camera.position.x = Math.sin(t) * 1.2;
-      camera.position.y = Math.cos(t * 0.7) * 0.8;
-      camera.lookAt(0, 0, 0);
+      pos.needsUpdate = true;
+      pos2.needsUpdate = true;
+
+      // Position glowing red heartbeat dot at the peak of the wave
+      const leadIndex = Math.floor(((phase * 15) % POINT_COUNT));
+      const leadX = pos.getX(leadIndex);
+      const leadY = pos.getY(leadIndex);
+      pulsePoint.position.set(leadX, leadY - 2, 0.2);
 
       renderer.render(scene, camera);
     }

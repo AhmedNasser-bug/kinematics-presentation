@@ -12,9 +12,9 @@ export default function OutbreakCaseComparison() {
                 "Mid-dialysis BP spiked to 158/80 mmHg",
                 "30 patients suffered severe hypertension & new-onset atrial fibrillation"
             ],
-            color: "#F87171",
-            bg: "#0F172A",
-            border: "rgba(248, 113, 113, 0.3)"
+            color: "#DC2626",
+            bg: "#FEF2F2",
+            border: "#FCA5A5"
         },
         {
             title: "Chloramine Toxic Hemolysis Outbreak",
@@ -25,9 +25,9 @@ export default function OutbreakCaseComparison() {
                 "Transfusions spiked 3.25x (1.2 -> 3.9 units/pt/mo)",
                 "Hemoglobin collapsed down to 4.81 - 5.71 g/dL"
             ],
-            color: "#FB7185",
-            bg: "#0F172A",
-            border: "rgba(251, 113, 133, 0.3)"
+            color: "#B91C1C",
+            bg: "#FFF1F2",
+            border: "#FECDD3"
         }
     ];
 
@@ -49,25 +49,25 @@ export default function OutbreakCaseComparison() {
                     display: 'flex',
                     flexDirection: 'column',
                     justifyContent: 'space-between',
-                    boxShadow: '0 8px 24px rgba(0, 0, 0, 0.3)'
+                    boxShadow: '0 4px 14px rgba(15, 23, 42, 0.03)'
                 }}>
                     <div>
                         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '6px' }}>
                             <span style={{ fontSize: '1.1rem', fontWeight: 800, color: c.color }}>
                                 {c.title}
                             </span>
-                            <span style={{ fontSize: '0.72rem', fontFamily: 'var(--font-mono)', background: '#1E293B', padding: '3px 8px', borderRadius: '6px', border: `1px solid ${c.border}`, color: '#94A3B8' }}>
+                            <span style={{ fontSize: '0.72rem', fontFamily: 'var(--font-mono)', background: '#FFFFFF', padding: '3px 8px', borderRadius: '6px', border: `1px solid ${c.border}`, color: '#475569' }}>
                                 {c.location}
                             </span>
                         </div>
-                        <p style={{ margin: '0 0 12px 0', fontSize: '0.85rem', color: '#94A3B8', fontWeight: 500 }}>
-                            <strong style={{ color: '#F8FAFC' }}>Root Cause:</strong> {c.rootCause}
+                        <p style={{ margin: '0 0 12px 0', fontSize: '0.82rem', color: '#475569', fontWeight: 500 }}>
+                            <strong style={{ color: '#0F172A' }}>Root Cause:</strong> {c.rootCause}
                         </p>
                     </div>
 
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
                         {c.impacts.map((imp, iIdx) => (
-                            <div key={iIdx} style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '0.85rem', color: '#CBD5E1', fontWeight: 500 }}>
+                            <div key={iIdx} style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '0.82rem', color: '#334155', fontWeight: 600 }}>
                                 <span style={{ color: c.color }}>⚠</span>
                                 <span>{imp}</span>
                             </div>

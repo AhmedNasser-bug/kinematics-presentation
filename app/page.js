@@ -16,6 +16,7 @@ const HemodynamicsChart = dynamic(() => import('../components/charts/Hemodynamic
 const NationalStatsCards = dynamic(() => import('../components/charts/NationalStatsCards'), { ssr: false });
 const ClericalFrictionCards = dynamic(() => import('../components/charts/ClericalFrictionCards'), { ssr: false });
 const OutbreakCaseComparison = dynamic(() => import('../components/charts/OutbreakCaseComparison'), { ssr: false });
+const MermaidDependencyGraph = dynamic(() => import('../components/charts/MermaidDependencyGraph'), { ssr: false });
 
 /**
  * Custom crosshair cursor.
@@ -636,6 +637,23 @@ const slidesData = [
     },
     {
         id: 27,
+        type: 'content',
+        moduleNum: 8,
+        moduleTitle: "7-Tier Architecture Dependency Graph",
+        slideNum: 1,
+        title: "System Dependency Graph: 7-Level Architecture Flow",
+        assetSpec: "7-Level Architecture Dependency Map: Smart Access -> FHIR -> Dashboards -> AI Prescriptions -> Sensors -> MedGemma",
+        imageUrl: "/docs_images/Development_plan.png",
+        chartType: 'mermaidDep',
+        keyPoints: [
+            "**Level 1 & 2 (Smart Access & FHIR):** Biometric verification feeds bedside nurse terminal HL7 FHIR v4 conversion.",
+            "**Level 3 & 4 (Dashboards & CDSS):** Real-time nurse vitals entries drive XGBoost IDH prediction & physician trend analytics.",
+            "**Level 5, 6 & 7 (Prescriptions, Sensors & AI):** Medical decision support, IV load-cell weight telemetry, and MedGemma fine-tuning."
+        ],
+        speakerNotes: "The 7-level dependency graph maps how smart biometric access flows through FHIR conversion, CDSS, and MedGemma fine-tuning."
+    },
+    {
+        id: 28,
         type: 'outro',
         title: "DiaClinic System Prototype & Summary",
         subtitle: "Interactive Prototype & Clinical Deployment Ready"
@@ -897,6 +915,7 @@ export default function Presentation() {
                                 {slide.chartType === 'infusion' && <InfusionMassChart />}
                                 {slide.chartType === 'medgemma' && <MedGemmaAuditChart />}
                                 {slide.chartType === 'hemo' && <HemodynamicsChart />}
+                                {slide.chartType === 'mermaidDep' && <MermaidDependencyGraph />}
                                 {!slide.chartType && (
                                     <div style={{ width: '100%', height: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                                         {/* eslint-disable-next-line @next/next/no-img-element */}
