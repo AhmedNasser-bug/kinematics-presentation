@@ -1,0 +1,115 @@
+{
+  "metadata": {
+    "client": "Generic Client",
+    "project": "Digital Transformation",
+    "domain": "Business Operations",
+    "query": "clinical presentation diagram visualization best practices 2026",
+    "generated_at": "2026-08-13 06:44:47"
+  },
+  "research": [
+    {
+      "title": "ACM COMPUTE 2025 Best Practices Track Proceedings",
+      "url": "http://arxiv.org/abs/2512.02349v2",
+      "summary": "COMPUTE is an annual Indian conference supported by ACM India and iSIGCSE. The focus of COMPUTE is to improve the quality of computing education in the country by providing a platform for academicians and researchers to interact and share best practices in teaching, learning, and education in general.   The Best Practices Track of COMPUTE 2025 invited Computer Science Educators across the country to submit an experience report for the best practices under multiple categories: 1) Novel classroom activities, 2) Imaginative assignments that promote creativity and problem-solving, 3) Diverse pedagogical approaches (e.g., flipped classrooms, peer teaching, project-based learning), 4) Designing AI-resistant or AI-integrated assessment questions, and 5) Teaching CS to students from other disciplines (e.g., business, humanities, engineering).   These proceedings contain papers selected from these submissions for presentation at the conference, as well as a report (written by the editors) from the two best practices sessions where these were presented.",
+      "published": "2025-12-02",
+      "authors": [
+        "Ritwik Murali",
+        "Mrityunjay Kumar"
+      ],
+      "source": "ArXiv"
+    },
+    {
+      "title": "Neural at ArchEHR-QA 2026: One Method Fits All: Unified Prompt Optimization for Clinical QA over EHRs",
+      "url": "http://arxiv.org/abs/2605.10877v1",
+      "summary": "Automated question answering (QA) over electronic health records (EHRs) demands precise evidence retrieval, faithful answer generation, and explicit grounding of answers in clinical notes. In this work, we present Neural1.5, our method for the ArchEHR-QA 2026 shared task at CL4Health@LREC 2026, which comprises four subtasks: question interpretation, evidence identification, answer generation, and evidence alignment. Our approach decouples the task into independent, modular stages and employs DSPy\"s MIPROv2 optimizer to automatically discover high-performing prompts, jointly tuning instructions and few-shot demonstrations for each stage. Within every stage, self-consistency voting over multiple stochastic inference runs suppresses spurious errors and improves reliability, while stage-specific verification mechanisms (e.g., self-reflection and chain-of-verification for alignment) further refine output quality. Among all teams that participated in all four subtasks, our method ranks second overall (mean rank 4.00), placing 4th, 1st, 4th, and 7th on Subtasks 1-4, respectively. These results demonstrate that systematic, per-stage prompt optimization combined with self-consistency mechanisms is a cost-effective alternative to model fine-tuning for multifaceted clinical QA.",
+      "published": "2026-05-11",
+      "authors": [
+        "Abrar Majeedi",
+        "Viswanatha Reddy Gajjala",
+        "Sai Prasanna Teja Reddy Bogireddy",
+        "Siddhant Rai"
+      ],
+      "source": "ArXiv"
+    },
+    {
+      "title": "AutoRestTest at the SBFT 2026 Tool Competition",
+      "url": "http://arxiv.org/abs/2607.01063v1",
+      "summary": "Large input spaces and complex inter-operation dependencies make black-box REST API testing challenging. AutoRestTest combines a Semantic Property Dependency Graph, multi-agent reinforcement learning, and large language models to intelligently explore large API input spaces. In the SBFT 2026 REST League, AutoRestTest ranked first in all three evaluation categories -- fault detection, overall efficiency, and overall effectiveness -- on 11 APIs (317 operations, approximately 29 per API), averaging 67.09 unique server errors and 17.27 successfully processed operations per API under a one-hour testing budget.",
+      "published": "2026-07-01",
+      "authors": [
+        "Tyler Stennett",
+        "Myeongsoo Kim",
+        "Saurabh Sinha",
+        "Alessandro Orso"
+      ],
+      "source": "ArXiv"
+    }
+  ],
+  "templates": {
+    "business_case": {
+      "title": "Business Case & Investment Justification",
+      "sections": [
+        "Executive Summary & Mission Statement",
+        "Problem Statement & Current Process Bottlenecks",
+        "Proposed Solution & Technical Architecture",
+        "Financial Analysis & ROI Projection (CAPEX vs OPEX)",
+        "Risk Assessment & Mitigation Strategies",
+        "Project Implementation Timeline & Milestones"
+      ]
+    },
+    "tiered_proposal": {
+      "title": "Tiered Project Proposal & Pricing Estimates",
+      "sections": [
+        "Executive Summary & Value Proposition",
+        "Understanding of Goals & Pain Points",
+        "Tiered Options Layout (Standard vs Premium vs Employment)",
+        "Pricing and Payment Schedules",
+        "Proof of Concept / Technical Credentials",
+        "Acceptance & Next Steps"
+      ]
+    },
+    "requirements_checklist": {
+      "title": "Discovery Requirements Checklist",
+      "sections": [
+        "System Objectives & Technical Boundary Conditions",
+        "Functional Requirements Checklist",
+        "Non-Functional Requirements (Security, Performance)",
+        "Data Model & Integration Requirements",
+        "Deployment & Compliance Checklists"
+      ]
+    },
+    "change_order": {
+      "title": "Scope Change Order Template",
+      "sections": [
+        "Change Order Details (ID, Date, Client)",
+        "Description of Requested Scope Modification",
+        "Technical Impact & Architectural Changes",
+        "Schedule & Timeline Adjustments",
+        "Cost & Budget Adjustments",
+        "Authorization & Approval Signatures"
+      ]
+    },
+    "scope_of_work": {
+      "title": "Scope of Work & Deliverables SOW",
+      "sections": [
+        "Project Overview & Objectives",
+        "Detailed Work Breakdown Structure (WBS)",
+        "Deliverables and Milestones Checklist",
+        "Explicit Exclusions (Out of Scope Items)",
+        "Acceptance Criteria & Test Plans",
+        "Roles & RACI Matrix"
+      ]
+    },
+    "master_services_agreement": {
+      "title": "Master Services Agreement MSA",
+      "sections": [
+        "Scope of Services Overview",
+        "Payment Terms, Invoicing & Late Fees",
+        "Intellectual Property Ownership (IP Allocation)",
+        "Liability Limitations & Indemnification",
+        "Term, Termination & Off-boarding Procedures",
+        "Governing Law & Dispute Resolution Clauses"
+      ]
+    }
+  }
+}

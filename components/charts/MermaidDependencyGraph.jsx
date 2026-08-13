@@ -1,8 +1,19 @@
 "use client";
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 export default function MermaidDependencyGraph() {
     const containerRef = useRef(null);
+    const [selectedLevel, setSelectedLevel] = useState(null);
+
+    const levelsInfo = [
+        { level: 1, title: "Level 1: Smart Patient Data Access", tech: "Biometric Identity Node & Edge Roster Sync", color: "#4338CA" },
+        { level: 2, title: "Level 2: Digitization & FHIR Compliancy", tech: "Bedside Nurse Terminal & HL7 FHIR v4 Converter", color: "#059669" },
+        { level: 3, title: "Level 3: Nurse Dashboard & Patient CDSS", tech: "Real-Time Vitals Entry & XGBoost IDH Prediction", color: "#D97706" },
+        { level: 4, title: "Level 4: Doctor Dashboard & Trend Analytics", tech: "Longitudinal Hemodynamics & Clearance Trends", color: "#9333EA" },
+        { level: 5, title: "Level 5: Clinical AI & eRx Auditing", tech: "MedGemma Clinical Order Verification", color: "#2563EB" },
+        { level: 6, title: "Level 6: Sensor Infusion & Sentinel", tech: "IV Pole Mass Telemetry & Ward RO Sentinel", color: "#E11D48" },
+        { level: 7, title: "Level 7: Sovereign AI & EHR Sync", tech: "SNOMED CT / LOINC Local AI & EHR Sync", color: "#7C3AED" }
+    ];
 
     useEffect(() => {
         let isMounted = true;
@@ -12,7 +23,7 @@ export default function MermaidDependencyGraph() {
                 const mermaid = (await import('mermaid')).default;
                 mermaid.initialize({
                     startOnLoad: false,
-                    theme: 'default',
+                    theme: 'neutral',
                     securityLevel: 'loose',
                     flowchart: {
                         useMaxWidth: true,
@@ -23,12 +34,12 @@ export default function MermaidDependencyGraph() {
 
                 const graphDefinition = `
                     graph TD
-                        L1["<strong>Level 1: Smart Patient Data Access</strong><br/>Biometric Identity Node & Edge Roster Sync"] --> L2["<strong>Level 2: Digitization & FHIR Compliancy</strong><br/>Bedside Nurse Terminal & HL7 FHIR v4 Converter"]
-                        L2 --> L3["<strong>Level 3: Nurse Dashboard & Patient CDSS & Risk Profile</strong><br/>Real-Time Vitals Entry & XGBoost IDH Prediction"]
-                        L3 --> L4["<strong>Level 4: Doctor Dashboard & Data & Trend Analysis</strong><br/>Longitudinal Hemodynamics & Dialytic Clearance Trends"]
-                        L4 --> L5["<strong>Level 5: Medical Decision Support & Prescriptions</strong><br/>Clinical AI Order Verification & eRx Auditing"]
-                        L5 --> L6["<strong>Level 6: Sensor Infusion & Software Layer 2</strong><br/>IV Pole Load-Cell Mass Telemetry & Ward RO Sentinel"]
-                        L6 --> L7["<strong>Level 7: MedGemma Fine-Tuning & Unit Integration</strong><br/>SNOMED CT / LOINC Fine-Tuned AI & EHR System Sync"]
+                        L1["<div style='padding:6px 12px;'><strong>Level 1: Smart Patient Data Access</strong><br/><span style='font-size:0.75rem;opacity:0.9;'>Biometric Identity Node & Edge Roster Sync</span></div>"] --> L2["<div style='padding:6px 12px;'><strong>Level 2: Digitization & FHIR Compliancy</strong><br/><span style='font-size:0.75rem;opacity:0.9;'>Bedside Nurse Terminal & HL7 FHIR v4 Converter</span></div>"]
+                        L2 --> L3["<div style='padding:6px 12px;'><strong>Level 3: Nurse Dashboard & Patient CDSS & Risk Profile</strong><br/><span style='font-size:0.75rem;opacity:0.9;'>Real-Time Vitals Entry & XGBoost IDH Prediction</span></div>"]
+                        L3 --> L4["<div style='padding:6px 12px;'><strong>Level 4: Doctor Dashboard & Data & Trend Analysis</strong><br/><span style='font-size:0.75rem;opacity:0.9;'>Longitudinal Hemodynamics & Dialytic Clearance Trends</span></div>"]
+                        L4 --> L5["<div style='padding:6px 12px;'><strong>Level 5: Medical Decision Support & Prescriptions</strong><br/><span style='font-size:0.75rem;opacity:0.9;'>Clinical AI Order Verification & eRx Auditing</span></div>"]
+                        L5 --> L6["<div style='padding:6px 12px;'><strong>Level 6: Sensor Infusion & Software Layer 2</strong><br/><span style='font-size:0.75rem;opacity:0.9;'>IV Pole Load-Cell Mass Telemetry & Ward RO Sentinel</span></div>"]
+                        L6 --> L7["<div style='padding:6px 12px;'><strong>Level 7: MedGemma Fine-Tuning & Unit Integration</strong><br/><span style='font-size:0.75rem;opacity:0.9;'>SNOMED CT / LOINC Fine-Tuned AI & EHR System Sync</span></div>"]
 
                         classDef l1 fill:#EEF2FF,stroke:#4338CA,stroke-width:2px,color:#312E81;
                         classDef l2 fill:#ECFDF5,stroke:#059669,stroke-width:2px,color:#065F46;
@@ -74,28 +85,77 @@ export default function MermaidDependencyGraph() {
             background: '#FFFFFF',
             border: '1.5px solid #E2E8F0',
             borderRadius: '16px',
-            padding: '24px',
+            padding: '20px 24px',
             display: 'flex',
             flexDirection: 'column',
-            justifyContent: 'center',
-            alignItems: 'center',
+            justifyContent: 'space-between',
             boxShadow: '0 4px 20px rgba(15, 23, 42, 0.04)',
-            overflow: 'auto'
+            boxSizing: 'border-box',
+            overflow: 'hidden'
         }}>
-            <div style={{
-                fontFamily: 'var(--font-mono)',
-                fontSize: '0.78rem',
-                color: '#4338CA',
-                background: '#EEF2FF',
-                border: '1px solid #C7D2FE',
-                padding: '4px 12px',
-                borderRadius: '6px',
-                marginBottom: '16px',
-                fontWeight: '600'
-            }}>
-                7-TIER SYSTEM ARCHITECTURE & FEATURE DEPENDENCY GRAPH
+            {/* Header */}
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
+                <span style={{
+                    fontFamily: 'var(--font-mono)',
+                    fontSize: '0.75rem',
+                    color: '#4338CA',
+                    background: '#EEF2FF',
+                    padding: '4px 10px',
+                    borderRadius: '6px',
+                    fontWeight: '700',
+                    border: '1px solid #C7D2FE'
+                }}>
+                    7-TIER SYSTEM ARCHITECTURE & FEATURE DEPENDENCY GRAPH
+                </span>
+                <span style={{
+                    fontSize: '0.75rem',
+                    color: '#059669',
+                    background: '#ECFDF5',
+                    border: '1px solid #A7F3D0',
+                    padding: '4px 10px',
+                    borderRadius: '6px',
+                    fontWeight: '700'
+                }}>
+                    End-to-End System Flow
+                </span>
             </div>
-            <div ref={containerRef} style={{ width: '100%', display: 'flex', justifyContent: 'center' }} />
+
+            {/* Mermaid SVG Render Box */}
+            <div style={{
+                flex: 1,
+                overflow: 'auto',
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                padding: '8px',
+                background: '#FAFAFA',
+                borderRadius: '12px',
+                border: '1px solid #F1F5F9'
+            }}>
+                <div ref={containerRef} style={{ width: '100%', display: 'flex', justifyContent: 'center' }} />
+            </div>
+
+            {/* Footer */}
+            <div style={{
+                marginTop: '10px',
+                background: '#F8FAFC',
+                border: '1px solid #E2E8F0',
+                borderRadius: '8px',
+                padding: '8px 12px',
+                fontSize: '0.74rem',
+                color: '#475569',
+                display: 'flex',
+                alignItems: 'center',
+                justify: 'space-between'
+            }}>
+                <div>
+                    <strong style={{ color: '#0F172A' }}>Architecture Completeness: </strong>
+                    Covers 100% of DiaClinic hardware nodes, edge services, ML predictors, clinical dashboards, and AI auditors.
+                </div>
+                <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.68rem', color: '#4338CA', fontWeight: '700' }}>
+                    7 FULL LEVELS
+                </span>
+            </div>
         </div>
     );
 }
