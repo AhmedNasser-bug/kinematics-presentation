@@ -38,7 +38,7 @@ export default function InfusionDataFlowDiagram() {
                 <div style={{ display: 'flex', alignItems: 'center', gap: '14px', background: '#EEF2FF', border: '1px solid #C7D2FE', borderRadius: '10px', padding: '12px 16px' }}>
                     <div style={{ fontWeight: '800', color: '#4338CA', fontSize: '1.1rem' }}>2</div>
                     <div>
-                        <div style={{ fontWeight: '700', fontSize: '0.88rem', color: '#312E81' }}>Volumetric Flow Rate Calculation ($\Delta m / \Delta t$)</div>
+                        <div style={{ fontWeight: '700', fontSize: '0.88rem', color: '#312E81' }}>Volumetric Flow Rate Calculation (Δm / Δt)</div>
                         <div style={{ fontSize: '0.76rem', color: '#4338CA' }}>Computes active infusion rate in mL/hr against prescribed dose.</div>
                     </div>
                 </div>

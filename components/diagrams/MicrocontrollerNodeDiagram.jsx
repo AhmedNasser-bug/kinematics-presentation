@@ -43,7 +43,7 @@ export default function MicrocontrollerNodeDiagram() {
                     <div style={{ fontSize: '0.75rem', color: '#4338CA' }}>
                         • 24-Bit Analog-to-Digital Converter<br/>
                         • On-chip low noise PGA (Gain: 128)<br/>
-                        • $\pm 0.5\text{g}$ mass resolution
+                        • ± 0.5g mass resolution
                     </div>
                 </div>
             </div>

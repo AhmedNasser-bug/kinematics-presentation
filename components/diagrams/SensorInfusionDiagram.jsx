@@ -45,7 +45,7 @@ export default function SensorInfusionDiagram() {
                 <div style={{ background: '#ECFDF5', border: '1.5px solid #A7F3D0', borderRadius: '10px', padding: '14px', textAlign: 'center' }}>
                     <div style={{ fontSize: '1.8rem', marginBottom: '4px' }}>📊</div>
                     <div style={{ fontWeight: '800', fontSize: '0.88rem', color: '#065F46' }}>Mass Telemetry Engine</div>
-                    <div style={{ fontSize: '0.74rem', color: '#047857', marginTop: '2px' }}>Calculates $\Delta m / \Delta t$; alerts if infusion stalls</div>
+                    <div style={{ fontSize: '0.74rem', color: '#047857', marginTop: '2px' }}>Calculates Δm / Δt; alerts if infusion stalls</div>
                 </div>
             </div>
 
