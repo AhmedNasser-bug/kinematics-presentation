@@ -40,7 +40,7 @@ export default function ClusterAnalyticsDiagram() {
 
                 {/* Multi-Machine Cluster Anomaly */}
                 <div style={{ background: '#FEF2F2', border: '1.5px solid #FECACA', borderRadius: '10px', padding: '16px' }}>
-                    <div style={{ fontWeight: '800', fontSize: '0.88rem', color: '#991B1B', marginBottom: '4px' }}>Correlated Ward Cluster (&ge; 3 Machines)</div>
+                    <div style={{ fontWeight: '800', fontSize: '0.88rem', color: '#991B1B', marginBottom: '4px' }}>Correlated Ward Cluster (≥ 3 Machines)</div>
                     <div style={{ fontSize: '0.74rem', color: '#DC2626', marginBottom: '10px' }}>Simultaneous conductivity drift across 3+ machines</div>
                     <div style={{ background: '#FFFFFF', border: '1px solid #FECACA', borderRadius: '6px', padding: '10px', fontSize: '0.76rem', color: '#991B1B' }}>
                         ➔ Classed as <strong>Systemic RO Water Contamination</strong><br/>
