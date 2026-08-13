@@ -137,8 +137,8 @@ h2 {
   right: 32px;
   font-family: var(--font-mono);
   font-size: 0.8rem;
-  color: var(--color-muted);
-  background: #020617;
+  color: var(--color-text);
+  background: #FFFFFF;
   border: 1px solid var(--color-border);
   border-radius: var(--radius-sm);
   padding: 6px 14px;
@@ -153,7 +153,7 @@ h2 {
   font-size: 0.72rem;
   color: var(--color-primary);
   background: var(--color-accent);
-  border: 1px solid rgba(129, 140, 248, 0.3);
+  border: 1px solid #C7D2FE;
   border-radius: 4px;
   padding: 2px 8px;
   letter-spacing: 0.05em;
@@ -185,7 +185,7 @@ h2 {
   margin-top: 12px;
   border-radius: var(--radius-md);
   border: 1px solid var(--color-border);
-  background: #020617;
+  background: #F8FAFC;
 }
 
 .note-item {

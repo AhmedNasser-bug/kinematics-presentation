@@ -782,30 +782,30 @@ export default function Presentation() {
                     <div style={{ flexGrow: 1, display: 'flex', flexDirection: 'column', height: '100%', gap: '16px' }}>
                         
                         {/* Slide Header */}
-                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid #1E293B', paddingBottom: '12px' }}>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid #E2E8F0', paddingBottom: '12px' }}>
                             <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
                                 <span style={{
                                     fontFamily: 'var(--font-mono)',
                                     fontSize: '0.72rem',
-                                    background: 'rgba(129, 140, 248, 0.12)',
-                                    color: '#818CF8',
+                                    background: '#EEF2FF',
+                                    color: '#4338CA',
                                     padding: '4px 10px',
                                     borderRadius: '6px',
                                     fontWeight: '600',
-                                    border: '1px solid rgba(129, 140, 248, 0.3)'
+                                    border: '1px solid #C7D2FE'
                                 }}>
                                     {slide.moduleTitle}
                                 </span>
-                                <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.78rem', color: '#94A3B8' }}>
+                                <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.78rem', color: '#64748B' }}>
                                     SLIDE {slide.id + 1} OF {slidesData.length}
                                 </span>
                             </div>
                             <div style={{
                                 fontFamily: 'var(--font-mono)',
                                 fontSize: '0.75rem',
-                                color: '#94A3B8',
-                                background: '#0F172A',
-                                border: '1px solid #1E293B',
+                                color: '#475569',
+                                background: '#F8FAFC',
+                                border: '1px solid #E2E8F0',
                                 borderRadius: '6px',
                                 padding: '4px 10px',
                                 fontWeight: '500'
@@ -825,27 +825,27 @@ export default function Presentation() {
                                         fontSize: 'clamp(1.5rem, 2.5vw, 2.2rem)',
                                         lineHeight: 1.25,
                                         fontWeight: 700,
-                                        color: '#F8FAFC'
+                                        color: '#0F172A'
                                     }}>
                                         {slide.title}
                                     </h1>
                                     
-                                    {/* Key Points formatted with clean rounded dark cards */}
+                                    {/* Key Points formatted with clean rounded light cards */}
                                     <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
                                         {slide.keyPoints.map((pt, idx) => (
                                             <div key={idx} style={{
                                                 display: 'flex',
                                                 gap: '14px',
                                                 alignItems: 'flex-start',
-                                                background: '#0F172A',
-                                                border: '1px solid #1E293B',
+                                                background: '#F8FAFC',
+                                                border: '1px solid #E2E8F0',
                                                 borderRadius: '10px',
                                                 padding: '14px 18px',
-                                                boxShadow: '0 4px 16px rgba(0,0,0,0.2)'
+                                                boxShadow: '0 4px 12px rgba(15, 23, 42, 0.03)'
                                             }}>
                                                 <span style={{
-                                                    background: 'rgba(129, 140, 248, 0.15)',
-                                                    color: '#818CF8',
+                                                    background: '#EEF2FF',
+                                                    color: '#4338CA',
                                                     width: '22px',
                                                     height: '22px',
                                                     borderRadius: '50%',
@@ -857,14 +857,14 @@ export default function Presentation() {
                                                     fontWeight: 'bold',
                                                     flexShrink: 0,
                                                     marginTop: '2px',
-                                                    border: '1px solid rgba(129, 140, 248, 0.3)'
+                                                    border: '1px solid #C7D2FE'
                                                 }}>
                                                     ✓
                                                 </span>
                                                 <span style={{
                                                     fontSize: 'clamp(0.95rem, 1.5vw, 1.12rem)',
                                                     lineHeight: 1.5,
-                                                    color: '#CBD5E1',
+                                                    color: '#334155',
                                                     fontWeight: 400
                                                 }}>
                                                     {highlightText(pt)}
@@ -878,15 +878,15 @@ export default function Presentation() {
                                 <div style={{
                                     fontFamily: 'var(--font-mono)',
                                     fontSize: '0.72rem',
-                                    background: '#0F172A',
-                                    color: '#94A3B8',
-                                    border: '1px solid #1E293B',
+                                    background: '#F1F5F9',
+                                    color: '#475569',
+                                    border: '1px solid #E2E8F0',
                                     borderRadius: '8px',
                                     padding: '8px 14px',
                                     marginTop: '16px',
                                     lineHeight: 1.4
                                 }}>
-                                    <span style={{ fontWeight: '600', color: '#818CF8' }}>Asset Spec:</span> {slide.assetSpec}
+                                    <span style={{ fontWeight: '600', color: '#312E81' }}>Asset Spec:</span> {slide.assetSpec}
                                 </div>
                             </div>
 
