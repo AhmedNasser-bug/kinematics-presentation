@@ -19,6 +19,27 @@ const OutbreakCaseComparison = dynamic(() => import('../components/charts/Outbre
 const MermaidDependencyGraph = dynamic(() => import('../components/charts/MermaidDependencyGraph'), { ssr: false });
 const ECGHeartbeatMonitor = dynamic(() => import('../components/ECGHeartbeatMonitor'), { ssr: false });
 
+// Simple, Straightforward Visual Diagram Components for Every Slide
+const BiometricNodeDiagram = dynamic(() => import('../components/diagrams/BiometricNodeDiagram'), { ssr: false });
+const EdgeSyncDiagram = dynamic(() => import('../components/diagrams/EdgeSyncDiagram'), { ssr: false });
+const BiometricDataFlowDiagram = dynamic(() => import('../components/diagrams/BiometricDataFlowDiagram'), { ssr: false });
+const NurseTerminalLayoutDiagram = dynamic(() => import('../components/diagrams/NurseTerminalLayoutDiagram'), { ssr: false });
+const FHIRSerializationDiagram = dynamic(() => import('../components/diagrams/FHIRSerializationDiagram'), { ssr: false });
+const VitalsTelemetryDiagram = dynamic(() => import('../components/diagrams/VitalsTelemetryDiagram'), { ssr: false });
+const CDSSEngineDiagram = dynamic(() => import('../components/diagrams/CDSSEngineDiagram'), { ssr: false });
+const AWSFreseniusPipelineDiagram = dynamic(() => import('../components/diagrams/AWSFreseniusPipelineDiagram'), { ssr: false });
+const WardSentinelDiagram = dynamic(() => import('../components/diagrams/WardSentinelDiagram'), { ssr: false });
+const ClusterAnalyticsDiagram = dynamic(() => import('../components/diagrams/ClusterAnalyticsDiagram'), { ssr: false });
+const WaterQualityDataDiagram = dynamic(() => import('../components/diagrams/WaterQualityDataDiagram'), { ssr: false });
+const SensorInfusionDiagram = dynamic(() => import('../components/diagrams/SensorInfusionDiagram'), { ssr: false });
+const MicrocontrollerNodeDiagram = dynamic(() => import('../components/diagrams/MicrocontrollerNodeDiagram'), { ssr: false });
+const InfusionDataFlowDiagram = dynamic(() => import('../components/diagrams/InfusionDataFlowDiagram'), { ssr: false });
+const MedGemmaAuditorDiagram = dynamic(() => import('../components/diagrams/MedGemmaAuditorDiagram'), { ssr: false });
+const MedGemmaFineTuningDiagram = dynamic(() => import('../components/diagrams/MedGemmaFineTuningDiagram'), { ssr: false });
+const TerminologyDataDiagram = dynamic(() => import('../components/diagrams/TerminologyDataDiagram'), { ssr: false });
+const SystemInfrastructureDiagram = dynamic(() => import('../components/diagrams/SystemInfrastructureDiagram'), { ssr: false });
+const FieldFindingsDiagram = dynamic(() => import('../components/diagrams/FieldFindingsDiagram'), { ssr: false });
+
 /**
  * Custom crosshair cursor.
  * Strategy: write two CSS custom properties (--cx, --cy) on <html> directly
@@ -52,7 +73,7 @@ function CustomCursor() {
 }
 
 /**
- * Parses markdown-style **bold** tags and converts them into sleek dark-mode indigo highlighted pills.
+ * Parses markdown-style **bold** tags and converts them into sleek, accessible high-contrast highlight pills.
  */
 function highlightText(text) {
     if (!text) return "";
@@ -61,15 +82,16 @@ function highlightText(text) {
         if (idx % 2 === 1) {
             return (
                 <strong key={idx} style={{ 
-                    background: 'rgba(129, 140, 248, 0.15)', 
-                    color: '#A5B4FC', 
-                    padding: '2px 8px', 
-                    border: '1px solid rgba(129, 140, 248, 0.35)', 
+                    background: '#FEF08A', 
+                    color: '#713F12', 
+                    padding: '3px 8px', 
+                    border: '1px solid #EAB308', 
                     borderRadius: '6px',
                     fontFamily: 'var(--font-heading)',
-                    fontWeight: '600',
+                    fontWeight: '700',
                     display: 'inline-block',
                     margin: '0 3px',
+                    boxShadow: '0 1px 3px rgba(234, 179, 8, 0.15)'
                 }}>
                     {part}
                 </strong>
@@ -193,6 +215,7 @@ const slidesData = [
         title: "Problem Statement: Local Field Findings & Data Blindspots",
         assetSpec: "Field Survey Findings: Uniform Batch Lab Anomaly & Loose Doctor-Nurse Protocol",
         imageUrl: "/generated_visuals/slide2_vulnerabilities.jpg",
+        chartType: 'fieldFindings',
         keyPoints: [
             "**Uniform Batch Lab Error:** Entire month's batch of patient lab results returned identical due to clerical copy-paste error, unflagged because no historical baseline existed.",
             "**60+ Water Neglect Recurrences:** Direct confirmation from clinical reviewers that chlorine/chloramine filter maintenance neglect recurred ~60 times without digital escalation.",
@@ -213,6 +236,7 @@ const slidesData = [
         title: "Feature 1: What is the Biometric Identity Node?",
         assetSpec: "Feature 1 Overview: Edge Biometric Authentication Node Architecture",
         imageUrl: "/generated_visuals/slide3_biometric_terminal.jpg",
+        chartType: 'biometricNode',
         keyPoints: [
             "**Edge Microcontroller Authentication:** Standalone embedded hardware node (**ESP32 / Raspberry Pi**) paired with optical and capacitive fingerprint scanners.",
             "**Zero-Cloud Latency Queue:** Manages scheduled shift rosters, arrival timestamps, and patient triage locally without internet dependence.",
@@ -246,6 +270,7 @@ const slidesData = [
         title: "Feature 1: Technical Implementation Options",
         assetSpec: "System Options: AWS IoT Core, Azure IoT Hub, & Microcontroller Edge Architecture",
         imageUrl: "/docs_images/Hospital system Demo 1.png",
+        chartType: 'edgeSync',
         keyPoints: [
             "**Microcontroller Edge Stack:** C++/FreeRTOS firmware on ESP32 microcontrollers with hardware-accelerated SHA-256 biometric hashing.",
             "**Cloud Managed IoT Options:** **AWS IoT Core** / Greengrass for MQTT message routing, **Azure IoT Hub** for device provisioning, or **GCP Healthcare IoT**.",
@@ -262,6 +287,7 @@ const slidesData = [
         title: "Feature 1: Data Integration Sources",
         assetSpec: "Data Sources: Fingerprint Scanners, HL7 FHIR Patient Resources, & ADT Feeds",
         imageUrl: "/generated_visuals/slide3_biometric_terminal.jpg",
+        chartType: 'biometricData',
         keyPoints: [
             "**Hardware Telemetry:** Raw optical/capacitive fingerprint byte arrays converted to encrypted template hashes.",
             "**Healthcare Standard Payload:** Standardized **HL7 FHIR v4 Patient** JSON resource (`Patient/id`, `identifier`, `telecom`).",
@@ -282,6 +308,7 @@ const slidesData = [
         title: "Feature 2: What is the Nurse Operations Terminal?",
         assetSpec: "Feature 2 Overview: Bedside Nurse Ingestion Interface & Terminal Layout",
         imageUrl: "/generated_visuals/slide3_biometric_terminal.jpg",
+        chartType: 'nurseTerminal',
         keyPoints: [
             "**Bedside Touch Interface:** Responsive web/mobile application designed for rapid intra-session vital entry and medication logging.",
             "**Offline-First Data Storage:** Local SQLite edge database architecture guaranteeing complete operation during hospital network drops.",
@@ -315,6 +342,7 @@ const slidesData = [
         title: "Feature 2: Technical Implementation Options",
         assetSpec: "System Options: Next.js PWA, Azure Health Data Services, & AWS HealthLake",
         imageUrl: "/docs_images/Hospital system Demo 1.png",
+        chartType: 'fhirSerialization',
         keyPoints: [
             "**Frontend Application:** Next.js / React Progressive Web App (PWA) with Service Worker offline caching.",
             "**Cloud FHIR Engines:** **Azure Health Data Services (FHIR API)**, **AWS HealthLake** for healthcare data stores, or **Google Cloud Healthcare API**.",
@@ -331,6 +359,7 @@ const slidesData = [
         title: "Feature 2: Data Integration Sources",
         assetSpec: "Data Sources: Bluetooth Vitals Monitors, Bedside Inputs, & eMAR Feeds",
         imageUrl: "/generated_visuals/slide3_biometric_terminal.jpg",
+        chartType: 'vitalsTelemetry',
         keyPoints: [
             "**Bedside Telemetry:** Bluetooth LE connection to NIBP blood pressure cuffs and pulse oximeter monitors.",
             "**Nurse Direct Inputs:** Pre, intra, and post-dialysis weight readings, blood flow rates (BFR), and dialysate flow rates (DFR).",
@@ -351,6 +380,7 @@ const slidesData = [
         title: "Feature 3: What is the Per-Patient CDSS?",
         assetSpec: "Feature 3 Overview: Predictive Machine Learning & Real-Time Trajectory Engine",
         imageUrl: "/generated_visuals/slide4_cdss_anomaly.jpg",
+        chartType: 'cdssEngine',
         keyPoints: [
             "**Predictive ML Classifier:** Machine learning engine (**XGBoost / RNN / CatBoost**) trained on continuous dialysis session vitals.",
             "**Fresenius 4008S Telemetry Compatibility:** Designed to ingest real-time machine telemetry streams directly from partner unit dialyzers.",
@@ -384,6 +414,7 @@ const slidesData = [
         title: "Feature 3: Real-Time ML Architecture (AWS & Fresenius Care Alignment)",
         assetSpec: "AWS Architecture Baseline: Apache Kafka, Kinesis Streams, Lambda, SageMaker, & OpenSearch (Fresenius Medical Care Benchmark)",
         imageUrl: "/docs_images/Fresenius_AWS_Architecture.png",
+        chartType: 'awsFresenius',
         keyPoints: [
             "**AWS Stream Ingestion Pipeline:** Machine telemetry streams via **Apache Kafka -> Amazon Kinesis Data Streams / Kinesis Data Analytics**.",
             "**AWS S3 Data Lake & Glue:** Unstructured machine streams and historical patient records persisted in **Amazon S3 Data Lake & AWS Glue** catalog.",
@@ -422,6 +453,7 @@ const slidesData = [
         title: "Feature 4: What is the Ward Anomaly Engine?",
         assetSpec: "Feature 4 Overview: Cross-Station Variance & Environmental Quality Sentinel",
         imageUrl: "/generated_visuals/slide6_system_targets.jpg",
+        chartType: 'wardSentinel',
         keyPoints: [
             "**Cross-Bed Statistical Sentinel:** Edge gateway engine running real-time statistical variance analysis across all active dialysis stations.",
             "**Environmental Failure Detection:** Identifies Reverse Osmosis (RO) water purification failure, dialysate fluid misformulation, and batch defects.",
@@ -455,6 +487,7 @@ const slidesData = [
         title: "Feature 4: Technical Implementation Options",
         assetSpec: "System Options: AWS IoT Greengrass, Azure IoT Edge, & Apache Flink Stream Computing",
         imageUrl: "/generated_visuals/slide6_system_targets.jpg",
+        chartType: 'clusterAnalytics',
         keyPoints: [
             "**Stream Processing Compute:** Apache Flink / Kinesis Data Analytics for real-time windowed statistical computation.",
             "**Edge Gateway Frameworks:** **AWS IoT Greengrass** for edge stream routing, **Azure IoT Edge** for containerized module execution.",
@@ -471,6 +504,7 @@ const slidesData = [
         title: "Feature 4: Data Integration Sources",
         assetSpec: "Data Sources: Dialysate Machine Telemetry, RO Water Plant Sensors, & Temperature Logs",
         imageUrl: "/docs_images/Development_plan.png",
+        chartType: 'waterQuality',
         keyPoints: [
             "**Machine Dialysate Streams:** Real-time dialysate conductivity (mS/cm), dialysate temperature, and ultrafiltration rate (UFR).",
             "**RO Water Plant Telemetry:** Central Reverse Osmosis purification plant conductivity, total dissolved solids (TDS), and pH levels.",
@@ -491,6 +525,7 @@ const slidesData = [
         title: "Feature 5: What is Sensor Infusion Monitoring?",
         assetSpec: "Feature 5 Overview: IV Pole Load-Cell Weight Telemetry & Hardware Node",
         imageUrl: "/generated_visuals/slide5_infusion_medgemma.jpg",
+        chartType: 'sensorInfusion',
         keyPoints: [
             "**IV Pole Load-Cell Hardware:** Strain-gauge weight sensors mounted on IV poles paired with microcontroller telemetry units.",
             "**Real-Time Mass Loss Tracking:** Measures container mass loss continuously to monitor IV fluid delivery speed.",
@@ -524,6 +559,7 @@ const slidesData = [
         title: "Feature 5: Technical Implementation Options",
         assetSpec: "System Options: HX711 ADC, MQTT Protocol, & AWS/Azure IoT Device Shadows",
         imageUrl: "/generated_visuals/slide5_infusion_medgemma.jpg",
+        chartType: 'microcontrollerNode',
         keyPoints: [
             "**Hardware Signal Conditioning:** HX711 24-bit analog-to-digital converter (ADC) paired with ESP32 microcontroller.",
             "**Messaging & Cloud State:** MQTT lightweight protocol over local Wi-Fi / Zigbee, with **AWS IoT Device Shadow** or **Azure Device Twins**.",
@@ -540,6 +576,7 @@ const slidesData = [
         title: "Feature 5: Data Integration Sources",
         assetSpec: "Data Sources: Load Cell Weight Telemetry, Drop Counter Sensors, & Pharmacy Orders",
         imageUrl: "/docs_images/Hospital system Demo 1.png",
+        chartType: 'infusionData',
         keyPoints: [
             "**Mass Telemetry Stream:** Continuous container weight values (grams) sampled at 5 Hz.",
             "**Optical Flow Telemetry:** Supplementary infrared drop counter pulses verifying drip rate.",
@@ -560,6 +597,7 @@ const slidesData = [
         title: "Feature 6: What is the MedGemma Prescription Auditor?",
         assetSpec: "Feature 6 Overview: Domain-Adapted Clinical LLM & Order Verification Engine",
         imageUrl: "/generated_visuals/slide5_infusion_medgemma.jpg",
+        chartType: 'medgemmaAuditor',
         keyPoints: [
             "**Clinical AI Order Auditor:** Domain-adapted clinical language model (**MedGemma**) integrated into physician prescribing consoles.",
             "**Contraindication Auditing:** Cross-references proposed drug orders against active patient blood lab panels and renal clearance values.",
@@ -593,6 +631,7 @@ const slidesData = [
         title: "Feature 6: Technical Implementation Options",
         assetSpec: "System Options: Google Cloud Vertex AI, Azure OpenAI Healthcare, & Local vLLM Inference",
         imageUrl: "/generated_visuals/slide5_infusion_medgemma.jpg",
+        chartType: 'medgemmaFineTuning',
         keyPoints: [
             "**Cloud Managed LLM Endpoints:** **Google Cloud Vertex AI** for HIPAA-compliant MedGemma deployment or **Azure OpenAI Service**.",
             "**Local On-Premises Option:** Local **vLLM / Ollama** inference engine running on hospital GPU servers for zero data egress.",
@@ -609,6 +648,7 @@ const slidesData = [
         title: "Feature 6: Data Integration Sources",
         assetSpec: "Data Sources: LOINC/SNOMED CT Indices, e-Prescriptions, & Laboratory Blood Panels",
         imageUrl: "/plots/02_hemodynamics_vitals.png",
+        chartType: 'terminologyData',
         keyPoints: [
             "**Medical Terminology Coding:** SNOMED CT clinical concept IDs and LOINC lab test observation codes.",
             "**Electronic Prescriptions:** Physician eRx orders (`MedicationRequest` FHIR payload).",
@@ -629,6 +669,7 @@ const slidesData = [
         title: "System Infrastructure & Operational Targets",
         assetSpec: "Infrastructure Map: Edge Hardware Telemetry to Cloud Synchronization Architecture",
         imageUrl: "/docs_images/Development_plan.png",
+        chartType: 'systemInfrastructure',
         keyPoints: [
             "**Resilient Edge Hardware:** Microcontrollers (ESP32/RPi), load cells, fingerprint scanners, and local SQLite edge stores.",
             "**Documentation Reduction:** Slashes nursing documentation duration from **~25 min down to < 5 min** per session.",
@@ -913,28 +954,32 @@ export default function Presentation() {
                                 {slide.chartType === 'nationalStats' && <NationalStatsCards />}
                                 {slide.chartType === 'clericalFriction' && <ClericalFrictionCards />}
                                 {slide.chartType === 'outbreakCases' && <OutbreakCaseComparison />}
+                                {slide.chartType === 'fieldFindings' && <FieldFindingsDiagram />}
+                                {slide.chartType === 'biometricNode' && <BiometricNodeDiagram />}
                                 {slide.chartType === 'docTime' && <DocumentationTimeChart />}
+                                {slide.chartType === 'edgeSync' && <EdgeSyncDiagram />}
+                                {slide.chartType === 'biometricData' && <BiometricDataFlowDiagram />}
+                                {slide.chartType === 'nurseTerminal' && <NurseTerminalLayoutDiagram />}
+                                {slide.chartType === 'fhirSerialization' && <FHIRSerializationDiagram />}
+                                {slide.chartType === 'vitalsTelemetry' && <VitalsTelemetryDiagram />}
+                                {slide.chartType === 'cdssEngine' && <CDSSEngineDiagram />}
                                 {slide.chartType === 'idh' && <IDHPredictionChart />}
-                                {slide.chartType === 'ward' && <WardAnomalyChart />}
-                                {slide.chartType === 'infusion' && <InfusionMassChart />}
-                                {slide.chartType === 'medgemma' && <MedGemmaAuditChart />}
+                                {slide.chartType === 'awsFresenius' && <AWSFreseniusPipelineDiagram />}
                                 {slide.chartType === 'hemo' && <HemodynamicsChart />}
+                                {slide.chartType === 'wardSentinel' && <WardSentinelDiagram />}
+                                {slide.chartType === 'ward' && <WardAnomalyChart />}
+                                {slide.chartType === 'clusterAnalytics' && <ClusterAnalyticsDiagram />}
+                                {slide.chartType === 'waterQuality' && <WaterQualityDataDiagram />}
+                                {slide.chartType === 'sensorInfusion' && <SensorInfusionDiagram />}
+                                {slide.chartType === 'infusion' && <InfusionMassChart />}
+                                {slide.chartType === 'microcontrollerNode' && <MicrocontrollerNodeDiagram />}
+                                {slide.chartType === 'infusionData' && <InfusionDataFlowDiagram />}
+                                {slide.chartType === 'medgemmaAuditor' && <MedGemmaAuditorDiagram />}
+                                {slide.chartType === 'medgemma' && <MedGemmaAuditChart />}
+                                {slide.chartType === 'medgemmaFineTuning' && <MedGemmaFineTuningDiagram />}
+                                {slide.chartType === 'terminologyData' && <TerminologyDataDiagram />}
+                                {slide.chartType === 'systemInfrastructure' && <SystemInfrastructureDiagram />}
                                 {slide.chartType === 'mermaidDep' && <MermaidDependencyGraph />}
-                                {!slide.chartType && (
-                                    <div style={{ width: '100%', height: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                                        {/* eslint-disable-next-line @next/next/no-img-element */}
-                                        <img 
-                                            src={slide.imageUrl} 
-                                            alt={slide.title}
-                                            style={{
-                                                width: '100%',
-                                                height: '100%',
-                                                objectFit: 'contain',
-                                                borderRadius: '8px'
-                                            }}
-                                        />
-                                    </div>
-                                )}
                             </div>
                         </div>
                     </div>
