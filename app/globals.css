@@ -1,15 +1,15 @@
 @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,600;1,400&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap');
 
 :root {
-  --color-primary:    #312E81;
-  --color-primary-light: #4338CA;
-  --color-background: #F8FAFC;
-  --color-surface:    #FFFFFF;
-  --color-text:       #0F172A;
-  --color-muted:      #475569;
-  --color-accent:     #EEF2FF;
-  --color-border:     #E2E8F0;
-  --color-border-dark:#CBD5E1;
+  --color-primary:    #818CF8;
+  --color-primary-light: #A5B4FC;
+  --color-background: #020617;
+  --color-surface:    #0F172A;
+  --color-text:       #F8FAFC;
+  --color-muted:      #94A3B8;
+  --color-accent:     rgba(129, 140, 248, 0.1);
+  --color-border:     #1E293B;
+  --color-border-dark:#334155;
 
   --font-heading:    'Plus Jakarta Sans', sans-serif;
   --font-body:       'Plus Jakarta Sans', sans-serif;
@@ -19,8 +19,8 @@
   --radius-md:   12px;
   --radius-lg:   16px;
   
-  --shadow-subtle: 0 10px 30px -10px rgba(15, 23, 42, 0.08), 0 0 0 1px rgba(15, 23, 42, 0.05);
-  --shadow-card:   0 4px 20px -4px rgba(15, 23, 42, 0.06);
+  --shadow-subtle: 0 20px 50px -10px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.05);
+  --shadow-card:   0 4px 20px -4px rgba(0, 0, 0, 0.4);
 
   --spacing-sm:  8px;
   --spacing-md:  16px;
@@ -49,11 +49,11 @@ body {
   justify-content: center;
   align-items: center;
 
-  /* Soft modern subtle grid background */
+  /* Subtle dark grid background */
   background-size: 24px 24px;
   background-image:
-    linear-gradient(to right,  rgba(203, 213, 225, 0.35) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(203, 213, 225, 0.35) 1px, transparent 1px);
+    linear-gradient(to right,  rgba(30, 41, 59, 0.4) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(30, 41, 59, 0.4) 1px, transparent 1px);
 }
 
 /* ── Headings ───────────────────────────────────────────────────── */
@@ -72,12 +72,12 @@ h2 {
   font-size: 0.8rem;
   text-transform: uppercase;
   letter-spacing: 0.12em;
-  color: var(--color-primary-light);
+  color: var(--color-primary);
   background: var(--color-accent);
   display: inline-block;
   padding: 5px 14px;
   border-radius: var(--radius-sm);
-  border: 1px solid rgba(67, 56, 202, 0.2);
+  border: 1px solid rgba(129, 140, 248, 0.3);
   margin-bottom: var(--spacing-md);
 }
 
@@ -112,10 +112,11 @@ h2 {
   font-size: 0.78rem;
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  color: var(--color-surface);
-  background: var(--color-primary);
+  color: var(--color-primary);
+  background: var(--color-accent);
   padding: 4px 12px;
   border-radius: var(--radius-sm);
+  border: 1px solid rgba(129, 140, 248, 0.3);
   margin-right: 10px;
 }
 
@@ -124,7 +125,7 @@ h2 {
   font-family: var(--font-body);
   font-size: 1.1rem;
   font-weight: 500;
-  color: var(--color-text);
+  color: #CBD5E1;
   margin: 0;
   line-height: 1.6;
 }
@@ -137,8 +138,8 @@ h2 {
   font-family: var(--font-mono);
   font-size: 0.8rem;
   color: var(--color-muted);
-  background: var(--color-surface);
-  border: 1px solid var(--color-border-dark);
+  background: #020617;
+  border: 1px solid var(--color-border);
   border-radius: var(--radius-sm);
   padding: 6px 14px;
   box-shadow: var(--shadow-card);
@@ -150,9 +151,9 @@ h2 {
 .key-hint {
   font-family: var(--font-mono);
   font-size: 0.72rem;
-  color: var(--color-primary-light);
+  color: var(--color-primary);
   background: var(--color-accent);
-  border: 1px solid rgba(67, 56, 202, 0.2);
+  border: 1px solid rgba(129, 140, 248, 0.3);
   border-radius: 4px;
   padding: 2px 8px;
   letter-spacing: 0.05em;
@@ -184,7 +185,7 @@ h2 {
   margin-top: 12px;
   border-radius: var(--radius-md);
   border: 1px solid var(--color-border);
-  background: #F1F5F9;
+  background: #020617;
 }
 
 .note-item {
@@ -196,7 +197,7 @@ h2 {
 
 .note-item::before {
   content: '— ';
-  color: var(--color-primary-light);
+  color: var(--color-primary);
 }
 
 

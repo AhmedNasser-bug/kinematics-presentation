@@ -347,14 +347,14 @@ const slidesData = [
         moduleTitle: "Feature 3: Per-Patient CDSS Engine",
         slideNum: 1,
         title: "Feature 3: What is the Per-Patient CDSS?",
-        assetSpec: "Feature 3 Overview: Predictive Machine Learning & Trajectory Engine",
+        assetSpec: "Feature 3 Overview: Predictive Machine Learning & Real-Time Trajectory Engine",
         imageUrl: "/generated_visuals/slide4_cdss_anomaly.jpg",
         keyPoints: [
-            "**Predictive ML Classifier:** Machine learning engine (**XGBoost / Logistic Regression**) trained on historical patient session vitals.",
-            "**Early IDH Warning:** Generates advance warning notifications for Intradialytic Hypotension (IDH) before clinical onset.",
-            "**Dry Weight Recalibration:** Trajectory mapping compares interdialytic weight gain against post-dialysis blood pressure trends."
+            "**Predictive ML Classifier:** Machine learning engine (**XGBoost / RNN / CatBoost**) trained on continuous dialysis session vitals.",
+            "**Fresenius 4008S Telemetry Compatibility:** Designed to ingest real-time machine telemetry streams directly from partner unit dialyzers.",
+            "**Early IDH Warning:** Generates advance warning notifications for Intradialytic Hypotension (IDH) **15–30 minutes** before clinical onset."
         ],
-        speakerNotes: "Feature 3 uses machine learning to predict hypotensive crashes up to 30 minutes before vascular collapse occurs."
+        speakerNotes: "Feature 3 uses real-time machine learning to predict hypotensive crashes up to 30 minutes before vascular collapse occurs."
     },
     {
         id: 11,
@@ -379,15 +379,16 @@ const slidesData = [
         moduleNum: 3,
         moduleTitle: "Feature 3: Per-Patient CDSS Engine",
         slideNum: 3,
-        title: "Feature 3: Technical Implementation Options",
-        assetSpec: "System Options: AWS SageMaker, Azure ML, & ONNX Edge Inference Engine",
-        imageUrl: "/plots/05_correlation_heatmap.png",
+        title: "Feature 3: Real-Time ML Architecture (AWS & Fresenius Care Alignment)",
+        assetSpec: "AWS Architecture Baseline: Apache Kafka, Kinesis Streams, Lambda, SageMaker, & OpenSearch (Fresenius Medical Care Benchmark)",
+        imageUrl: "/docs_images/Fresenius_AWS_Architecture.png",
         keyPoints: [
-            "**Model Training Stack:** Python scikit-learn / XGBoost pipelines trained on anonymized clinical hemodynamics datasets.",
-            "**Cloud ML Platforms:** **AWS SageMaker** for continuous model retraining, **Azure Machine Learning** for model registry & audit trails.",
-            "**Edge Inference Engine:** Model compiled to **ONNX Runtime** for local real-time inference on the hospital edge server without cloud latency."
+            "**AWS Stream Ingestion Pipeline:** Machine telemetry streams via **Apache Kafka -> Amazon Kinesis Data Streams / Kinesis Data Analytics**.",
+            "**AWS S3 Data Lake & Glue:** Unstructured machine streams and historical patient records persisted in **Amazon S3 Data Lake & AWS Glue** catalog.",
+            "**AWS Lambda + SageMaker Inference:** Real-time ML prediction executed via **AWS Lambda & Amazon SageMaker**, rendered to **Amazon OpenSearch & Kibana**.",
+            "**Validated Industry Alignment:** Directly aligns with **Fresenius Medical Care's AWS Big Data Architecture** for real-time dialysis predictive analytics."
         ],
-        speakerNotes: "Trained on SageMaker or Azure ML, the model compiles to ONNX Runtime for instant local edge inference."
+        speakerNotes: "DiaClinic's cloud ML architecture aligns with Fresenius Medical Care's AWS production design for real-time dialysis analytics."
     },
     {
         id: 13,
@@ -400,7 +401,7 @@ const slidesData = [
         imageUrl: "/plots/07_bp_joint_density.png",
         chartType: 'hemo',
         keyPoints: [
-            "**Intra-Session Telemetry:** Real-time systolic/diastolic blood pressure, pulse rate, arterial pressure, and venous pressure.",
+            "**Fresenius 4008S Telemetry:** Real-time systolic/diastolic blood pressure, arterial pressure, venous pressure, and dialysate rates.",
             "**Interdialytic Weight Data:** Pre-dialysis fluid gain mass (kg) and historical post-dialysis dry weight targets.",
             "**Laboratory Panels:** Monthly blood panel ingestion (Hemoglobin, Ferritin, Electrolytes, Calcium, Potassium, PTH)."
         ],

@@ -26,9 +26,9 @@ export default function OutroSlide() {
             <div style={{
                 fontFamily: "'IBM Plex Mono', monospace",
                 fontSize: '0.75rem',
-                color: '#4338CA',
-                background: '#EEF2FF',
-                border: '1px solid #C7D2FE',
+                color: '#818CF8',
+                background: 'rgba(129, 140, 248, 0.1)',
+                border: '1px solid rgba(129, 140, 248, 0.3)',
                 borderRadius: '20px',
                 padding: '6px 18px',
                 marginBottom: '24px',
@@ -45,7 +45,7 @@ export default function OutroSlide() {
                 fontFamily: "'Plus Jakarta Sans', sans-serif",
                 fontWeight: 700,
                 fontSize: 'clamp(2.5rem, 5.5vw, 4.5rem)',
-                color: '#0F172A',
+                color: '#F8FAFC',
                 margin: '0 0 8px 0',
                 letterSpacing: '-0.025em',
                 animation: 'outroFadeUp 0.6s ease 0.25s both',
@@ -56,7 +56,7 @@ export default function OutroSlide() {
             {/* Underline sweep */}
             <div style={{
                 height: '3px',
-                background: 'linear-gradient(to right, #4338CA, #6366F1)',
+                background: 'linear-gradient(to right, #6366F1, #818CF8)',
                 borderRadius: '2px',
                 margin: '12px auto 24px',
                 width: '180px',
@@ -66,7 +66,7 @@ export default function OutroSlide() {
             <p style={{
                 fontFamily: "'Plus Jakarta Sans', sans-serif",
                 fontSize: 'clamp(1rem, 1.8vw, 1.25rem)',
-                color: '#475569',
+                color: '#94A3B8',
                 textAlign: 'center',
                 margin: '0 0 32px 0',
                 maxWidth: '680px',
@@ -75,7 +75,7 @@ export default function OutroSlide() {
             }}>
                 Hemodialysis Clinical Decision Support & Operational Data Management Pipeline
                 <br />
-                <span style={{ color: '#4338CA', fontWeight: '600', fontSize: '0.9em' }}>
+                <span style={{ color: '#818CF8', fontWeight: '600', fontSize: '0.9em' }}>
                     Standardized Data Safety & Real-Time Floor Oversight
                 </span>
             </p>
@@ -87,14 +87,14 @@ export default function OutroSlide() {
                     target="_blank" 
                     rel="noreferrer"
                     style={{
-                        background: '#10B981', color: '#FFFFFF',
-                        borderRadius: '10px', boxShadow: '0 4px 14px rgba(16, 185, 129, 0.25)',
+                        background: '#10B981', color: '#020617',
+                        borderRadius: '10px', boxShadow: '0 4px 14px rgba(16, 185, 129, 0.3)',
                         padding: '12px 24px', fontFamily: "'Plus Jakarta Sans', sans-serif",
-                        fontWeight: '600', fontSize: '0.92rem', textDecoration: 'none',
+                        fontWeight: '700', fontSize: '0.92rem', textDecoration: 'none',
                         display: 'inline-flex', alignItems: 'center', gap: '8px'
                     }}
                 >
-                    <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#FFFFFF', display: 'inline-block' }} />
+                    <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#020617', display: 'inline-block' }} />
                     Launch Live DiaClinic Prototype ↗
                 </a>
                 <a 
@@ -102,8 +102,8 @@ export default function OutroSlide() {
                     target="_blank" 
                     rel="noreferrer"
                     style={{
-                        background: '#EEF2FF', color: '#4338CA',
-                        border: '1px solid #C7D2FE', borderRadius: '10px',
+                        background: 'rgba(129, 140, 248, 0.1)', color: '#818CF8',
+                        border: '1px solid rgba(129, 140, 248, 0.3)', borderRadius: '10px',
                         padding: '12px 24px', fontFamily: "'Plus Jakarta Sans', sans-serif",
                         fontWeight: '600', fontSize: '0.92rem', textDecoration: 'none',
                         display: 'inline-flex', alignItems: 'center', gap: '8px'
@@ -117,7 +117,7 @@ export default function OutroSlide() {
             <div style={{
                 position: 'absolute', bottom: 24,
                 width: 7, height: 7, borderRadius: '50%',
-                background: '#4338CA',
+                background: '#818CF8',
                 animation: 'outroPulse 2s ease-in-out infinite',
             }} />
         </div>

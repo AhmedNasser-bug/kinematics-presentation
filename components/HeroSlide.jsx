@@ -47,7 +47,7 @@ export default function HeroSlide({ title, subtitle }) {
             <div ref={lineRef} style={{
                 position: 'absolute', left: 0, right: 0, top: 0,
                 height: '2px',
-                background: 'linear-gradient(to right, transparent, #6366F1, transparent)',
+                background: 'linear-gradient(to right, transparent, #818CF8, transparent)',
                 animation: 'scanDown 3s ease-out 0.2s forwards',
                 pointerEvents: 'none',
                 zIndex: 2,
@@ -58,9 +58,9 @@ export default function HeroSlide({ title, subtitle }) {
                 fontFamily: "'IBM Plex Mono', monospace",
                 fontSize: '0.75rem',
                 letterSpacing: '0.12em',
-                color: '#4338CA',
-                background: '#EEF2FF',
-                border: '1px solid #C7D2FE',
+                color: '#818CF8',
+                background: 'rgba(129, 140, 248, 0.1)',
+                border: '1px solid rgba(129, 140, 248, 0.3)',
                 borderRadius: '20px',
                 padding: '6px 18px',
                 marginBottom: '24px',
@@ -76,7 +76,7 @@ export default function HeroSlide({ title, subtitle }) {
                 fontFamily: "'Plus Jakarta Sans', sans-serif",
                 fontWeight: 700,
                 fontSize: 'clamp(2.2rem, 4.2vw, 3.6rem)',
-                color: '#0F172A',
+                color: '#F8FAFC',
                 textAlign: 'center',
                 lineHeight: 1.2,
                 margin: '0 0 16px 0',
@@ -91,7 +91,7 @@ export default function HeroSlide({ title, subtitle }) {
             {/* Subtle Pill Underline */}
             <div style={{
                 height: '3px',
-                background: 'linear-gradient(to right, #4338CA, #6366F1)',
+                background: 'linear-gradient(to right, #6366F1, #818CF8)',
                 borderRadius: '2px',
                 margin: '8px auto 24px',
                 animation: 'revealWidth 0.7s cubic-bezier(0.16,1,0.3,1) 0.5s both',
@@ -103,7 +103,7 @@ export default function HeroSlide({ title, subtitle }) {
             <p style={{
                 fontFamily: "'Plus Jakarta Sans', sans-serif",
                 fontSize: 'clamp(1.05rem, 1.8vw, 1.28rem)',
-                color: '#475569',
+                color: '#94A3B8',
                 textAlign: 'center',
                 margin: '0 0 36px 0',
                 animation: 'fadeUp 0.6s ease both',
@@ -126,15 +126,15 @@ export default function HeroSlide({ title, subtitle }) {
                     target="_blank" 
                     rel="noreferrer"
                     style={{
-                        background: '#10B981', color: '#FFFFFF',
-                        borderRadius: '10px', boxShadow: '0 4px 14px rgba(16, 185, 129, 0.25)',
+                        background: '#10B981', color: '#020617',
+                        borderRadius: '10px', boxShadow: '0 4px 14px rgba(16, 185, 129, 0.3)',
                         padding: '10px 22px', fontFamily: "'Plus Jakarta Sans', sans-serif",
-                        fontWeight: '600', fontSize: '0.88rem', textDecoration: 'none',
+                        fontWeight: '700', fontSize: '0.88rem', textDecoration: 'none',
                         display: 'inline-flex', alignItems: 'center', gap: '8px',
                         transition: 'transform 0.2s ease'
                     }}
                 >
-                    <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#FFFFFF', display: 'inline-block' }} />
+                    <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#020617', display: 'inline-block' }} />
                     Launch Live DiaClinic Prototype ↗
                 </a>
                 <a 
@@ -142,8 +142,8 @@ export default function HeroSlide({ title, subtitle }) {
                     target="_blank" 
                     rel="noreferrer"
                     style={{
-                        background: '#EEF2FF', color: '#4338CA',
-                        border: '1px solid #C7D2FE', borderRadius: '10px',
+                        background: 'rgba(129, 140, 248, 0.1)', color: '#818CF8',
+                        border: '1px solid rgba(129, 140, 248, 0.3)', borderRadius: '10px',
                         padding: '10px 22px', fontFamily: "'Plus Jakarta Sans', sans-serif",
                         fontWeight: '600', fontSize: '0.88rem', textDecoration: 'none',
                         display: 'inline-flex', alignItems: 'center', gap: '8px'
@@ -159,13 +159,13 @@ export default function HeroSlide({ title, subtitle }) {
                 display: 'flex', alignItems: 'center', gap: '8px',
                 fontFamily: "'IBM Plex Mono', monospace",
                 fontSize: '0.72rem',
-                color: '#64748B',
+                color: '#94A3B8',
                 animation: 'fadeUp 0.5s ease 0.7s both',
             }}>
                 <span style={{
                     width: 7, height: 7,
                     borderRadius: '50%',
-                    background: '#4338CA',
+                    background: '#818CF8',
                     display: 'inline-block',
                     animation: 'pulse 2s ease-in-out infinite',
                 }} />
