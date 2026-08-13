@@ -83,7 +83,7 @@ export default function OutroSlide() {
             {/* Live prototype CTA button */}
             <div style={{ display: 'flex', gap: '14px', flexWrap: 'wrap', justifyContent: 'center', animation: 'outroFadeUp 0.6s ease 0.55s both' }}>
                 <a 
-                    href="https://dialysis-safety-management-system.vercel.app/" 
+                    href="https://dialysis-cdss.vercel.app/" 
                     target="_blank" 
                     rel="noreferrer"
                     style={{
@@ -95,7 +95,7 @@ export default function OutroSlide() {
                     }}
                 >
                     <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#FFFFFF', display: 'inline-block' }} />
-                    Launch Live DiaClinic Prototype ↗
+                    AI & Autonomous IoT Systems Integration ↗
                 </a>
                 <a 
                     href="https://kinematics-presentation.vercel.app" 

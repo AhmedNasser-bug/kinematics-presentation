@@ -1081,7 +1081,7 @@ export default function Presentation() {
                 display: 'flex', gap: '10px', zIndex: 100
             }}>
                 <a 
-                    href="https://dialysis-safety-management-system.vercel.app/" 
+                    href="https://dialysis-cdss.vercel.app/" 
                     target="_blank" 
                     rel="noreferrer"
                     style={{
@@ -1093,7 +1093,7 @@ export default function Presentation() {
                     }}
                 >
                     <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#FFFFFF', display: 'inline-block' }} />
-                    Live Prototype ↗
+                    AI & Autonomous IoT Systems Integration ↗
                 </a>
                 <a 
                     href="https://stitch.withgoogle.com/projects/503366360860058565" 
